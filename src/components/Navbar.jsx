@@ -17,10 +17,11 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
 
   const navLinks = [
     { label: 'Disciplines', href: '#services' },
+    { label: 'Philosophy', href: '#about' },
+    { label: 'The Shift', href: '#comparison' },
     { label: 'Protocol', href: '#protocol' },
     { label: 'Case Studies', href: '#portfolio' },
-    { label: 'AEO Engine', href: '#aeo-shift' },
-    { label: 'Estimator', href: '#estimator' },
+    { label: 'FAQ', href: '#faq' },
   ];
 
   return (
@@ -33,7 +34,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="flex items-center justify-between">
-          {/* Minimalist Premium Logo */}
+          {/* Logo with official emblem */}
           <a
             href="#"
             onClick={() => sound.playPing(600, 0.08)}
@@ -43,7 +44,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-7">
             {navLinks.map((link, i) => (
               <a
                 key={i}
@@ -78,7 +79,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
           </div>
 
           {/* Mobile hamburger */}
-          <div className="flex sm:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={onToggleSound}
               className="p-2 text-slate-400"
@@ -97,7 +98,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#030712] border-b border-white/10 px-6 py-6 space-y-4">
+        <div className="lg:hidden bg-[#030712] border-b border-white/10 px-6 py-6 space-y-4">
           {navLinks.map((link, i) => (
             <a
               key={i}

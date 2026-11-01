@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SERVICES_DATA } from '../data/services';
 import WebArchitectureSandbox from './ServiceSimulators/WebArchitectureSandbox';
 import WorkflowOrchestratorSandbox from './ServiceSimulators/WorkflowOrchestratorSandbox';
 import SocialGrowthEngineSandbox from './ServiceSimulators/SocialGrowthEngineSandbox';
 import AeoGeoDiagnosticSandbox from './ServiceSimulators/AeoGeoDiagnosticSandbox';
 import DropshipRevenueMatrixSandbox from './ServiceSimulators/DropshipRevenueMatrixSandbox';
-import { ArrowUpRight, Check } from 'lucide-react';
+import { ArrowUpRight, Check, Sparkles } from 'lucide-react';
 import { sound } from '../utils/audio';
 
-export default function ServicesShowcase({ onSelectServiceForConsult }) {
+export default function ServicesShowcase({ onSelectServiceForConsult, activeDisciplineIndex = null }) {
   const [selectedServiceIndex, setSelectedServiceIndex] = useState(0);
-  const activeService = SERVICES_DATA[selectedServiceIndex];
+
+  useEffect(() => {
+    if (activeDisciplineIndex !== null && activeDisciplineIndex !== undefined) {
+      setSelectedServiceIndex(activeDisciplineIndex);
+    }
+  }, [activeDisciplineIndex]);
+
+  const activeService = SERVICES_DATA[selectedServiceIndex] || SERVICES_DATA[0];
 
   const handleTabClick = (idx) => {
     sound.playClick();
@@ -37,9 +44,9 @@ export default function ServicesShowcase({ onSelectServiceForConsult }) {
             <button
               key={srv.id}
               onClick={() => handleTabClick(idx)}
-              className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
+              className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 isActive
-                  ? 'bg-white text-slate-950 font-semibold shadow-sm'
+                  ? 'bg-white text-slate-950 font-semibold shadow-md scale-[1.02]'
                   : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -62,8 +69,9 @@ export default function ServicesShowcase({ onSelectServiceForConsult }) {
             </p>
           </div>
 
-          {/* Metric Highlight - clean tone step */}
-          <div className="p-5 rounded-xl bg-[#090e1f] border border-white/5">
+          {/* Metric Highlight - clean tone step with cyan accent */}
+          <div className="p-5 rounded-xl bg-[#090e1f] border border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#00C8FF]/30 to-transparent" />
             <div className="text-3xl sm:text-4xl font-bold text-white tracking-tight font-display">
               {activeService.metric}
             </div>
@@ -80,7 +88,7 @@ export default function ServicesShowcase({ onSelectServiceForConsult }) {
             <div className="space-y-2.5">
               {activeService.highlights.map((highlight, hIdx) => (
                 <div key={hIdx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 shrink-0"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF] mt-2 shrink-0"></span>
                   <span>{highlight}</span>
                 </div>
               ))}
@@ -95,7 +103,7 @@ export default function ServicesShowcase({ onSelectServiceForConsult }) {
             <div className="space-y-2">
               {activeService.deliverables.map((deliv, dIdx) => (
                 <div key={dIdx} className="text-xs text-slate-300 flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                  <Check className="w-3.5 h-3.5 text-[#00C8FF] shrink-0" />
                   <span>{deliv}</span>
                 </div>
               ))}
@@ -109,7 +117,7 @@ export default function ServicesShowcase({ onSelectServiceForConsult }) {
                 sound.playPing();
                 if (onSelectServiceForConsult) onSelectServiceForConsult(activeService.title);
               }}
-              className="px-5 py-3 rounded-lg bg-white text-slate-950 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition shadow-sm flex items-center gap-2"
+              className="px-5 py-3 rounded-lg bg-white text-slate-950 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition shadow-sm flex items-center gap-2 hover:-translate-y-0.5"
             >
               <span>Scope {activeService.shortTitle}</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -120,8 +128,11 @@ export default function ServicesShowcase({ onSelectServiceForConsult }) {
         {/* Right Column: Live Interactive Sandbox */}
         <div className="lg:col-span-7">
           <div className="mb-3 text-xs text-slate-400 flex items-center justify-between">
-            <span className="font-mono text-slate-300">Live Demonstration Sandbox</span>
-            <span className="text-[11px] text-slate-500">Interactive Simulation</span>
+            <span className="font-mono text-slate-300 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#00C8FF]" />
+              Live Interactive Sandbox
+            </span>
+            <span className="text-[11px] text-slate-500">Real-Time Simulation</span>
           </div>
 
           {selectedServiceIndex === 0 && <WebArchitectureSandbox />}

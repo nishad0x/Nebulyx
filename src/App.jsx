@@ -3,11 +3,15 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ClientBar from './components/ClientBar';
 import NebulaCanvas from './components/NebulaCanvas';
+import AboutWhoWeAre from './components/AboutWhoWeAre';
+import ImpactMetrics from './components/ImpactMetrics';
 import ServicesShowcase from './components/ServicesShowcase';
+import AgencyComparisonSection from './components/AgencyComparisonSection';
 import OperatingProtocol from './components/OperatingProtocol';
 import AeoExplanationSection from './components/AeoExplanationSection';
 import PortfolioShowcase from './components/PortfolioShowcase';
 import TechnologyStackMatrix from './components/TechnologyStackMatrix';
+import FaqSection from './components/FaqSection';
 import ProjectScopeConfigurator from './components/ProjectScopeConfigurator';
 import TrustAndGuarantee from './components/TrustAndGuarantee';
 import ConsultationDrawer from './components/ConsultationDrawer';
@@ -17,6 +21,7 @@ import { sound } from './utils/audio';
 export default function App() {
   const [isConsultOpen, setIsConsultOpen] = useState(false);
   const [consultPreselectedService, setConsultPreselectedService] = useState('');
+  const [activeDisciplineIndex, setActiveDisciplineIndex] = useState(null);
   const [isSoundOn, setIsSoundOn] = useState(false);
 
   const handleOpenConsult = (serviceName = '') => {
@@ -40,13 +45,19 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleSelectDiscipline = (index) => {
+    setActiveDisciplineIndex(index);
+    const el = document.getElementById('services');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const handleProposalSubmit = (proposalData) => {
     console.log('Project Scope captured:', proposalData);
   };
 
   return (
     <div className="relative min-h-[100dvh] bg-[#030712] text-slate-100 antialiased selection:bg-white/20 selection:text-white">
-      {/* Subtle Living Canvas */}
+      {/* Subtle Living Canvas with Interactive Gravity */}
       <NebulaCanvas />
 
       {/* Main Layout */}
@@ -60,40 +71,62 @@ export default function App() {
         <Hero
           onOpenConsult={() => handleOpenConsult()}
           onScrollToServices={handleScrollToServices}
+          onSelectDiscipline={handleSelectDiscipline}
         />
 
         {/* Client Infrastructure Reference Bar */}
         <ClientBar />
 
-        {/* Core Disciplines with Live Simulators */}
+        {/* Section 1: Discover Who We Are & Capabilities Grid */}
+        <div id="about">
+          <AboutWhoWeAre onOpenConsult={() => handleOpenConsult()} />
+        </div>
+
+        {/* Section 2: Production Impact & Telemetry Rings */}
+        <div id="impact">
+          <ImpactMetrics />
+        </div>
+
+        {/* Section 3: Core Disciplines with Live Interactive Simulators */}
         <ServicesShowcase
           onSelectServiceForConsult={(serviceName) => handleOpenConsult(serviceName)}
+          activeDisciplineIndex={activeDisciplineIndex}
         />
 
-        {/* 21-Day Execution Protocol */}
+        {/* Section 4: The Paradigm Shift vs. Traditional Agencies */}
+        <div id="comparison">
+          <AgencyComparisonSection />
+        </div>
+
+        {/* Section 5: 21-Day Execution Protocol */}
         <div id="protocol">
           <OperatingProtocol />
         </div>
 
-        {/* AEO / GEO Paradigm Shift */}
+        {/* Section 6: AEO / GEO Paradigm Shift */}
         <div id="aeo-shift">
           <AeoExplanationSection />
         </div>
 
-        {/* Selected Case Studies */}
+        {/* Section 7: Selected Case Studies */}
         <PortfolioShowcase />
 
-        {/* Technology Stack Matrix */}
+        {/* Section 8: Technology Stack Matrix */}
         <div id="tech-stack">
           <TechnologyStackMatrix />
         </div>
 
-        {/* Interactive Scope & Capability Configurator (Zero Pricing) */}
+        {/* Section 9: Frequently Asked Questions */}
+        <div id="faq">
+          <FaqSection />
+        </div>
+
+        {/* Section 10: Interactive Scope & Capability Configurator (Zero Pricing) */}
         <ProjectScopeConfigurator
           onProposalSubmit={handleProposalSubmit}
         />
 
-        {/* Contractual SLA Accountability */}
+        {/* Section 11: Contractual SLA Accountability */}
         <TrustAndGuarantee />
 
         {/* Closing Callout */}
