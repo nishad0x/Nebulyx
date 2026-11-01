@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #030712;
+    overflow-x: hidden;
+  }
+
+  /* Custom Smooth Scrollbar */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #030712;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.35);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.65);
+  }
+}
+
+/* Glassmorphism & Cyber Accents */
+.glass-panel {
+  background: rgba(10, 15, 36, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-glow {
+  background: rgba(15, 23, 56, 0.55);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 40px -10px rgba(99, 102, 241, 0.15);
+}
+
+.glass-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 12px 35px -10px rgba(99, 102, 241, 0.22);
+}
+
+/* Grid Background */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+}
+
+/* Glowing text gradients */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff 10%, #38bdf8 60%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(135deg, #ffffff 20%, #818cf8 60%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffffff 20%, #fbbf24 65%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Cosmic Nebula Radial Gradient */
+.nebula-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: 0.45;
+}
+
