@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { X, Check } from 'lucide-react';
 import { sound } from '../utils/audio';
+import { submitForm } from '../utils/submitForm';
+import { SERVICES_DATA } from '../data/services';
 
-export default function ConsultationDrawer({ isOpen, onClose, preselectedService = '' }) {
+// App mounts this only while open, so state resets and preselectedService applies on each open.
+export default function ConsultationDrawer({ onClose, preselectedService = '' }) {
   const [selectedDate, setSelectedDate] = useState('Tomorrow, 2:00 PM EST');
-  const [service, setService] = useState(preselectedService || 'Website building');
+  const [service, setService] = useState(preselectedService || SERVICES_DATA[0].title);
   const [stage, setStage] = useState('Rapid Launch / MVP');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSuccess, setIsSuccess] = useState(false);
-
-  if (!isOpen) return null;
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const dates = [
     'Tomorrow, 2:00 PM EST',
@@ -18,10 +21,25 @@ export default function ConsultationDrawer({ isOpen, onClose, preselectedService
     'Thursday, 3:00 PM EST'
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    sound.playSuccess();
-    setIsSuccess(true);
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setError('');
+    try {
+      await submitForm('Scoping call request', {
+        ...formData,
+        service,
+        stage,
+        preferredTime: selectedDate,
+      });
+      sound.playSuccess();
+      setIsSuccess(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -36,9 +54,9 @@ export default function ConsultationDrawer({ isOpen, onClose, preselectedService
 
         {isSuccess ? (
           <div className="py-8 text-center space-y-4">
-            <h3 className="text-xl font-bold text-white font-display">Sprint Scoping Locked</h3>
+            <h3 className="text-xl font-bold text-white font-display">Request Received</h3>
             <p className="text-sm text-slate-300 max-w-sm mx-auto leading-relaxed">
-              We have held your architectural intake slot for <strong className="text-white">{selectedDate}</strong>. A Google Meet calendar invite has been sent to <span className="text-white font-mono">{formData.email}</span>.
+              Thanks, {formData.name}. We'll confirm your <strong className="text-white">{selectedDate}</strong> slot by email at <span className="text-white font-mono">{formData.email}</span>.
             </p>
             <div className="pt-4">
               <button
@@ -93,12 +111,10 @@ export default function ConsultationDrawer({ isOpen, onClose, preselectedService
                   onChange={(e) => setService(e.target.value)}
                   className="w-full px-3.5 py-2 rounded-lg bg-[#030712] border border-white/10 text-xs text-white focus:outline-none focus:border-white/30"
                 >
-                  <option value="Website building">1. Website Building (Next.js & Edge)</option>
-                  <option value="Platform automation and automated workflows">2. Platform Automation & Workflows</option>
-                  <option value="Social media enhancement and management">3. Social Media Distribution</option>
-                  <option value="AEO & GEO Marketing">4. AEO & GEO Generative Search</option>
-                  <option value="Business models dropshipping">5. Turnkey Scaled Dropshipping</option>
-                  <option value="Comprehensive Enterprise Transformation">Full Full-Stack Ecosystem</option>
+                  {SERVICES_DATA.map((s) => (
+                    <option key={s.id} value={s.title}>{Number(s.number)}. {s.shortTitle}</option>
+                  ))}
+                  <option value="Comprehensive Enterprise Transformation">Full-Stack Ecosystem</option>
                 </select>
               </div>
 
@@ -153,11 +169,16 @@ export default function ConsultationDrawer({ isOpen, onClose, preselectedService
                 ></textarea>
               </div>
 
+              {error && (
+                <div role="alert" className="text-xs text-red-400 text-center">{error}</div>
+              )}
+
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-white text-slate-950 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition shadow-sm"
+                disabled={isSubmitting}
+                className="w-full py-3 rounded-lg bg-white text-slate-950 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition shadow-sm disabled:opacity-60 disabled:cursor-wait"
               >
-                Confirm Technical Intake
+                {isSubmitting ? 'Sending…' : 'Confirm Technical Intake'}
               </button>
 
               <div className="text-center text-[11px] text-slate-500">

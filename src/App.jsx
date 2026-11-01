@@ -51,10 +51,6 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleProposalSubmit = (proposalData) => {
-    console.log('Project Scope captured:', proposalData);
-  };
-
   return (
     <div className="relative min-h-[100dvh] bg-[#030712] text-slate-100 antialiased selection:bg-white/20 selection:text-white">
       {/* Subtle Living Canvas with Interactive Gravity */}
@@ -122,9 +118,7 @@ export default function App() {
         </div>
 
         {/* Section 10: Interactive Scope & Capability Configurator (Zero Pricing) */}
-        <ProjectScopeConfigurator
-          onProposalSubmit={handleProposalSubmit}
-        />
+        <ProjectScopeConfigurator />
 
         {/* Section 11: Contractual SLA Accountability */}
         <TrustAndGuarantee />
@@ -148,11 +142,12 @@ export default function App() {
         <Footer onOpenConsult={() => handleOpenConsult()} />
       </div>
 
-      <ConsultationDrawer
-        isOpen={isConsultOpen}
-        onClose={handleCloseConsult}
-        preselectedService={consultPreselectedService}
-      />
+      {isConsultOpen && (
+        <ConsultationDrawer
+          onClose={handleCloseConsult}
+          preselectedService={consultPreselectedService}
+        />
+      )}
     </div>
   );
 }
