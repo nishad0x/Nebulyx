@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Plus, Minus } from 'lucide-react';
 import { sound } from '../utils/audio';
 
 export default function FaqSection() {
@@ -8,7 +8,7 @@ export default function FaqSection() {
   const faqs = [
     {
       q: "How does Nebulyx guarantee sub-200ms page speeds globally?",
-      a: "We engineer websites using hybrid React 19 / Next.js edge architecture deployed across over 280 edge locations worldwide. By combining static asset pre-rendering, Brotli level-11 compression, and zero-JS-bloat SSR, your visitors experience instantaneous page loads regardless of device or geographical location."
+      a: "We engineer websites using hybrid React 19 / Next.js edge architecture deployed across over 280 edge locations worldwide. By combining static asset pre-rendering, Brotli compression, and zero-JS-bloat SSR, your visitors experience instantaneous page loads regardless of device or geographical location."
     },
     {
       q: "How does AEO & GEO differ from traditional SEO?",
@@ -38,40 +38,50 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="py-24 px-5 sm:px-8 max-w-4xl mx-auto border-t border-white/5">
+    <section id="faq" className="py-24 px-5 sm:px-8 max-w-4xl mx-auto border-t border-white/[0.08]">
       <div className="mb-14 text-center">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-display mb-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
+          <span>QUESTIONS & ANSWERS</span>
+        </div>
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-4">
           Frequently asked questions.
         </h2>
-        <p className="text-base text-slate-400 font-normal leading-relaxed">
+        <p className="text-base text-neutral-400 font-normal leading-relaxed">
           Clear answers on our architecture, sprint protocols, and contractual guarantees.
         </p>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         {faqs.map((item, i) => {
           const isOpen = openIdx === i;
           return (
             <div
               key={i}
-              className="rounded-xl bg-[#090e1f] border border-white/5 overflow-hidden transition"
+              className={`rounded-[22px] transition-all duration-300 border ${
+                isOpen
+                  ? 'bg-[#070b16] border-white/[0.14] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+                  : 'bg-black/40 border-white/[0.06] hover:border-white/[0.10]'
+              } overflow-hidden`}
             >
               <button
                 onClick={() => toggle(i)}
-                className="w-full p-5 text-left flex items-center justify-between gap-4 hover:bg-white/[0.02] transition"
+                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
               >
-                <span className="text-sm sm:text-base font-semibold text-white font-display">
+                <span className="text-sm sm:text-base font-semibold text-white font-display tracking-tight">
                   {item.q}
                 </span>
-                <ChevronDown
-                  className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-300 ${
-                    isOpen ? 'rotate-180 text-[#00C8FF]' : ''
-                  }`}
-                />
+                <span className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center shrink-0 text-neutral-400">
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 text-[#00C8FF]' : ''
+                    }`}
+                  />
+                </span>
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-white/5">
+                <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/[0.06]">
                   {item.a}
                 </div>
               )}
@@ -82,4 +92,3 @@ export default function FaqSection() {
     </section>
   );
 }
-

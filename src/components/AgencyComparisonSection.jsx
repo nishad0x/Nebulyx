@@ -21,7 +21,7 @@ export default function AgencyComparisonSection() {
     },
     {
       dimension: "Search & Discoverability",
-      traditional: "Outdated Google keyword density tactics that get suppressed by AI Overviews",
+      traditional: "Outdated Google keyword density tactics suppressed by AI Overviews",
       nebulyx: "Generative Engine Optimization (GEO) structured for citation in Perplexity & SearchGPT"
     },
     {
@@ -37,28 +37,28 @@ export default function AgencyComparisonSection() {
   ];
 
   return (
-    <section id="comparison" className="py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
-      {/* Top Section Header with 100% Milestone Callout (Inspired by Orbosis 95+ layout, but ultra-clean) */}
+    <section id="comparison" className="py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/[0.08]">
+      {/* Apple Keynote Comparison Header */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-14">
         <div className="lg:col-span-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-slate-300 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
-            <span>THE STRATEGIC SHIFT</span>
+            <span>COMPARE MODELS</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-display mb-3">
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-3">
             The paradigm shift: Why category leaders choose Nebulyx.
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base max-w-xl">
-            A direct comparison between traditional legacy IT agencies and our autonomous digital engineering platform.
+          <p className="text-neutral-400 text-sm sm:text-base max-w-xl">
+            A direct architectural comparison between traditional legacy IT agencies and our autonomous digital engineering platform.
           </p>
         </div>
 
         <div className="lg:col-span-4 flex items-center lg:justify-end">
-          <div className="p-5 rounded-2xl bg-[#090e1f] border border-white/10 text-right w-full sm:w-auto">
-            <div className="text-4xl sm:text-5xl font-bold font-display text-white">
+          <div className="p-5 rounded-[22px] bg-[#070b16] border border-white/[0.10] text-right w-full sm:w-auto shadow-sm">
+            <div className="text-4xl sm:text-5xl font-bold font-display text-white tracking-tight">
               100%
             </div>
-            <div className="text-xs text-slate-400 mt-1 font-mono">
+            <div className="text-xs text-neutral-400 mt-1 font-mono">
               On-Time Sprint Completion SLA
             </div>
           </div>
@@ -67,10 +67,10 @@ export default function AgencyComparisonSection() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Traditional Agencies Box */}
-        <div className="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-[#030712] border border-white/5 space-y-6">
-          <div className="flex items-center gap-2 pb-4 border-b border-white/5">
-            <span className="w-2 h-2 rounded-full bg-slate-600"></span>
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
+        <div className="lg:col-span-5 p-6 sm:p-8 rounded-[28px] bg-black/60 border border-white/[0.06] space-y-6">
+          <div className="flex items-center gap-2 pb-4 border-b border-white/[0.06]">
+            <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
+            <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
               Traditional IT Agencies
             </span>
           </div>
@@ -78,9 +78,9 @@ export default function AgencyComparisonSection() {
           <div className="space-y-6">
             {points.map((p, i) => (
               <div key={i} className="space-y-1">
-                <div className="text-[11px] font-mono text-slate-500 uppercase">{p.dimension}</div>
-                <div className="flex items-start gap-2.5 text-xs text-slate-400 leading-relaxed">
-                  <X className="w-4 h-4 text-slate-600 shrink-0 mt-0.5" />
+                <div className="text-[11px] font-mono text-neutral-500 uppercase">{p.dimension}</div>
+                <div className="flex items-start gap-2.5 text-xs text-neutral-400 leading-relaxed">
+                  <X className="w-4 h-4 text-neutral-600 shrink-0 mt-0.5" />
                   <span>{p.traditional}</span>
                 </div>
               </div>
@@ -88,27 +88,27 @@ export default function AgencyComparisonSection() {
           </div>
         </div>
 
-        {/* Nebulyx Platform Box - Elevated & Distinct */}
-        <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-[#090e1f] border border-white/15 relative overflow-hidden shadow-2xl">
+        {/* Nebulyx Platform Box - Apple Titanium Elevated & Distinct */}
+        <div className="lg:col-span-7 p-6 sm:p-8 rounded-[28px] bg-[#070b16] border border-white/[0.12] relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00C8FF] to-transparent" />
 
-          <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+          <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-6">
             <div className="flex items-center gap-2.5">
               <LogoMark size={20} />
               <span className="text-xs font-mono uppercase tracking-wider text-white font-semibold">
                 Nebulyx Autonomous Platform
               </span>
             </div>
-            <span className="text-[11px] font-mono text-[#00C8FF] bg-[#00C8FF]/10 px-2.5 py-0.5 rounded border border-[#00C8FF]/20">
+            <span className="text-[10px] font-mono text-[#00C8FF] bg-[#00C8FF]/10 px-2.5 py-1 rounded-full border border-[#00C8FF]/20">
               Next-Gen Standard
             </span>
           </div>
 
           <div className="space-y-6">
             {points.map((p, i) => (
-              <div key={i} className="space-y-1">
+              <div key={i} className="space-y-1.5">
                 <div className="text-[11px] font-mono text-[#00C8FF] uppercase tracking-wider">{p.dimension}</div>
-                <div className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                <div className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-200 leading-relaxed font-medium">
                   <Check className="w-4 h-4 text-[#00C8FF] shrink-0 mt-0.5" />
                   <span>{p.nebulyx}</span>
                 </div>

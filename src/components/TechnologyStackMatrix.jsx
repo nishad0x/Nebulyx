@@ -34,13 +34,17 @@ export default function TechnologyStackMatrix() {
     : techItems.filter(item => item.category === activeCategory);
 
   return (
-    <section className="py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+    <section id="tech-stack" className="py-24 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/[0.08]">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white font-display mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
+            <span>PRODUCTION MATRIX</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-3">
             Production technology stack.
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base max-w-xl">
+          <p className="text-neutral-400 text-sm sm:text-base max-w-xl">
             Assembled on modern engineering primitives. Zero legacy dependencies or unmaintainable bloat.
           </p>
         </div>
@@ -53,10 +57,10 @@ export default function TechnologyStackMatrix() {
                 sound.playClick();
                 setActiveCategory(cat.id);
               }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition cursor-pointer ${
                 activeCategory === cat.id
-                  ? 'bg-white text-slate-950 font-semibold shadow-sm'
-                  : 'text-slate-400 hover:text-white bg-[#090e1f] border border-white/5'
+                  ? 'bg-white text-black font-semibold shadow-sm'
+                  : 'text-neutral-400 hover:text-white bg-[#070b16] border border-white/[0.08]'
               }`}
             >
               {cat.label}
@@ -69,17 +73,17 @@ export default function TechnologyStackMatrix() {
         {filtered.map((item, idx) => (
           <div
             key={idx}
-            className="p-4 rounded-xl bg-[#090e1f] border border-white/5 hover:border-white/10 transition"
+            className="p-5 rounded-2xl bg-[#070b16] border border-white/[0.08] hover:border-white/[0.18] transition-all duration-200 shadow-sm group"
           >
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs font-semibold text-white">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-semibold text-white tracking-tight">
                 {item.name}
               </span>
-              <span className="text-[10px] font-mono text-slate-400">
+              <span className="text-[10px] font-mono text-[#00C8FF] bg-[#00C8FF]/10 px-2 py-0.5 rounded-full">
                 {item.latency}
               </span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-neutral-400 leading-relaxed">
               {item.role}
             </p>
           </div>

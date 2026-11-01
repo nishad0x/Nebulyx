@@ -33,26 +33,26 @@ export default function ImpactMetrics() {
   ];
 
   return (
-    <section className="py-20 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/5">
+    <section className="py-20 px-5 sm:px-8 max-w-7xl mx-auto border-t border-white/[0.08]">
       <div className="max-w-3xl mb-14">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono text-slate-300 mb-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
-          <span>PRODUCTION IMPACT</span>
+          <span>PRODUCTION BENCHMARKS</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white font-display mb-3">
-          Explore our production benchmarks.
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-3">
+          Numbers that define the standard.
         </h2>
-        <p className="text-slate-400 text-sm sm:text-base max-w-xl">
+        <p className="text-neutral-400 text-sm sm:text-base max-w-xl">
           Verifiable metrics across engineering velocity, autonomous systems, and market authority.
         </p>
       </div>
 
-      {/* 4 Orbital Metric Rings (Inspired by Orbosis circles, but ultra-refined & modern) */}
+      {/* 4 Orbital Metric Rings (Apple Watch Activity Rings Inspired) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {metrics.map((m, i) => (
           <div
             key={i}
-            className="p-6 rounded-2xl bg-[#090e1f] border border-white/5 hover:border-white/15 transition-all duration-300 flex flex-col items-center text-center group"
+            className="p-6 rounded-[24px] bg-[#070b16] border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300 flex flex-col items-center text-center group shadow-sm"
           >
             {/* SVG Circular Telemetry Ring */}
             <div className="relative w-28 h-28 flex items-center justify-center my-3">
@@ -61,7 +61,7 @@ export default function ImpactMetrics() {
                   cx="56"
                   cy="56"
                   r="48"
-                  stroke="rgba(255, 255, 255, 0.05)"
+                  stroke="rgba(255, 255, 255, 0.06)"
                   strokeWidth="4"
                   fill="transparent"
                 />
@@ -86,10 +86,10 @@ export default function ImpactMetrics() {
               </div>
             </div>
 
-            <h3 className="text-sm font-bold text-white font-display mt-2 mb-1">
+            <h3 className="text-sm font-bold text-white font-display mt-2 mb-1 tracking-tight">
               {m.label}
             </h3>
-            <p className="text-xs text-slate-400 leading-relaxed max-w-[200px]">
+            <p className="text-xs text-neutral-400 leading-relaxed max-w-[200px]">
               {m.detail}
             </p>
           </div>
@@ -98,4 +98,3 @@ export default function ImpactMetrics() {
     </section>
   );
 }
-

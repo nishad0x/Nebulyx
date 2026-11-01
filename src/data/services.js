@@ -127,8 +127,8 @@ export const SERVICES_DATA = [
       "Dynamic margin pricing algorithms to maximize profit on winning products"
     ],
     techStack: ["Shopify Plus", "AutoDS Enterprise", "TikTok Shop API", "Stripe Global", "Klaviyo Automated Flows", "CJ / Private US Agents", "TripleWhale"],
-    metric: "$4.8M+",
-    metricLabel: "Client E-Commerce GMV Scaled in 2024",
+    metric: "3-5 Day",
+    metricLabel: "Express Global Fulfillment SLA",
     deliverables: [
       "Product Market Research & High-Margin Winning Product Validation",
       "Bespoke High-Conversion E-Commerce Storefront Setup",
