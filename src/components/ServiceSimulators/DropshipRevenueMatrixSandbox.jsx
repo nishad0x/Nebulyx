@@ -1,85 +1,41 @@
 import React, { useState } from 'react';
-import { ShoppingBag, TrendingUp, Truck, ShieldAlert, DollarSign, PackageCheck, Repeat } from 'lucide-react';
+import { Truck, PackageCheck, Zap, ShieldCheck } from 'lucide-react';
 import { sound } from '../../utils/audio';
 
 export default function DropshipRevenueMatrixSandbox() {
-  const [aov, setAov] = useState(85); // Average Order Value in $
-  const [dailyOrders, setDailyOrders] = useState(120); // Orders per day
-  const [marginPct, setMarginPct] = useState(62); // Net profit margin %
+  const [dailyOrders, setDailyOrders] = useState(150);
+  const [shippingMode, setShippingMode] = useState('express'); // 'express' | 'standard'
 
-  // Calculations
-  const monthlyOrders = dailyOrders * 30;
-  const monthlyGmv = monthlyOrders * aov;
-  const monthlyNetProfit = Math.round(monthlyGmv * (marginPct / 100));
-  const annualRunRate = monthlyGmv * 12;
-
-  const formatCurrency = (val) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0
-    }).format(val);
+  const modes = {
+    express: { speed: '3–5 Days', carrier: 'Private US/EU Direct Line', onTime: '99.4%', status: 'Recommended' },
+    standard: { speed: '18–25 Days', carrier: 'Legacy Drop Postal', onTime: '78.2%', status: 'High Friction' }
   };
 
+  const current = modes[shippingMode];
+  const monthlyOrders = dailyOrders * 30;
+
   return (
-    <div className="bg-slate-950/80 border border-slate-800/80 rounded-2xl overflow-hidden p-5 md:p-6 shadow-2xl backdrop-blur-xl">
-      {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
-            <ShoppingBag className="w-5 h-5" />
-          </div>
-          <div>
-            <h4 className="text-white font-semibold text-sm md:text-base flex items-center gap-2">
-              Scaled E-Commerce Revenue Model
-              <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/20">
-                TURNKEY ARBITRAGE
-              </span>
-            </h4>
-            <p className="text-xs text-slate-400">Simulate autonomous dropshipping unit economics</p>
-          </div>
+    <div className="bg-[#090e1f] border border-white/5 rounded-2xl p-5 md:p-6 shadow-xl">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-white/5">
+        <div>
+          <h4 className="text-white font-semibold text-sm">
+            Automated Supply Chain Simulator
+          </h4>
+          <p className="text-xs text-slate-400">Logistics velocity and hands-off fulfillment model</p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-amber-400 bg-amber-950/40 border border-amber-500/30 px-3 py-1 rounded-lg">
-          <PackageCheck className="w-3.5 h-3.5" />
-          3-5 Day Express Private Delivery
-        </div>
+        <span className="text-xs text-slate-300 font-mono bg-white/5 px-2.5 py-1 rounded-lg border border-white/5 flex items-center gap-1.5">
+          <PackageCheck className="w-3.5 h-3.5 text-[#00C8FF]" />
+          Direct Factory Express Line
+        </span>
       </div>
 
-      {/* Grid Inputs & Visualizer */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-5">
-        {/* Sliders */}
-        <div className="lg:col-span-5 space-y-5">
-          {/* AOV */}
+        <div className="lg:col-span-5 space-y-4">
           <div>
             <div className="flex justify-between items-center text-xs mb-1.5">
-              <span className="text-slate-300 font-medium">Average Order Value (AOV):</span>
-              <span className="font-mono text-amber-300 font-bold text-sm">${aov}</span>
-            </div>
-            <input
-              type="range"
-              min="35"
-              max="250"
-              step="5"
-              value={aov}
-              onChange={(e) => {
-                sound.playClick();
-                setAov(parseInt(e.target.value));
-              }}
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
-            />
-            <div className="flex justify-between text-[11px] text-slate-500 mt-1">
-              <span>$35</span>
-              <span>$140</span>
-              <span>$250</span>
-            </div>
-          </div>
-
-          {/* Daily Orders */}
-          <div>
-            <div className="flex justify-between items-center text-xs mb-1.5">
-              <span className="text-slate-300 font-medium">Daily Orders Dispatched:</span>
-              <span className="font-mono text-amber-300 font-bold text-sm">{dailyOrders} / day</span>
+              <span className="text-slate-300 font-medium">Daily Order Volume:</span>
+              <span className="font-mono text-white font-bold text-sm">{dailyOrders} / day</span>
             </div>
             <input
               type="range"
@@ -91,87 +47,76 @@ export default function DropshipRevenueMatrixSandbox() {
                 sound.playClick();
                 setDailyOrders(parseInt(e.target.value));
               }}
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+              className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-white"
             />
-            <div className="flex justify-between text-[11px] text-slate-500 mt-1">
-              <span>20 / day</span>
-              <span>400 / day</span>
-              <span>800 / day</span>
+            <div className="flex justify-between text-[11px] text-slate-500 mt-1 font-mono">
+              <span>20/day</span>
+              <span>400/day</span>
+              <span>800/day</span>
             </div>
           </div>
 
-          {/* Net Margin */}
           <div>
-            <div className="flex justify-between items-center text-xs mb-1.5">
-              <span className="text-slate-300 font-medium">Net Profit Margin:</span>
-              <span className="font-mono text-emerald-400 font-bold text-sm">{marginPct}%</span>
+            <div className="text-xs text-slate-300 font-medium mb-1.5">Fulfillment Logistics Pipeline:</div>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => { sound.playClick(); setShippingMode('express'); }}
+                className={`p-2.5 rounded-lg border text-left text-xs transition ${
+                  shippingMode === 'express'
+                    ? 'border-white/30 bg-[#0f162d] text-white font-medium'
+                    : 'border-white/5 bg-[#030712] text-slate-400 hover:text-white'
+                }`}
+              >
+                <div className="text-[10px] text-[#00C8FF] font-mono">Nebulyx Private</div>
+                <div className="font-semibold text-white">3–5 Day Express</div>
+              </button>
+              <button
+                type="button"
+                onClick={() => { sound.playClick(); setShippingMode('standard'); }}
+                className={`p-2.5 rounded-lg border text-left text-xs transition ${
+                  shippingMode === 'standard'
+                    ? 'border-white/30 bg-[#0f162d] text-white font-medium'
+                    : 'border-white/5 bg-[#030712] text-slate-400 hover:text-white'
+                }`}
+              >
+                <div className="text-[10px] text-slate-500 font-mono">Traditional</div>
+                <div>20–25 Day Postal</div>
+              </button>
             </div>
-            <input
-              type="range"
-              min="35"
-              max="75"
-              step="1"
-              value={marginPct}
-              onChange={(e) => {
-                sound.playClick();
-                setMarginPct(parseInt(e.target.value));
-              }}
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-            />
           </div>
         </div>
 
-        {/* Telemetry Display */}
         <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="p-4 rounded-xl bg-gradient-to-b from-amber-950/20 to-slate-950 border border-amber-500/30 flex flex-col justify-between">
-            <div className="flex items-center justify-between text-amber-400 text-xs">
-              <span>Monthly Scaled GMV</span>
-              <TrendingUp className="w-4 h-4" />
+          <div className="p-4 rounded-xl bg-[#030712] border border-white/5">
+            <div className="text-[11px] text-slate-400">Monthly Dispatched</div>
+            <div className="text-2xl font-bold font-display text-white mt-2">
+              {monthlyOrders.toLocaleString()} Orders
             </div>
-            <div className="my-2">
-              <div className="text-2xl font-bold font-mono text-white text-gradient-gold">
-                {formatCurrency(monthlyGmv)}
-              </div>
-              <div className="text-[11px] text-slate-400 font-mono">
-                {monthlyOrders.toLocaleString()} Orders / Mo
-              </div>
-            </div>
-            <div className="text-[11px] text-amber-300 font-mono">
-              Annual Run Rate: {formatCurrency(annualRunRate)}
+            <div className="text-[10px] text-slate-500 font-mono mt-1">
+              Zero Physical Warehouse Holding
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-gradient-to-b from-emerald-950/20 to-slate-950 border border-emerald-500/30 flex flex-col justify-between">
-            <div className="flex items-center justify-between text-emerald-400 text-xs">
-              <span>Projected Net Profit</span>
-              <DollarSign className="w-4 h-4" />
+          <div className="p-4 rounded-xl bg-[#030712] border border-white/5">
+            <div className="text-[11px] text-slate-400">Delivery Velocity</div>
+            <div className="text-2xl font-bold font-display text-white mt-2">
+              {current.speed}
             </div>
-            <div className="my-2">
-              <div className="text-2xl font-bold font-mono text-emerald-400">
-                {formatCurrency(monthlyNetProfit)}
-              </div>
-              <div className="text-[11px] text-slate-400 font-mono">
-                Direct to Bank Account
-              </div>
-            </div>
-            <div className="text-[11px] text-emerald-300 font-mono flex items-center gap-1">
-              <Repeat className="w-3 h-3" /> Fully Hands-Off Logistics
+            <div className="text-[10px] text-slate-400 font-mono mt-1">
+              {current.carrier}
             </div>
           </div>
 
-          {/* Logistics Guarantee Badge */}
-          <div className="sm:col-span-2 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between text-xs">
-            <div className="flex items-center gap-2">
-              <Truck className="w-4 h-4 text-amber-400 shrink-0" />
-              <span className="text-slate-300">
-                Zero inventory holding risk. Tier-1 private agent fulfillment dispatched automatically.
-              </span>
-            </div>
-            <span className="text-[10px] font-mono text-emerald-400 shrink-0 ml-2">99.4% On-Time</span>
+          <div className="sm:col-span-2 p-3.5 rounded-xl bg-[#030712] border border-white/5 text-xs text-slate-400 flex items-center justify-between">
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Full automated tracking sync, inventory auto-reorder, and return protection.</span>
+            </span>
+            <span className="text-[10px] font-mono text-emerald-400 shrink-0 ml-2">{current.onTime} SLA</span>
           </div>
         </div>
       </div>
     </div>
   );
 }
-

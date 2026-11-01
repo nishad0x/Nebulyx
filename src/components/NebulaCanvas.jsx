@@ -12,20 +12,19 @@ export default function NebulaCanvas() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Particle setup
-    const particleCount = Math.min(Math.floor((width * height) / 14000), 100);
+    // Subtle, restrained particle field
+    const count = Math.min(Math.floor((width * height) / 22000), 55);
     const particles = [];
-    const mouse = { x: -1000, y: -1000, radius: 160 };
+    const mouse = { x: -1000, y: -1000, radius: 140 };
 
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        radius: Math.random() * 1.8 + 0.8,
-        baseColor: Math.random() > 0.5 ? 'rgba(99, 102, 241, ' : 'rgba(6, 182, 212, ',
-        alpha: Math.random() * 0.6 + 0.2,
+        vx: (Math.random() - 0.5) * 0.22,
+        vy: (Math.random() - 0.5) * 0.22,
+        radius: Math.random() * 1.4 + 0.6,
+        alpha: Math.random() * 0.35 + 0.1,
       });
     }
 
@@ -52,49 +51,42 @@ export default function NebulaCanvas() {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Render & update particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
-
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap boundaries
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         if (p.y > height) p.y = 0;
 
-        // Mouse interaction
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         let currentAlpha = p.alpha;
         if (dist < mouse.radius) {
-          const force = (1 - dist / mouse.radius) * 0.8;
-          p.x -= (dx / dist) * force * 1.5;
-          p.y -= (dy / dist) * force * 1.5;
-          currentAlpha = Math.min(1, p.alpha + 0.4);
+          const force = (1 - dist / mouse.radius) * 0.5;
+          p.x -= (dx / dist) * force;
+          p.y -= (dy / dist) * force;
+          currentAlpha = Math.min(0.7, p.alpha + 0.25);
         }
 
-        // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `${p.baseColor}${currentAlpha})`;
+        ctx.fillStyle = `rgba(148, 163, 184, ${currentAlpha})`;
         ctx.fill();
 
-        // Connect nearby particles (synapses)
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dist2 = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist2 < 115) {
+          if (dist2 < 100) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            const lineAlpha = (1 - dist2 / 115) * 0.18;
-            ctx.strokeStyle = `rgba(99, 102, 241, ${lineAlpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(148, 163, 184, ${(1 - dist2 / 100) * 0.08})`;
+            ctx.lineWidth = 0.6;
             ctx.stroke();
           }
         }
@@ -116,9 +108,7 @@ export default function NebulaCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-70"
-      style={{ mixBlendMode: 'screen' }}
+      className="fixed inset-0 pointer-events-none z-0 opacity-40"
     />
   );
 }
-

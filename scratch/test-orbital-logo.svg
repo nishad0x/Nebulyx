@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Nebulyx Official Brand Emblem: Letter 'n' with Celestial Orbital Ring -->
+  <g>
+    <!-- Back portion of the orbital ring (behind 'n') -->
+    <path
+      d="M 52 108 C 42 128 72 150 114 144 C 152 138 174 116 168 96 C 164 82 144 76 122 78"
+      stroke="#FFFFFF"
+      stroke-width="12"
+      stroke-linecap="round"
+      opacity="0.95"
+    />
+    <!-- Cyan Glowing Accent on top-right tip of the orbit -->
+    <path
+      d="M 148 83 C 160 88 166 94 164 100"
+      stroke="#00C8FF"
+      stroke-width="12"
+      stroke-linecap="round"
+    />
+
+    <!-- Lowercase 'n' -->
+    <!-- Left vertical stem -->
+    <path
+      d="M 82 72 V 152"
+      stroke="#FFFFFF"
+      stroke-width="14"
+      stroke-linecap="square"
+    />
+    <!-- Arch and right stem -->
+    <path
+      d="M 82 102 C 82 74 102 70 120 70 C 138 70 142 86 142 102 V 152"
+      stroke="#FFFFFF"
+      stroke-width="14"
+      stroke-linecap="square"
+    />
+
+    <!-- Front portion of the orbital ring (crossing in front of 'n') -->
+    <path
+      d="M 44 116 C 40 102 62 90 98 84 C 130 78 158 84 164 96"
+      stroke="#FFFFFF"
+      stroke-width="12"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>
+

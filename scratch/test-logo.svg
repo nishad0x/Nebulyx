@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Minimalist Premium Monogram: The Nebulyx Nexus (N + X) -->
+  <g>
+    <!-- Left Ascent (N) -->
+    <path d="M26 94 V26 L46 26 L46 94 Z" fill="#FFFFFF"/>
+    <!-- Central Diagonal Nexus bridging into X -->
+    <path d="M46 26 L74 94 L94 94 L66 26 Z" fill="#CBD5E1"/>
+    <!-- Right Symmetry completing N & intersecting for X -->
+    <path d="M74 26 L94 26 L94 94 L74 94 Z" fill="#FFFFFF"/>
+    <!-- Transverse Slash forming X -->
+    <path d="M26 38 L82 94 L94 94 L38 38 Z" fill="#64748B" opacity="0.65"/>
+  </g>
+</svg>
+

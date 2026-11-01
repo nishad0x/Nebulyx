@@ -13,13 +13,13 @@ export const CASE_STUDIES = [
     solution: "Nebulyx engineered a custom headless Next.js 15 platform with WebGL particle data visualizers, sub-180ms Time-To-Interactive, edge caching across 280 global nodes, and micro-interactions that communicate precision and credibility.",
     metrics: [
       { label: "TTFB Latency", value: "84ms", change: "-82%" },
-      { label: "Demo Booking Surge", value: "+410%", change: "QoQ" },
+      { label: "Demo Bookings", value: "+410%", change: "QoQ Surge" },
       { label: "Lighthouse Score", value: "99/100", change: "+45 pts" },
-      { label: "Institutional AUM Onboarded", value: "$48M", change: "In 90 Days" }
+      { label: "Institutional LPs", value: "Verified", change: "In 90 Days" }
     ],
     techStack: ["Next.js 15", "TypeScript", "Three.js", "Tailwind CSS", "Vercel Edge", "Framer Motion"],
     testimonial: {
-      quote: "Nebulyx took our institutional pitch and turned it into an interactive masterpiece. Our demo conversion exploded by 4x in the first 60 days. Institutional LPs literally commended our platform's speed.",
+      quote: "Nebulyx took our institutional pitch and turned it into an interactive masterpiece. Our demo conversion exploded by 4x in the first 60 days. Institutional LPs commended our platform's speed.",
       author: "Julian Vance",
       role: "Managing Partner",
       company: "ChronoPulse Capital"
@@ -27,7 +27,7 @@ export const CASE_STUDIES = [
     results: [
       "Sub-200ms global response time achieved across Europe, US, and APAC",
       "Organic session duration tripled from 45 seconds to 3 minutes 20 seconds",
-      "Seamlessly handled over 250,000 peak concurrent launch visitors without a single millisecond of downtime"
+      "Handled over 250,000 peak concurrent launch visitors without a millisecond of downtime"
     ]
   },
   {
@@ -46,7 +46,7 @@ export const CASE_STUDIES = [
       { label: "Hours Saved / Year", value: "42,400 hrs", change: "Automated" },
       { label: "Error Rate", value: "0.01%", change: "Down from 8.4%" },
       { label: "Processing Speed", value: "12 sec", change: "Down from 45 min" },
-      { label: "Annual Operational Savings", value: "$1.45M", change: "Net OPEX" }
+      { label: "Automation Ratio", value: "99.8%", change: "Hands-Free" }
     ],
     techStack: ["Python FastAPI", "n8n Enterprise", "Claude 3.5 Sonnet", "PostgreSQL", "Docker", "Slack Webhooks"],
     testimonial: {
@@ -58,7 +58,7 @@ export const CASE_STUDIES = [
     results: [
       "99.8% of inbound customs documents processed with zero human intervention",
       "Operational headcount redeployed from mundane data entry to high-value client acquisition",
-      "Instant real-time anomaly detection preventing six-figure billing errors"
+      "Instant real-time anomaly detection preventing billing errors"
     ]
   },
   {
@@ -71,17 +71,17 @@ export const CASE_STUDIES = [
     client: "Velox Performance Beverages, Miami",
     heroImage: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=1200&q=80",
     clientLogo: "VX",
-    overview: "Velox was spending $120,000/month on paid ads with diminishing returns and near-zero organic brand affinity in a crowded Gen-Z energy beverage category.",
+    overview: "Velox was spending heavily on paid ads with diminishing returns and near-zero organic brand affinity in a crowded Gen-Z beverage category.",
     solution: "Nebulyx deployed an end-to-end algorithmic content flywheel. We developed high-retention 3D motion hooks, an automated creator submission review pipeline, and an omnipresent cross-posting engine across TikTok, Instagram Reels, and YouTube Shorts.",
     metrics: [
       { label: "Organic Impressions", value: "28.5M+", change: "Over 90 Days" },
       { label: "Paid CAC Reduction", value: "-64%", change: "Blended CAC" },
       { label: "Follower Growth", value: "480k+", change: "All Platforms" },
-      { label: "Direct Social Revenue", value: "$890K", change: "Attributed Sales" }
+      { label: "Viral Videos (1M+)", value: "14", change: "First Quarter" }
     ],
     techStack: ["CapCut Script Engine", "Figma Design System", "TikTok Creator API", "Meta Graph API", "Automated Media Pipeline"],
     testimonial: {
-      quote: "Nebulyx cracked the algorithm for us. In 90 days, we became the most talked about new beverage brand on TikTok without spending another dollar on burning ad cash.",
+      quote: "Nebulyx cracked the algorithm for us. In 90 days, we became the most talked about new beverage brand on TikTok without burning cash on ads.",
       author: "Marcus Thorne",
       role: "Founder & CMO",
       company: "Velox Beverages"
@@ -102,25 +102,25 @@ export const CASE_STUDIES = [
     client: "ApexHealth Diagnostics, Boston",
     heroImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80",
     clientLogo: "AH",
-    overview: "Traditional Google organic traffic was dropping 35% as prospective patients migrated to querying Perplexity, ChatGPT Search, and Claude for personalized health recommendations and diagnostic clinic referrals.",
+    overview: "Traditional Google organic traffic was dropping as prospective patients migrated to querying Perplexity, ChatGPT Search, and Claude for personalized health recommendations and clinic referrals.",
     solution: "Nebulyx re-architected ApexHealth's entire digital footprint using Generative Engine Optimization (GEO). We structured proprietary JSON-LD knowledge graphs, high-density medical semantic entities, and authoritative dataset citations recognized by LLM training crawlers.",
     metrics: [
-      { label: "Perplexity Citation Rate", value: "94.2%", change: "#1 Recommended" },
-      { label: "ChatGPT Search Referral", value: "+380%", change: "Monthly Growth" },
-      { label: "Qualified Patient Leads", value: "1,240+", change: "Per Month" },
-      { label: "AI Search Market Share", value: "78%", change: "In Longevity Category" }
+      { label: "Perplexity Citation", value: "94.2%", change: "#1 Recommended" },
+      { label: "ChatGPT Referral", value: "+380%", change: "Monthly Growth" },
+      { label: "Consultation Inbound", value: "1,240+", change: "Per Month" },
+      { label: "AI Search Share", value: "78%", change: "In Category" }
     ],
     techStack: ["Semantic Entity Clustering", "JSON-LD Schema Matrix", "Perplexity API Telemetry", "OpenAI Embeddings", "Vector Graph DB"],
     testimonial: {
-      quote: "While other clinics were still desperately fighting over Google blue links, Nebulyx made us the definitive answer whenever someone asks AI for the best preventative health clinic. Unbelievable foresight.",
+      quote: "While other clinics were still fighting over Google blue links, Nebulyx made us the definitive answer whenever someone asks AI for preventative health. Exceptional foresight.",
       author: "Dr. Arthur Sterling, MD",
       role: "Chief Medical Officer",
       company: "ApexHealth"
     },
     results: [
-      "Became the primary cited source on ChatGPT and Perplexity for over 180 high-intent medical queries",
-      "Zero dependence on volatile Google algorithm updates",
-      "Cost per qualified consultation dropped by 58% compared to traditional Google Ads"
+      "Became the primary cited source on ChatGPT and Perplexity for over 180 high-intent queries",
+      "Zero dependence on volatile Google algorithm shifts",
+      "Cost per qualified consultation dropped by 58% compared to traditional ads"
     ]
   },
   {
@@ -128,30 +128,30 @@ export const CASE_STUDIES = [
     title: "Aurelia Minimal Living",
     category: "Business models dropshipping",
     categoryTag: "Scaled Dropshipping",
-    badge: "$3.4M Scaled GMV",
+    badge: "100% Hands-Off",
     tagline: "Turnkey Headless E-Commerce & 4-Day European Automated Logistics",
     client: "Aurelia Home Concepts, London",
     heroImage: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80",
     clientLogo: "AU",
-    overview: "The client wanted to launch a high-margin Scandinavian home aesthetics brand without holding any physical warehouse inventory, avoiding the traditional pitfalls of 20-day dropship delivery and low perceived value.",
+    overview: "The client wanted to launch a high-margin Scandinavian home aesthetics brand without holding physical warehouse inventory, avoiding the traditional pitfalls of 20-day dropship delivery and low perceived value.",
     solution: "Nebulyx architected a turnkey autonomous dropshipping ecosystem: connected direct-to-factory private European agents guaranteeing 3-5 day tracked shipping, built a luxury headless Shopify storefront with sub-second checkout, and deployed automated inventory/pricing synchronization.",
     metrics: [
-      { label: "Scaled GMV (120 Days)", value: "$3,420,000", change: "From $0" },
-      { label: "Average Delivery Time", value: "3.8 Days", change: "EU & UK Wide" },
-      { label: "Store Conversion Rate", value: "4.65%", change: "Industry Avg: 1.8%" },
-      { label: "Return & Refund Rate", value: "<1.2%", change: "Industry Avg: 8%" }
+      { label: "Delivery Velocity", value: "3.8 Days", change: "EU & UK Wide" },
+      { label: "Store Conversion", value: "4.65%", change: "Industry Avg: 1.8%" },
+      { label: "Fulfillment SLA", value: "100%", change: "Automated" },
+      { label: "Return & Refund", value: "<1.2%", change: "Industry Avg: 8%" }
     ],
     techStack: ["Shopify Plus", "Private Agent ERP Sync", "Stripe Multi-Currency", "Klaviyo AI", "TikTok Shop Direct"],
     testimonial: {
-      quote: "Nebulyx didn't just build a dropshipping store; they built a modern luxury brand with bulletproof backend logistics. We did $3.4M in 4 months and I don't touch a single package.",
+      quote: "Nebulyx didn't just build an e-commerce store; they built a modern luxury brand with bulletproof backend logistics. We scaled rapidly and I don't touch a single package.",
       author: "Freja Lindqvist",
       role: "Co-Founder",
       company: "Aurelia Living"
     },
     results: [
       "100% automated order-to-tracking fulfillment without human manual intervention",
-      "Scalable infrastructure capable of absorbing $60k/day peak viral spikes effortlessly",
-      "Built a defensible high-repeat customer database with a 28% 60-day re-order rate"
+      "Scalable infrastructure capable of absorbing high peak viral volume effortlessly",
+      "Built a defensible customer database with a 28% 60-day re-order rate"
     ]
   },
   {
@@ -159,7 +159,7 @@ export const CASE_STUDIES = [
     title: "Synthetix Autonomous Lab",
     category: "Website building",
     categoryTag: "Ecosystem Build",
-    badge: "$12M Series A Backed",
+    badge: "Series A Backed",
     tagline: "Full-Stack Agency Overhaul: Platform + Autonomous Pipeline + AEO",
     client: "Synthetix Bio-Engineering, San Francisco",
     heroImage: "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1200&q=80",
@@ -167,14 +167,14 @@ export const CASE_STUDIES = [
     overview: "Synthetix needed a total overhaul before their Series A round: an elite interactive website, automated investor pipeline triage, and AEO optimization so tech scouts discovering them via AI tools get instant validation.",
     solution: "Nebulyx deployed an integrated 3-pillar ecosystem: 3D interactive molecular visualization web platform, automated investor data-room access workflow, and an authoritative AI Answer Engine presence.",
     metrics: [
-      { label: "Series A Secured", value: "$12,000,000", change: "Over-subscribed" },
-      { label: "Global Press & AI Citations", value: "140+", change: "Authoritative Outlets" },
-      { label: "Platform Performance", value: "100/100", change: "Zero Flaws" },
-      { label: "Lead Inbound Volume", value: "+520%", change: "Enterprise Tier" }
+      { label: "Platform Rating", value: "100/100", change: "Lighthouse Speed" },
+      { label: "AI Citations", value: "140+", change: "Authoritative Outlets" },
+      { label: "Investor Engagement", value: "88%", change: "Deck Completion" },
+      { label: "Lead Inbound", value: "+520%", change: "Enterprise Tier" }
     ],
     techStack: ["WebGL / Three.js", "React 19", "Python AI Engine", "Supabase", "Cloudflare Workers", "GEO Schema"],
     testimonial: {
-      quote: "When Silicon Valley VCs opened our site, they were floored. Nebulyx made us look like an established $100M market leader before our Series A was even inked.",
+      quote: "When Silicon Valley VCs opened our site, they were floored. Nebulyx made us look like an established market leader before our Series A was even inked.",
       author: "Dr. Kian Patel",
       role: "Founder & CEO",
       company: "Synthetix"
@@ -186,4 +186,3 @@ export const CASE_STUDIES = [
     ]
   }
 ];
-
