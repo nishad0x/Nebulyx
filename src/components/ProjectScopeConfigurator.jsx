@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Check, ArrowRight, ShieldCheck, Sparkles, Send, ChevronRight } from 'lucide-react';
 import { sound } from '../utils/audio';
+import { submitForm } from '../utils/submitForm';
 
-export default function ProjectScopeConfigurator({ onProposalSubmit }) {
+export default function ProjectScopeConfigurator() {
   const [selectedServices, setSelectedServices] = useState(['web', 'automation']);
   const [timeline, setTimeline] = useState('accelerated');
   const [objective, setObjective] = useState('conversion');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
 
@@ -42,13 +45,25 @@ export default function ProjectScopeConfigurator({ onProposalSubmit }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) return;
-    sound.playSuccess();
-    setSubmitted(true);
-    if (onProposalSubmit) {
-      onProposalSubmit({ name, email, selectedServices, timeline, objective });
+    if (!email || isSubmitting) return;
+    setIsSubmitting(true);
+    setError('');
+    try {
+      await submitForm('Project scope request', {
+        name,
+        email,
+        services: selectedServices.map(id => servicesList.find(s => s.id === id)?.name).join(', '),
+        timeline: engagementModels.find(m => m.id === timeline)?.label,
+        objective: objectives.find(o => o.id === objective)?.label,
+      });
+      sound.playSuccess();
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -206,8 +221,13 @@ export default function ProjectScopeConfigurator({ onProposalSubmit }) {
                   <Check className="w-4 h-4 stroke-[3]" />
                 </div>
                 <h4 className="text-sm font-semibold text-white">Blueprint Dispatched</h4>
+<<<<<<< HEAD
                 <p className="text-xs text-neutral-300 leading-relaxed">
                   Our architecture team has received your scope. A technical breakdown and sprint timeline will be emailed to <span className="text-white font-mono">{email}</span> within 4 hours.
+=======
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Our architecture team has received your scope. We'll follow up with a technical breakdown and sprint timeline at <span className="text-white font-mono">{email}</span>.
+>>>>>>> 14036712b2a5f27e565a4225d4fd225d4be10d22
                 </p>
               </div>
             ) : (
@@ -228,12 +248,20 @@ export default function ProjectScopeConfigurator({ onProposalSubmit }) {
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-full bg-black/60 border border-white/[0.10] text-white text-xs placeholder:text-neutral-500 focus:outline-none focus:border-white/30"
                 />
+                {error && (
+                  <div role="alert" className="text-xs text-red-400 text-center">{error}</div>
+                )}
                 <button
                   type="submit"
+<<<<<<< HEAD
                   className="w-full py-3.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+=======
+                  disabled={isSubmitting}
+                  className="w-full py-3 rounded-lg bg-white text-slate-950 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition shadow-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-wait"
+>>>>>>> 14036712b2a5f27e565a4225d4fd225d4be10d22
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>Request Custom Sprint Architecture</span>
+                  <span>{isSubmitting ? 'Sending…' : 'Request Custom Sprint Architecture'}</span>
                 </button>
               </form>
             )}
