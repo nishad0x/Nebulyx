@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Nebulyx Nexus Mark (N + X) -->
+  <g stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left Vertical Anchor -->
+    <line x1="22" y1="22" x2="22" y2="78" />
+    
+    <!-- Primary Diagonal (Completing N and first stroke of X) -->
+    <line x1="22" y1="22" x2="78" y2="78" />
+    
+    <!-- Right Vertical Anchor (Completing N) -->
+    <line x1="78" y1="22" x2="78" y2="78" />
+    
+    <!-- Transverse Slash 1 (Lower segment of X) -->
+    <line x1="22" y1="78" x2="40" y2="60" />
+    
+    <!-- Transverse Slash 2 (Upper segment of X) -->
+    <line x1="60" y1="40" x2="78" y2="22" />
+  </g>
+  <!-- Central Luminous Aperture -->
+  <circle cx="50" cy="50" r="3.5" fill="currentColor" />
+</svg>
+
