@@ -1,0 +1,239 @@
+{
+  "version": 1,
+  "tool": "claude",
+  "standards": true,
+  "commentStyleLevel": "none",
+  "contextCode": "N7X",
+  "skills": {
+    "skill-scope": {
+      "dir": "meta",
+      "companions": [
+        "auto.js",
+        "move.js",
+        "triggers.json"
+      ]
+    },
+    "handover": {
+      "dir": "workflow",
+      "companions": [
+        "extras.md",
+        "size.js"
+      ]
+    },
+    "coding-standards": {
+      "dir": "standards",
+      "companions": []
+    },
+    "comment-style": {
+      "dir": "standards",
+      "companions": []
+    },
+    "session-budget": {
+      "dir": "workflow",
+      "companions": [
+        "compact.js",
+        "report.js"
+      ]
+    },
+    "agent-usage": {
+      "dir": "workflow",
+      "companions": []
+    },
+    "mode-kernel": {
+      "dir": "workflow",
+      "companions": []
+    },
+    "pre-merge-gate": {
+      "dir": "workflow",
+      "companions": [
+        "edit-check.js"
+      ]
+    },
+    "pre-commit": {
+      "dir": "workflow",
+      "companions": [
+        "check.js",
+        "install-hook.js"
+      ]
+    },
+    "debug-protocol": {
+      "dir": "workflow",
+      "companions": []
+    },
+    "intent-capture": {
+      "dir": "workflow",
+      "companions": []
+    },
+    "plan-first": {
+      "dir": "workflow",
+      "companions": [
+        "delegate.js",
+        "delegated.md"
+      ]
+    },
+    "interpretation-checkpoint": {
+      "dir": "workflow",
+      "companions": []
+    },
+    "perf-audit": {
+      "dir": "workflow",
+      "companions": []
+    },
+    "code-audit": {
+      "dir": "standards",
+      "companions": [
+        "audit.js"
+      ]
+    },
+    "security-audit": {
+      "dir": "standards",
+      "companions": []
+    },
+    "ui-design": {
+      "dir": "standards",
+      "companions": []
+    },
+    "ux-theory": {
+      "dir": "standards",
+      "companions": [
+        "topics"
+      ]
+    },
+    "resolve-conflicts": {
+      "dir": "workflow",
+      "companions": [
+        "roles.example.json",
+        "scope.js"
+      ]
+    },
+    "responsive-check": {
+      "dir": "workflow",
+      "companions": [
+        "measure.js",
+        "probes.js"
+      ]
+    },
+    "optimize-assets": {
+      "dir": "workflow",
+      "companions": [
+        "convert.js"
+      ]
+    },
+    "version-bump": {
+      "dir": "workflow",
+      "companions": [
+        "bump.js"
+      ]
+    },
+    "role-session": {
+      "dir": "workflow",
+      "companions": [
+        "protocol.md",
+        "templates.md"
+      ]
+    },
+    "e2e-scaffold": {
+      "dir": "workflow",
+      "companions": [
+        "templates.md"
+      ]
+    },
+    "memory-gardener": {
+      "dir": "memory",
+      "companions": [
+        "feedback.js",
+        "stale.js"
+      ]
+    },
+    "skill-ablation": {
+      "dir": "memory",
+      "companions": []
+    },
+    "skill-writer": {
+      "dir": "meta",
+      "companions": []
+    },
+    "mod-writer": {
+      "dir": "meta",
+      "companions": []
+    },
+    "command-writer": {
+      "dir": "meta",
+      "companions": []
+    },
+    "cli-writer": {
+      "dir": "meta",
+      "companions": []
+    }
+  },
+  "archived": {},
+  "skillRoot": ".claude/skills",
+  "protocolFile": "CLAUDE.md",
+  "commands": {
+    "audit": {
+      "file": ".claude/commands/audit.md",
+      "sha": "98010284a0af0938d77fff539a208fbf775e7115"
+    },
+    "commit-check": {
+      "file": ".claude/commands/commit-check.md",
+      "sha": "75e5a80318d387f267b4d4b9d1c75d7ee6338948"
+    },
+    "eta": {
+      "file": ".claude/commands/eta.md",
+      "sha": "faa2c330beb19a35619e62b65af7d931a9dd2855"
+    },
+    "format": {
+      "file": ".claude/commands/format.md",
+      "sha": "e2fa2c41e9d3fbfcfff2d68c07030f174601e593"
+    },
+    "githooks": {
+      "file": ".claude/commands/githooks.md",
+      "sha": "8502f9854addc5095449335a87660bfd54832f4e"
+    },
+    "kit": {
+      "file": ".claude/commands/kit.md",
+      "sha": "e18769bb0ec8606ed776bbf195db9714c4480a01"
+    },
+    "next": {
+      "file": ".claude/commands/next.md",
+      "sha": "cae40b0e0f04046d872da1da182d1c1009e4b74c"
+    },
+    "optimize-assets": {
+      "file": ".claude/commands/optimize-assets.md",
+      "sha": "c02c5bc5aa9576e20ae537a8091950796e295789"
+    },
+    "pickup": {
+      "file": ".claude/commands/pickup.md",
+      "sha": "d14a948de37dc757a7406983788b51ee4c921d0e"
+    },
+    "quiet": {
+      "file": ".claude/commands/quiet.md",
+      "sha": "ff9706e58a11a293d0569d076e00ea18d469a613"
+    },
+    "resolve-conflicts": {
+      "file": ".claude/commands/resolve-conflicts.md",
+      "sha": "3b94d3aa03730149d1579215d0ae701e4e3dde4f"
+    },
+    "responsive-check": {
+      "file": ".claude/commands/responsive-check.md",
+      "sha": "e1635b60034e86fb78ee0a11fee21305e148b966"
+    },
+    "stale": {
+      "file": ".claude/commands/stale.md",
+      "sha": "2ee638ccf8b74fd5b85d5f27189b26b44a193a48"
+    },
+    "token-report": {
+      "file": ".claude/commands/token-report.md",
+      "sha": "b7f536cd7590bc7bcce398921d7ea584f3120ee3"
+    },
+    "version-bump": {
+      "file": ".claude/commands/version-bump.md",
+      "sha": "ba73670b76de14e3d77d0520f177d091e712afd7"
+    },
+    "wrap-up": {
+      "file": ".claude/commands/wrap-up.md",
+      "sha": "b2f1625f5e2a1bb522c9820c96bff92c11e8488c"
+    }
+  },
+  "updatedAt": "2026-11-03T08:38:56.778Z"
+}
