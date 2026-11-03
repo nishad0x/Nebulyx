@@ -126,15 +126,8 @@ export default function App() {
           <FaqSection />
         </div>
 
-<<<<<<< HEAD
         {/* Section 11: Interactive Scope & Capability Configurator (Zero Pricing) */}
-        <ProjectScopeConfigurator
-          onProposalSubmit={handleProposalSubmit}
-        />
-=======
-        {/* Section 10: Interactive Scope & Capability Configurator (Zero Pricing) */}
         <ProjectScopeConfigurator />
->>>>>>> 14036712b2a5f27e565a4225d4fd225d4be10d22
 
         {/* Section 12: Contractual SLA Accountability */}
         <TrustAndGuarantee />

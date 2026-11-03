@@ -54,18 +54,12 @@ export default function ConsultationDrawer({ onClose, preselectedService = '' })
 
         {isSuccess ? (
           <div className="py-8 text-center space-y-4">
-<<<<<<< HEAD
             <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-2">
               <Check className="w-6 h-6 stroke-[3]" />
             </div>
-            <h3 className="text-xl font-bold text-white font-display">Sprint Scoping Locked</h3>
-            <p className="text-sm text-neutral-300 max-w-sm mx-auto leading-relaxed">
-              We have reserved your architectural intake slot for <strong className="text-white">{selectedDate}</strong>. A calendar invite has been dispatched to <span className="text-white font-mono">{formData.email}</span>.
-=======
             <h3 className="text-xl font-bold text-white font-display">Request Received</h3>
-            <p className="text-sm text-slate-300 max-w-sm mx-auto leading-relaxed">
+            <p className="text-sm text-neutral-300 max-w-sm mx-auto leading-relaxed">
               Thanks, {formData.name}. We'll confirm your <strong className="text-white">{selectedDate}</strong> slot by email at <span className="text-white font-mono">{formData.email}</span>.
->>>>>>> 14036712b2a5f27e565a4225d4fd225d4be10d22
             </p>
             <div className="pt-4">
               <button
@@ -120,19 +114,10 @@ export default function ConsultationDrawer({ onClose, preselectedService = '' })
                   onChange={(e) => setService(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/[0.10] text-xs text-white focus:outline-none focus:border-white/30"
                 >
-<<<<<<< HEAD
-                  <option value="Website building">1. Website Building (Next.js 15 & Edge)</option>
-                  <option value="Platform automation and automated workflows">2. Autonomous Multi-Agent Pipelines</option>
-                  <option value="Social media enhancement and management">3. Algorithmic Social Distribution</option>
-                  <option value="AEO & GEO Marketing">4. AEO & GEO Generative Search</option>
-                  <option value="Business models dropshipping">5. Turnkey Scaled Dropshipping</option>
-                  <option value="Comprehensive Enterprise Transformation">Full Full-Stack Ecosystem</option>
-=======
                   {SERVICES_DATA.map((s) => (
                     <option key={s.id} value={s.title}>{Number(s.number)}. {s.shortTitle}</option>
                   ))}
                   <option value="Comprehensive Enterprise Transformation">Full-Stack Ecosystem</option>
->>>>>>> 14036712b2a5f27e565a4225d4fd225d4be10d22
                 </select>
               </div>
 
@@ -193,16 +178,10 @@ export default function ConsultationDrawer({ onClose, preselectedService = '' })
 
               <button
                 type="submit"
-<<<<<<< HEAD
-                className="w-full py-3.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition shadow-md cursor-pointer"
-              >
-                Confirm Technical Intake Slot
-=======
                 disabled={isSubmitting}
-                className="w-full py-3 rounded-lg bg-white text-slate-950 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition shadow-sm disabled:opacity-60 disabled:cursor-wait"
+                className="w-full py-3.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition shadow-md cursor-pointer disabled:opacity-60 disabled:cursor-wait"
               >
-                {isSubmitting ? 'Sending…' : 'Confirm Technical Intake'}
->>>>>>> 14036712b2a5f27e565a4225d4fd225d4be10d22
+                {isSubmitting ? 'Sending…' : 'Confirm Technical Intake Slot'}
               </button>
 
               <div className="text-center text-[11px] text-neutral-400">
