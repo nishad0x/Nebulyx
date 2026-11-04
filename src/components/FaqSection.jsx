@@ -7,28 +7,28 @@ export default function FaqSection() {
 
   const faqs = [
     {
-      q: "How does Nebulyx guarantee sub-200ms page speeds globally?",
-      a: "We engineer websites using hybrid React 19 / Next.js edge architecture deployed across over 280 edge locations worldwide. By combining static asset pre-rendering, Brotli compression, and zero-JS-bloat SSR, your visitors experience instantaneous page loads regardless of device or geographical location."
+      q: "How much does a sprint cost?",
+      a: "It depends on what you need built, so we don't publish fixed prices. After the scoping call you get a written scope and a price for it. There's no commitment until you approve both."
     },
     {
-      q: "How does AEO & GEO differ from traditional SEO?",
-      a: "Traditional SEO focuses on Google keyword ranking and backlink volumes for blue search links. AEO (Answer Engine Optimization) and GEO (Generative Engine Optimization) structure your brand's digital presence into semantic knowledge graphs and schema protocols. This ensures large language models—like Perplexity, ChatGPT, Claude, and Gemini—cite your company as the definitive source when decision-makers ask conversational questions."
+      q: "What happens on the scoping call?",
+      a: "We ask about your business, what you want to build and your deadline, and look at anything you already have. Then we follow up with a written scope: what we'll build, what you get, how long it takes and what it costs."
     },
     {
-      q: "How do your autonomous multi-agent workflows handle errors?",
-      a: "Our orchestration architecture (built on n8n Enterprise, Python FastAPI, and Claude 3.5 Sonnet) incorporates self-healing retry mechanisms and automated anomaly detection. If an API payload or document format deviates, the agent autonomously validates and remediates the data, alerting your team only if a genuine anomaly occurs."
+      q: "What do I need to provide?",
+      a: "Mostly your time for a few short check-ins, plus access to any accounts we'll work in (domain, hosting, tools you already use) and any content or brand material you have. If you're starting from scratch, that's fine too."
     },
     {
-      q: "How does your dropshipping model achieve 3-5 day express delivery?",
-      a: "We bypass slow postal couriers by connecting your store directly to verified private agent logistics networks in the US, Europe, and key regional hubs. Inventory is pre-stocked with factory partners, and orders trigger automated real-time dispatch with tracking codes synced within seconds of purchase."
+      q: "Who owns what you build?",
+      a: "You do. The code, accounts and content are set up in your name, so you can keep using them, change them or take them to another team."
     },
     {
-      q: "Who owns the code, pipelines, and digital assets?",
-      a: "You do. 100% on Day 1. Unlike traditional IT agencies that retain code or lock you into proprietary platforms, Nebulyx transfers all Git repositories, infrastructure credentials, vector memory stores, and operational runbooks directly to your organization under a strict mutual contract."
+      q: "What if the sprint takes longer than planned?",
+      a: "We show you progress every week, so problems surface early. If something changes, we tell you straight away and agree a plan with you before going further."
     },
     {
-      q: "What is the typical sprint timeline and how do we begin?",
-      a: "Our core production sprints run between 10 to 21 days. We start with an Architectural Audit to map bottlenecks and technical scope, followed by immediate sprint execution. To initiate, request an architectural scope above or schedule a direct scoping session."
+      q: "What's the difference between AI search (AEO/GEO) and SEO?",
+      a: "SEO aims to rank your pages on Google. AI search visibility makes sure assistants like ChatGPT, Perplexity, Claude and Gemini can find clear information about you, so they describe your business accurately when someone asks for a recommendation. Most businesses benefit from both."
     }
   ];
 
@@ -38,56 +38,47 @@ export default function FaqSection() {
   };
 
   return (
-    <section id="faq" className="py-24 px-5 sm:px-8 max-w-4xl mx-auto border-t border-white/[0.08]">
-      <div className="mb-14 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
-          <span>QUESTIONS & ANSWERS</span>
-        </div>
-        <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-4">
-          Frequently asked questions.
+    <section id="faq" className="relative py-32 sm:py-40 px-5 sm:px-8">
+      <div className="mx-auto max-w-3xl">
+        <h2 data-reveal className="font-display text-white text-[clamp(2.2rem,4.2vw,4rem)] leading-[1] tracking-[-0.04em] text-balance">
+          Questions founders ask us.
         </h2>
-        <p className="text-base text-neutral-400 font-normal leading-relaxed">
-          Clear answers on our architecture, sprint protocols, and contractual guarantees.
+        <p data-reveal className="mt-5 text-[17px] leading-relaxed text-[#b6bccb]">
+          Cost, process and ownership, answered plainly.
         </p>
-      </div>
 
-      <div className="space-y-3.5">
-        {faqs.map((item, i) => {
-          const isOpen = openIdx === i;
-          return (
-            <div
-              key={i}
-              className={`rounded-[22px] transition-all duration-300 border ${
-                isOpen
-                  ? 'bg-[#070b16] border-white/[0.14] shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
-                  : 'bg-black/40 border-white/[0.06] hover:border-white/[0.10]'
-              } overflow-hidden`}
-            >
-              <button
-                onClick={() => toggle(i)}
-                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
-              >
-                <span className="text-sm sm:text-base font-semibold text-white font-display tracking-tight">
-                  {item.q}
-                </span>
-                <span className="w-7 h-7 rounded-full bg-white/[0.04] flex items-center justify-center shrink-0 text-neutral-400">
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 text-[#00C8FF]' : ''
-                    }`}
-                  />
-                </span>
-              </button>
-
-              {isOpen && (
-                <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/[0.06]">
-                  {item.a}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        <div className="mt-14 border-t border-white/[0.14]">
+          {faqs.map((item, i) => {
+            const isOpen = openIdx === i;
+            const panelId = `faq-panel-${i}`;
+            const buttonId = `faq-button-${i}`;
+            return (
+              <div key={item.q} className="border-b border-white/[0.14] bg-[#05060a]/70 backdrop-blur-[2px]">
+                <h3>
+                  <button
+                    id={buttonId}
+                    type="button"
+                    onClick={() => toggle(i)}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    className="focus-ring w-full py-6 text-left flex items-center justify-between gap-6 cursor-pointer"
+                  >
+                    <span className="text-[17px] sm:text-[19px] text-white tracking-[-0.01em]">{item.q}</span>
+                    <ChevronDown
+                      aria-hidden="true"
+                      className={`w-5 h-5 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#8fa2ff]' : 'text-[#9aa1b2]'}`}
+                    />
+                  </button>
+                </h3>
+                {isOpen && (
+                  <div id={panelId} role="region" aria-labelledby={buttonId} className="pb-7 pr-10 text-[16px] leading-relaxed text-[#b6bccb]">
+                    {item.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

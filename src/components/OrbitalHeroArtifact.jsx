@@ -17,11 +17,11 @@ export default function OrbitalHeroArtifact({ onSelectDiscipline }) {
   };
 
   const disciplines = [
-    { label: "Web Architecture", index: 0, angle: -65, tag: "Next.js 15 & Edge" },
-    { label: "Autonomous Workflows", index: 1, angle: 10, tag: "Claude 3.5 & n8n" },
-    { label: "Social Distribution", index: 2, angle: 75, tag: "Viral Flywheel" },
-    { label: "AEO & GEO Search", index: 3, angle: 145, tag: "Perplexity #1" },
-    { label: "Turnkey Commerce", index: 4, angle: 220, tag: "3-5d Express Logistics" },
+    { label: "Websites", index: 0, angle: -65, tag: "Fast, owned sites" },
+    { label: "AI Automations", index: 1, angle: 10, tag: "Less busywork" },
+    { label: "Social Growth", index: 2, angle: 75, tag: "Grow your audience" },
+    { label: "AI Search", index: 3, angle: 145, tag: "Get found in AI answers" },
+    { label: "Online Stores", index: 4, angle: 220, tag: "Launch and sell" },
   ];
 
   return (

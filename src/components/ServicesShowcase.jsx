@@ -30,13 +30,13 @@ export default function ServicesShowcase({ onSelectServiceForConsult, activeDisc
       <div className="max-w-3xl mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
-          <span>THE 5 CORE DISCIPLINES</span>
+          <span>WHAT WE BUILD</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-4">
-          Five engineering disciplines. One unified standard.
+          Five services. One team.
         </h2>
         <p className="text-base text-neutral-400 font-normal leading-relaxed">
-          Each discipline is engineered to operate autonomously or converge into an unstoppable digital ecosystem.
+          Start with the one you need most, or combine them in a single sprint. Try each one in the live demo on the right.
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export default function ServicesShowcase({ onSelectServiceForConsult, activeDisc
         <div className="lg:col-span-5 space-y-7">
           <div>
             <div className="text-[11px] font-mono text-[#00C8FF] uppercase tracking-wider mb-1">
-              Discipline {activeService.number} · {activeService.badge}
+              Service {activeService.number} · {activeService.badge}
             </div>
             <h3 className="text-2xl sm:text-3xl font-bold text-white font-display tracking-tight mb-3">
               {activeService.title}
@@ -90,7 +90,7 @@ export default function ServicesShowcase({ onSelectServiceForConsult, activeDisc
           {/* Key Capabilities List */}
           <div className="space-y-3">
             <div className="text-xs font-semibold text-neutral-400 tracking-wider uppercase font-mono">
-              Key Capabilities
+              What it covers
             </div>
             <div className="space-y-2.5">
               {activeService.highlights.map((highlight, hIdx) => (
@@ -105,7 +105,7 @@ export default function ServicesShowcase({ onSelectServiceForConsult, activeDisc
           {/* Deliverables */}
           <div className="p-5 rounded-2xl bg-[#070b16] border border-white/[0.08] space-y-3 shadow-sm">
             <div className="text-xs font-semibold text-neutral-400 tracking-wider uppercase font-mono">
-              Production Deliverables
+              What you get
             </div>
             <div className="space-y-2">
               {activeService.deliverables.map((deliv, dIdx) => (
@@ -126,7 +126,7 @@ export default function ServicesShowcase({ onSelectServiceForConsult, activeDisc
               }}
               className="px-6 py-3 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-all duration-200 shadow-sm flex items-center gap-2 cursor-pointer"
             >
-              <span>Scope {activeService.shortTitle}</span>
+              <span>Book a scoping call</span>
               <ChevronRight className="w-4 h-4 text-black/70" />
             </button>
           </div>
