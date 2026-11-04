@@ -1,0 +1,179 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/assigned.html"
+        ],
+        "createdAt": "2026-11-03T09:42:24.788Z",
+        "reason": "Claude: throwaway decision-page sketch with placeholder fonts, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/model-pick.html"
+        ],
+        "createdAt": "2026-11-03T09:42:24.941Z",
+        "reason": "Claude: throwaway decision-page sketch with placeholder fonts, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/challenger-quote.html"
+        ],
+        "createdAt": "2026-11-03T09:42:25.102Z",
+        "reason": "Claude: throwaway decision-page sketch with placeholder fonts, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/canon.html"
+        ],
+        "createdAt": "2026-11-03T09:42:25.252Z",
+        "reason": "Claude: throwaway decision-page sketch with placeholder fonts, not shipping UI"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/canon.html"
+        ],
+        "createdAt": "2026-11-03T09:42:25.411Z",
+        "reason": "Claude: canon card intentionally depicts the category-default look"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/model-pick.html"
+        ],
+        "createdAt": "2026-11-03T09:45:48.475Z",
+        "reason": "Claude: throwaway decision-page sketch, already reduced to 72px; not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r1-assigned.html"
+        ],
+        "createdAt": "2026-11-03T09:48:46.454Z",
+        "reason": "Claude: throwaway decision-page sketch with placeholder fonts, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r1-pick.html"
+        ],
+        "createdAt": "2026-11-03T09:48:46.591Z",
+        "reason": "Claude: throwaway decision-page sketch with placeholder fonts, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r1-challenger.html"
+        ],
+        "createdAt": "2026-11-03T09:48:46.718Z",
+        "reason": "Claude: throwaway decision-page sketch with placeholder fonts, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-lead.html"
+        ],
+        "createdAt": "2026-11-03T09:52:45.681Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-lead.html"
+        ],
+        "createdAt": "2026-11-03T09:52:45.827Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-lead.html"
+        ],
+        "createdAt": "2026-11-03T09:52:46.018Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-wrap.html"
+        ],
+        "createdAt": "2026-11-03T09:52:46.213Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-wrap.html"
+        ],
+        "createdAt": "2026-11-03T09:52:46.425Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-wrap.html"
+        ],
+        "createdAt": "2026-11-03T09:52:46.666Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-vu.html"
+        ],
+        "createdAt": "2026-11-03T09:52:46.879Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-vu.html"
+        ],
+        "createdAt": "2026-11-03T09:52:47.104Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-vu.html"
+        ],
+        "createdAt": "2026-11-03T09:52:47.311Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/decision/r2-vu.html"
+        ],
+        "createdAt": "2026-11-03T09:53:02.698Z",
+        "reason": "Claude: throwaway decision-page sketch, not shipping UI"
+      }
+    ]
+  }
+}

@@ -1,0 +1,567 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T18:04:43.814Z",
+  "title": "Design System: Nebulyx",
+  "extensions": {
+    "colorMeta": {
+      "nebulyx-blue": {
+        "role": "primary",
+        "displayName": "Nebulyx Blue",
+        "canonical": "#3a5bff",
+        "oklch": "oklch(55.6% 0.244 268.1)",
+        "tonalRamp": [
+          "#020036",
+          "#0b0a6f",
+          "#1a29a2",
+          "#2c46d9",
+          "#476bff",
+          "#7598fe",
+          "#abc3ff",
+          "#e8eeff"
+        ]
+      },
+      "nebulyx-blue-hover": {
+        "role": "primary",
+        "displayName": "Nebulyx Blue Hover",
+        "canonical": "#4f6dff",
+        "oklch": "oklch(59.7% 0.219 269.7)",
+        "tonalRamp": [
+          "#030036",
+          "#0f1167",
+          "#212e98",
+          "#354bcc",
+          "#4f6df7",
+          "#7997fe",
+          "#adc2fe",
+          "#e9eefe"
+        ]
+      },
+      "tile-blue": {
+        "role": "primary",
+        "displayName": "Tile Blue",
+        "canonical": "#1f3dff",
+        "oklch": "oklch(50.2% 0.279 266.3)",
+        "tonalRamp": [
+          "#010037",
+          "#060078",
+          "#101fb0",
+          "#1e3dea",
+          "#3f6dff",
+          "#7199fe",
+          "#a9c3ff",
+          "#e7efff"
+        ]
+      },
+      "path-blue": {
+        "role": "primary",
+        "displayName": "Path Blue",
+        "canonical": "#7d95ff",
+        "oklch": "oklch(69.9% 0.157 272.1)",
+        "tonalRamp": [
+          "#04032d",
+          "#151b54",
+          "#2b3780",
+          "#4353ae",
+          "#5f74d5",
+          "#8398ee",
+          "#b0c1fe",
+          "#e9eefe"
+        ]
+      },
+      "focus-blue": {
+        "role": "primary",
+        "displayName": "Focus Blue",
+        "canonical": "#8fa2ff",
+        "oklch": "oklch(73.6% 0.136 273.8)",
+        "tonalRamp": [
+          "#050528",
+          "#181d4e",
+          "#2f3877",
+          "#4955a3",
+          "#6675ca",
+          "#8999e4",
+          "#b2c1fe",
+          "#e9eefe"
+        ]
+      },
+      "void": {
+        "role": "neutral",
+        "displayName": "Void",
+        "canonical": "#05060a",
+        "oklch": "oklch(12.3% 0.011 271.4)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#232428",
+          "#3e4044",
+          "#5b5d63",
+          "#7b7d84",
+          "#9c9ea4",
+          "#c2c4c9",
+          "#edeef2"
+        ]
+      },
+      "dialog-surface": {
+        "role": "neutral",
+        "displayName": "Dialog Surface",
+        "canonical": "#0b0d14",
+        "oklch": "oklch(16.0% 0.015 272.2)",
+        "tonalRamp": [
+          "#0a0b0f",
+          "#222429",
+          "#3d3f46",
+          "#5b5d66",
+          "#7a7d86",
+          "#9b9ea6",
+          "#c2c4cb",
+          "#eceef4"
+        ]
+      },
+      "grid-room": {
+        "role": "neutral",
+        "displayName": "Grid Room",
+        "canonical": "#eceef3",
+        "oklch": "oklch(94.9% 0.007 268.5)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#232426",
+          "#3e4043",
+          "#5c5d61",
+          "#7b7d81",
+          "#9d9ea2",
+          "#c3c4c7",
+          "#edeef1"
+        ]
+      },
+      "diagram-well": {
+        "role": "neutral",
+        "displayName": "Diagram Well",
+        "canonical": "#f1f3f8",
+        "oklch": "oklch(96.4% 0.007 268.5)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#232426",
+          "#3e4043",
+          "#5c5d61",
+          "#7b7d81",
+          "#9d9ea2",
+          "#c3c4c7",
+          "#edeef1"
+        ]
+      },
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ]
+      },
+      "room-ink": {
+        "role": "neutral",
+        "displayName": "Room Ink",
+        "canonical": "#0b0d12",
+        "oklch": "oklch(15.9% 0.011 268.0)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#222428",
+          "#3e4044",
+          "#5b5d64",
+          "#7a7d84",
+          "#9c9ea4",
+          "#c2c4c9",
+          "#edeef2"
+        ]
+      },
+      "line-ink": {
+        "role": "neutral",
+        "displayName": "Line Ink",
+        "canonical": "#11131a",
+        "oklch": "oklch(18.8% 0.015 272.5)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#222429",
+          "#3d3f46",
+          "#5b5d65",
+          "#7a7d86",
+          "#9c9ea6",
+          "#c2c4cb",
+          "#edeef4"
+        ]
+      },
+      "room-body": {
+        "role": "neutral",
+        "displayName": "Room Body",
+        "canonical": "#454b5a",
+        "oklch": "oklch(41.3% 0.026 268.0)",
+        "tonalRamp": [
+          "#090b11",
+          "#20242d",
+          "#3b404b",
+          "#585d6c",
+          "#777d8d",
+          "#999eac",
+          "#bfc4d0",
+          "#eaeef8"
+        ]
+      },
+      "mist": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "#d5d9e3",
+        "oklch": "oklch(88.5% 0.014 268.5)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#222429",
+          "#3d4046",
+          "#5a5d65",
+          "#7a7d86",
+          "#9b9ea6",
+          "#c1c4cb",
+          "#eceef4"
+        ]
+      },
+      "haze": {
+        "role": "neutral",
+        "displayName": "Haze",
+        "canonical": "#b6bccb",
+        "oklch": "oklch(79.5% 0.022 268.4)",
+        "tonalRamp": [
+          "#090b10",
+          "#21242b",
+          "#3c4049",
+          "#595d6a",
+          "#787d8a",
+          "#999eaa",
+          "#c0c4ce",
+          "#ebeef7"
+        ]
+      },
+      "slate-muted": {
+        "role": "neutral",
+        "displayName": "Slate Muted",
+        "canonical": "#9aa1b2",
+        "oklch": "oklch(70.9% 0.026 267.8)",
+        "tonalRamp": [
+          "#090b11",
+          "#20242c",
+          "#3b404b",
+          "#585d6c",
+          "#777d8d",
+          "#999eac",
+          "#bfc4d0",
+          "#eaeef8"
+        ]
+      },
+      "dim": {
+        "role": "neutral",
+        "displayName": "Dim",
+        "canonical": "#8a91a3",
+        "oklch": "oklch(65.7% 0.028 268.7)",
+        "tonalRamp": [
+          "#090b11",
+          "#20242d",
+          "#3b3f4c",
+          "#575d6d",
+          "#777d8e",
+          "#989ead",
+          "#bfc4d1",
+          "#eaeef9"
+        ]
+      },
+      "dusk": {
+        "role": "neutral",
+        "displayName": "Dusk",
+        "canonical": "#7f8799",
+        "oklch": "oklch(62.3% 0.029 266.5)",
+        "tonalRamp": [
+          "#080b12",
+          "#20242d",
+          "#3a404c",
+          "#575e6d",
+          "#767d8e",
+          "#989eae",
+          "#bec4d1",
+          "#eaeef9"
+        ]
+      },
+      "error-rose": {
+        "role": "error",
+        "displayName": "Error Rose",
+        "canonical": "#ff8a8a",
+        "oklch": "oklch(76.1% 0.142 20.9)",
+        "tonalRamp": [
+          "#200002",
+          "#47080f",
+          "#6f2025",
+          "#99383c",
+          "#c05759",
+          "#de807f",
+          "#fcaba9",
+          "#fee9e8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "First-viewport headline, two lines, bottom-left, revealed line by line from a mask."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headlines, two short lines with a forced break; size flexes per chapter."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Active service tagline; 30px for the dialog heading."
+      },
+      "title-card": {
+        "displayName": "Title Card",
+        "purpose": "Sample-card titles, the one medium-weight body-scale role."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Supporting paragraphs, held to roughly 28-36rem."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Step, capability and card descriptions (14-15px)."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Top-bar links and the compact CTA."
+      },
+      "label": {
+        "displayName": "Label (mono)",
+        "purpose": "Chapter numbers and names, step keys, the SAMPLE tag. Never headlines or captions above headings."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Closing NEBULYX wordmark bleeding off the bottom edge."
+      }
+    },
+    "shadows": [
+      {
+        "name": "sample-lift",
+        "value": "0 30px 60px -30px rgba(17, 19, 26, 0.35)",
+        "purpose": "The only DOM shadow: sample cards in the light grid room."
+      },
+      {
+        "name": "world-light-field",
+        "value": "radial-gradient(55% 75% at 104% 38%, rgba(58, 91, 255, 0.55), rgba(58, 91, 255, 0.12) 45%, transparent 70%)",
+        "purpose": "Screen-blended blue light field anchored past the right edge; opacity is 1 minus world-light, so it vanishes in the light room."
+      },
+      {
+        "name": "nav-band",
+        "value": "background: void or grid-room (by world-light) at 82%; backdrop-filter: blur(14px); border-bottom: 1px solid ink at 10%",
+        "purpose": "Scrolled top bar; depth by translucency, not shadow."
+      },
+      {
+        "name": "tile-material",
+        "value": "MeshPhysicalMaterial color #1f3dff, metalness 0, roughness 0.42, clearcoat 1, clearcoatRoughness 0.06, envMapIntensity 0.32, emissive #0a21c8 at 0.38; ACES Filmic tone mapping, exposure 0.92; key light #ffffff 1.1, rim light #5c78ff 1.6",
+        "purpose": "Glossy enamel of the 3D service tiles."
+      },
+      {
+        "name": "grid-floor",
+        "value": "1.4-unit cells, line opacity 0.35, plus markers every second intersection, distance fade 4 to 46 units, curvature 0.0045, fog 14 to 48; opacity 0.9 dark, 0.55 light",
+        "purpose": "The endless perspective floor."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "All UI state transitions, card tilt, tag roll and service swap."
+      },
+      {
+        "name": "duration-state",
+        "value": "0.3s",
+        "purpose": "Button background and lift."
+      },
+      {
+        "name": "duration-roll",
+        "value": "0.6s",
+        "purpose": "Chapter tag roll-up and sample-card straighten."
+      },
+      {
+        "name": "service-swap",
+        "value": "0.7s; from opacity 0, translateY(18px), blur(4px)",
+        "purpose": "Active service detail entering."
+      },
+      {
+        "name": "line-reveal",
+        "value": "GSAP expo.out 1.5s, yPercent 115, stagger 0.12s, delay 0.25s",
+        "purpose": "Display headline lines rising out of their masks on load."
+      },
+      {
+        "name": "scroll-reveal",
+        "value": "GSAP power3.out 0.9s, y 20px, stagger 0.06s, start top 88%, once",
+        "purpose": "Reveal of section copy and cards."
+      },
+      {
+        "name": "smooth-scroll",
+        "value": "Lenis lerp 0.09; anchor scroll 1.6s; service jump 1.2s",
+        "purpose": "Page scroll that drives chapter progress."
+      },
+      {
+        "name": "world-follow",
+        "value": "1 - exp(-dt * 4.5) per frame; tile bob 0.07 units at 0.7 rad/s; pointer parallax 0.35 x, 0.2 y",
+        "purpose": "Tiles, camera and light easing toward chapter formations."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Removes line reveals, tile bob and sway, pointer parallax, card and button transitions, tag roll and service swap; formations snap."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px",
+        "note": "Desktop nav appears; below it the world uses phone formations, fov 52 and 55% tile spread."
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "container",
+        "value": "1600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The booking action: Nebulyx Blue, 2px corners, 48px tall with a line arrow.",
+      "html": "<div class=\"ds-stage\"><button type=\"button\" class=\"ds-btn-primary\">Book a scoping call <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button></div>",
+      "css": ".ds-stage { background: #05060a; padding: 32px; } .ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 20px; background: #3a5bff; color: #ffffff; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 500; border: none; border-radius: 2px; cursor: pointer; transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { background: #4f6dff; transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #8fa2ff; outline-offset: 3px; } .ds-btn-primary:active { transform: none; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action over the world: white glass with an 8px blur and a hairline border.",
+      "html": "<div class=\"ds-stage\"><button type=\"button\" class=\"ds-btn-ghost\">See what we build <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/></svg></button></div>",
+      "css": ".ds-stage { background: #05060a; padding: 32px; } .ds-btn-ghost { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 20px; background: rgba(255, 255, 255, 0.06); color: #ffffff; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 500; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 2px; backdrop-filter: blur(8px); cursor: pointer; transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s; } .ds-btn-ghost:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.32); } .ds-btn-ghost:focus-visible { outline: 2px solid #8fa2ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Top Bar",
+      "kind": "nav",
+      "refersTo": "button-primary-nav",
+      "description": "Fixed 64px bar in its scrolled band state: tile logo, four 13px links at 60% opacity, compact CTA.",
+      "html": "<header class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-logo\"><svg width=\"28\" height=\"28\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><defs><linearGradient id=\"ds-nbx-tile\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#6d86ff\"/><stop offset=\"1\" stop-color=\"#2f4df0\"/></linearGradient></defs><rect x=\"1\" y=\"1\" width=\"30\" height=\"30\" rx=\"8\" fill=\"url(#ds-nbx-tile)\"/><rect x=\"1.5\" y=\"1.5\" width=\"29\" height=\"14\" rx=\"7.5\" fill=\"#ffffff\" opacity=\"0.12\"/><path d=\"M10 22.5V9.5l12 13V9.5\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M16 6.5v2M16 23.5v2M6.5 16h2M23.5 16h2\" stroke=\"#ffffff\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\"0.55\"/></svg><span>NEBULYX</span></a><nav class=\"ds-nav-links\" aria-label=\"Main\"><a href=\"#\">Services</a><a href=\"#\">How it works</a><a href=\"#\" aria-current=\"true\">Work</a><a href=\"#\">FAQ</a></nav><button type=\"button\" class=\"ds-nav-cta\">Book a scoping call</button></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 32px; color: #ffffff; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: rgba(5, 6, 10, 0.82); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); } .ds-nav-logo { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-size: 15px; font-weight: 600; letter-spacing: 0.14em; } .ds-nav-links { display: flex; gap: 28px; } .ds-nav-links a { color: inherit; text-decoration: none; font-size: 13px; font-weight: 500; opacity: 0.6; transition: opacity 0.2s; } .ds-nav-links a:hover, .ds-nav-links a[aria-current] { opacity: 1; } .ds-nav-links a:focus-visible, .ds-nav-logo:focus-visible { outline: 2px solid #8fa2ff; outline-offset: 3px; } .ds-nav-cta { height: 40px; padding: 0 16px; background: #3a5bff; color: #ffffff; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 500; border: none; border-radius: 2px; cursor: pointer; transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav-cta:hover { background: #4f6dff; transform: translateY(-1px); } .ds-nav-cta:focus-visible { outline: 2px solid #8fa2ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Selection Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Single-choice chips in the booking dialog; the selected chip fills Nebulyx Blue.",
+      "html": "<div class=\"ds-stage\"><div class=\"ds-chip-group\" role=\"group\" aria-label=\"Where is your business now?\"><button type=\"button\" class=\"ds-chip\" aria-pressed=\"true\">Just starting</button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">Growing</button><button type=\"button\" class=\"ds-chip\" aria-pressed=\"false\">Established</button></div></div>",
+      "css": ".ds-stage { background: #0b0d14; padding: 32px; } .ds-chip-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 440px; } .ds-chip { padding: 10px 12px; background: transparent; color: #b6bccb; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 2px; cursor: pointer; transition: color 0.15s, border-color 0.15s, background-color 0.15s; } .ds-chip:hover { color: #ffffff; border-color: rgba(255, 255, 255, 0.4); } .ds-chip[aria-pressed=\"true\"] { background: #3a5bff; border-color: #3a5bff; color: #ffffff; } .ds-chip:focus-visible { outline: 2px solid #8fa2ff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Void field with a hairline border that turns Focus Blue; Mist label above.",
+      "html": "<div class=\"ds-stage\"><label class=\"ds-label\" for=\"ds-email\">Email</label><input id=\"ds-email\" class=\"ds-field\" type=\"email\" placeholder=\"you@example.com\"></div>",
+      "css": ".ds-stage { background: #0b0d14; padding: 32px; max-width: 360px; } .ds-label { display: block; margin-bottom: 6px; color: #d5d9e3; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 13px; } .ds-field { width: 100%; padding: 12px 14px; background: #05060a; color: #ffffff; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 16px; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 2px; outline: none; transition: border-color 0.2s; } .ds-field::placeholder { color: #7f8799; } .ds-field:focus { border-color: #8fa2ff; }"
+    },
+    {
+      "name": "Sample Card",
+      "kind": "card",
+      "refersTo": "sample-card",
+      "description": "Illustrative work in the light room: square white card, black SAMPLE tag, square-box flow diagram ending in blue.",
+      "html": "<div class=\"ds-room\"><article class=\"ds-sample\"><div class=\"ds-sample-top\"><span class=\"ds-sample-tag\">Sample</span></div><div class=\"ds-sample-well\"><svg viewBox=\"0 0 360 132\" width=\"100%\" role=\"img\" aria-label=\"Sign-up then Tagged then Welcome\"><rect x=\"4\" y=\"46\" width=\"104\" height=\"40\" fill=\"#ffffff\" stroke=\"#3a5bff\" stroke-width=\"1.5\"/><text x=\"56\" y=\"71\" text-anchor=\"middle\" font-size=\"13\" fill=\"#11131a\" font-family=\"General Sans, sans-serif\">Sign-up</text><path d=\"M111 66 h16 m-5 -4 l5 4 l-5 4\" fill=\"none\" stroke=\"#3a5bff\" stroke-width=\"1.5\"/><rect x=\"132\" y=\"46\" width=\"104\" height=\"40\" fill=\"#ffffff\" stroke=\"#3a5bff\" stroke-width=\"1.5\"/><text x=\"184\" y=\"71\" text-anchor=\"middle\" font-size=\"13\" fill=\"#11131a\" font-family=\"General Sans, sans-serif\">Tagged</text><path d=\"M239 66 h16 m-5 -4 l5 4 l-5 4\" fill=\"none\" stroke=\"#3a5bff\" stroke-width=\"1.5\"/><rect x=\"260\" y=\"46\" width=\"96\" height=\"40\" fill=\"#3a5bff\" stroke=\"#3a5bff\" stroke-width=\"1.5\"/><text x=\"308\" y=\"71\" text-anchor=\"middle\" font-size=\"13\" fill=\"#ffffff\" font-family=\"General Sans, sans-serif\">Welcome</text></svg></div><h3 class=\"ds-sample-title\">A launch site with a waitlist</h3><p class=\"ds-sample-tags\">Websites · Automations</p><p class=\"ds-sample-text\">Design, build and launch, with an email waitlist that tags every sign-up.</p></article></div>",
+      "css": ".ds-room { background: #eceef3; padding: 40px; perspective: 1400px; } .ds-sample { max-width: 380px; padding: 28px; background: #ffffff; color: #0b0d12; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; transform: rotateY(-4deg); box-shadow: 0 30px 60px -30px rgba(17, 19, 26, 0.35); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); } .ds-sample:hover { transform: rotateY(0deg) translateY(-6px); } .ds-sample-top { display: flex; justify-content: flex-end; } .ds-sample-tag { padding: 4px 8px; background: #0b0d12; color: #ffffff; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; } .ds-sample-well { margin-top: 16px; padding: 16px; background: #f1f3f8; } .ds-sample-title { margin: 24px 0 0; font-size: 22px; font-weight: 500; line-height: 1.25; letter-spacing: -0.02em; } .ds-sample-tags { margin: 4px 0 0; font-size: 13px; color: #3a5bff; } .ds-sample-text { margin: 8px 0 0; font-size: 15px; line-height: 1.625; color: #454b5a; } @media (prefers-reduced-motion: reduce) { .ds-sample { transition: none; } }"
+    },
+    {
+      "name": "Chapter Tag",
+      "kind": "custom",
+      "refersTo": "chapter-tag-number",
+      "description": "Fixed bottom-left wayfinder: blue mono number block joined to a bordered chapter name.",
+      "html": "<div class=\"ds-stage\"><div class=\"ds-chapter\" aria-hidden=\"true\"><span class=\"ds-chapter-num\"><span class=\"ds-roll\">02</span></span><span class=\"ds-chapter-name\"><span class=\"ds-chapter-cap\">Chapter</span><span class=\"ds-roll\">Services</span></span></div></div>",
+      "css": ".ds-stage { background: #05060a; padding: 32px; } .ds-chapter { display: inline-flex; align-items: stretch; color: #ffffff; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; text-transform: uppercase; } .ds-chapter-num { display: grid; place-items: center; width: 40px; background: #3a5bff; font-size: 12px; overflow: hidden; } .ds-chapter-name { padding: 6px 12px; border: 1px solid rgba(255, 255, 255, 0.22); line-height: 1.25; overflow: hidden; } .ds-chapter-cap { display: block; font-size: 10px; letter-spacing: 0.16em; opacity: 0.6; } .ds-roll { display: block; font-size: 12px; letter-spacing: 0.12em; animation: ds-tag-roll 0.6s cubic-bezier(0.16, 1, 0.3, 1); } .ds-chapter-num .ds-roll { letter-spacing: 0; } @keyframes ds-tag-roll { from { transform: translateY(110%); } to { transform: none; } } @media (prefers-reduced-motion: reduce) { .ds-roll { animation: none; } }"
+    },
+    {
+      "name": "Service List",
+      "kind": "custom",
+      "refersTo": "chip-selected",
+      "description": "Pinned services index: 19px items with a 6px square indicator that turns Nebulyx Blue for the active service.",
+      "html": "<div class=\"ds-stage\"><ol class=\"ds-services\" aria-label=\"Services\"><li><button type=\"button\" class=\"ds-service\">Websites</button></li><li><button type=\"button\" class=\"ds-service\" aria-current=\"true\">AI automations</button></li><li><button type=\"button\" class=\"ds-service\">Social growth</button></li><li><button type=\"button\" class=\"ds-service\">AI search visibility</button></li><li><button type=\"button\" class=\"ds-service\">Online stores</button></li></ol></div>",
+      "css": ".ds-stage { background: #05060a; padding: 32px; } .ds-services { list-style: none; margin: 0; padding: 0; } .ds-service { display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 0; background: none; border: none; color: #8a91a3; font-family: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 19px; letter-spacing: -0.01em; text-align: left; cursor: pointer; transition: color 0.2s; } .ds-service::before { content: \"\"; width: 6px; height: 6px; flex-shrink: 0; background: rgba(255, 255, 255, 0.15); transition: background-color 0.2s; } .ds-service:hover, .ds-service[aria-current] { color: #ffffff; } .ds-service[aria-current]::before { background: #3a5bff; } .ds-service:focus-visible { outline: 2px solid #8fa2ff; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Endless Tile Field",
+    "overview": "Nebulyx lives inside one persistent 3D world. An endless perspective grid of fine lines and plus-shaped markers curves away to a fogged horizon, and eighteen glossy blue service tiles, each carrying one white line icon, float above it. As the visitor scrolls, the same tiles regroup per chapter: an arc across the first viewport, a ring, a row with one tile lifted forward for the active service, stations joined by a lit path for the sprint, a cluster for the work. The page never cuts to a new scene; the world keeps moving underneath flat, quiet type.\n\nThe default room is a near-black void with one soft electric-blue light field bleeding in from the right edge. For the work chapter the whole world turns into a light grid room: the background, fog and grid lines blend toward pale grey and dark ink, and every piece of chrome that reads the world-light value flips with it. Density is low. Headlines are large and light-weight, body copy is short, and the interface over the scene is thin: square containers, 2px controls, hairline borders and one blue.\n\nThe system rejects the stacked-sections agency template and the glowing-orb hero. Depth belongs to the 3D world, not to cards, gradients or glows painted on the interface.",
+    "keyCharacteristics": [
+      "One continuous WebGL scene behind every section, with a flat 56px CSS grid as the no-WebGL fallback.",
+      "Glossy rounded blue tiles with a single white line icon are the recurring signature object.",
+      "One chromatic hue, Nebulyx Blue, across CTAs, active states, chapter numbers and tiles.",
+      "A dark void by default and a light grid room for the work chapter, switched by the world, not by section backgrounds.",
+      "Large, light, tightly tracked General Sans display type over minimal chrome.",
+      "One corner language: 2px on controls, square on containers, soft radius only on the 3D tiles and the logo mark."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Rule",
+        "body": "Nebulyx Blue is the only chromatic color in the interface. There is no second accent; hierarchy comes from white, the grey steps and the blue, nothing else.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Rooms Rule",
+        "body": "The world has two rooms: the dark void and the light grid room. The room is changed by the world-light value blending background, fog, grid lines and interface ink together, never by painting a section background on its own.",
+        "section": "colors"
+      },
+      {
+        "name": "The Light Display Rule",
+        "body": "Display and headline type stays at weight 400 with negative tracking (-0.04em to -0.045em). Size carries the emphasis; weight never does. Medium (500) is reserved for card titles, nav and the wordmark.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Is for Numbers Rule",
+        "body": "The mono face only marks chapter numbers, chapter names, step keys and the SAMPLE tag. It never sets a headline, a sentence or a caption above a heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The World Carries Depth Rule",
+        "body": "Only the 3D world and the sample cards in the light room have depth. Buttons, fields, chips, the nav and the dialog stay flat at rest and on hover; state is shown by color, border and a 1px lift, never a glow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** use Nebulyx Blue (#3a5bff) as the only accent, and Focus Blue (#8fa2ff) for every focus outline at 2px with a 3px offset.",
+      "**Do** keep controls at 2px corners and containers square; save rounded forms for the 3D tiles and the logo mark.",
+      "**Do** put one white line icon on each tile face, never text or a filled glyph.",
+      "**Do** label every illustrative project, mockup or diagram with the black mono SAMPLE tag.",
+      "**Do** switch to the light grid room through the world-light value so background, grid, nav and chapter tag change together.",
+      "**Do** ease state changes on cubic-bezier(0.16, 1, 0.3, 1) and honour reduced motion by removing line reveals, tile drift, card transitions and tag rolls.",
+      "**Do** keep the flat 56px CSS grid fallback in step with the world when WebGL is unavailable."
+    ],
+    "donts": [
+      "**Don't** introduce a second accent hue, a gradient fill on interface elements, or the old cyan.",
+      "**Don't** use pill-shaped buttons or chips, or rounded cards.",
+      "**Don't** add glows or coloured box-shadows to buttons, cards or the nav; the only DOM shadow is the sample card's.",
+      "**Don't** place a centred glowing orb or blob behind headlines; the only light is the blue field anchored at the right edge.",
+      "**Don't** set kickers or eyebrow labels above headings, mono or otherwise.",
+      "**Don't** present client logos, metrics, testimonials or case studies as real proof; illustrative work is labelled SAMPLE.",
+      "**Don't** stack the page as boxed sections over a plain background; every chapter sits on the shared world."
+    ]
+  }
+}

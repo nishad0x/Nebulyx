@@ -5,3 +5,10 @@ dist-ssr
 .env
 .DS_Store
 
+
+# Impeccable working files
+.impeccable/decision/
+.impeccable/review/
+.impeccable/questions/
+.impeccable/live/
+.impeccable/hook.cache.json

@@ -20,13 +20,12 @@
   }
 
   html {
-    scroll-behavior: smooth;
     color-scheme: dark;
-    background-color: var(--bg);
+    background-color: #05060a;
   }
 
   body {
-    background-color: var(--bg);
+    background-color: transparent;
     color: var(--ink);
     overflow-x: hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
@@ -49,132 +48,90 @@
   }
 }
 
-/* Keyframe Animations */
-@keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-8px) rotate(0.5deg);
-  }
+/* ---- Nebulyx grid world ---- */
+:root {
+  --blue: #3a5bff;
+  --world-light: 0;
+  --ink: color-mix(in srgb, #11131a calc(var(--world-light) * 100%), #ffffff);
 }
 
-@keyframes orbitRotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+::selection { background: #3a5bff; color: #ffffff; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+.world-ink { color: var(--ink); }
+.world-ink .border-current\/20 { border-color: color-mix(in srgb, var(--ink) 22%, transparent); }
+
+.world-light {
+  background: radial-gradient(55% 75% at 104% 38%, rgba(58, 91, 255, 0.55), rgba(58, 91, 255, 0.12) 45%, transparent 70%);
+  opacity: calc(1 - var(--world-light));
+  mix-blend-mode: screen;
 }
 
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.35;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.08);
-  }
+.world-fallback {
+  background-color: #05060a;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
-@keyframes laserSweep {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+html[data-webgl="off"] .work-room { background: #eceef3; }
+
+.focus-ring:focus-visible,
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible {
+  outline: 2px solid #8fa2ff;
+  outline-offset: 3px;
 }
 
-@keyframes shimmerTravel {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes packetPulse {
-  0% {
-    offset-distance: 0%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
-}
-
-.animate-float-slow {
-  animation: floatSlow 7s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 4s ease-in-out infinite;
-}
-
-/* Card with reactive spotlight glow */
-.interactive-card {
-  position: relative;
-  background: var(--surface);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-}
-.interactive-card:hover {
-  background: var(--surface-raised);
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 16px 36px -12px rgba(0, 200, 255, 0.08);
-}
-
-/* Traveling shimmer line on top border */
-.card-shimmer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.4), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.interactive-card:hover .card-shimmer {
-  opacity: 1;
-}
-
-/* High contrast primary button with subtle kinetic glow */
 .btn-primary {
-  background-color: #ffffff;
-  color: #030712;
-  font-weight: 600;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--blue); color: #ffffff; font-weight: 500;
+  border-radius: 2px;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.btn-primary:hover {
-  background-color: #f1f5f9;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px rgba(255, 255, 255, 0.22);
+.btn-primary:hover { background: #4f6dff; transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.06); color: #ffffff; font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 2px;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.32); }
+
+.sample-card {
+  transform: rotateY(var(--tilt, 0deg));
+  box-shadow: 0 30px 60px -30px rgba(17, 19, 26, 0.35);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sample-card:hover { transform: rotateY(0deg) translateY(-6px); }
+
+.service-swap { animation: serviceIn 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes serviceIn {
+  from { opacity: 0; transform: translateY(18px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
 }
 
-.btn-secondary {
-  background-color: var(--surface);
-  color: #f8fafc;
-  border: 1px solid var(--border-subtle);
-  font-weight: 500;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.wordmark { font-size: clamp(5rem, 24vw, 30rem); margin-bottom: -0.12em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .service-swap { animation: none; }
+  .sample-card, .btn-primary, .btn-ghost { transition: none; }
 }
-.btn-secondary:hover {
-  background-color: var(--surface-raised);
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
+
+.nav-band {
+  background: color-mix(in srgb, color-mix(in srgb, #eceef3 calc(var(--world-light) * 100%), #05060a) 82%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
 }
+.tag-roll { display: inline-block; animation: tagRoll 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+@keyframes tagRoll { from { transform: translateY(110%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .tag-roll { animation: none; } }
+
+.line-mask { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.line-mask > span { display: block; }
