@@ -7,23 +7,23 @@ export default function AboutWhoWeAre({ onOpenConsult }) {
   const capabilities = [
     {
       icon: Globe,
-      title: "Web Architecture Pro",
-      desc: "Sub-200ms edge platforms engineered on Next.js 15, React 19, and GPU-accelerated canvas."
+      title: "Websites",
+      desc: "Fast, launch-ready sites built to turn visitors into customers."
     },
     {
       icon: Bot,
-      title: "Autonomous Agent Core",
-      desc: "Self-healing multi-agent pipelines (Claude 3.5 & n8n) eliminating operational friction."
+      title: "AI automations",
+      desc: "AI agents and workflows that take repetitive work off your team."
     },
     {
       icon: TrendingUp,
-      title: "Algorithmic Signal Studio",
-      desc: "High-retention short-form media flywheels engineered for platform distribution algorithms."
+      title: "Social growth",
+      desc: "Short-form content and a posting system that grow your audience."
     },
     {
       icon: Cpu,
-      title: "AEO Generative Search",
-      desc: "Definitive authoritative citation positioning inside Perplexity, ChatGPT Search, and Claude."
+      title: "AI search visibility",
+      desc: "Help ChatGPT, Perplexity and Claude find and describe your business accurately."
     }
   ];
 
@@ -35,18 +35,18 @@ export default function AboutWhoWeAre({ onOpenConsult }) {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
-              <span>PHILOSOPHY & CAPABILITY</span>
+              <span>ABOUT NEBULYX</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-4 leading-tight">
-              Designed for leaders who refuse compromise.
+              Built for founders who need it done right, fast.
             </h2>
             <p className="text-base sm:text-lg text-neutral-300 font-normal leading-relaxed">
-              Nebulyx is a next-generation digital engineering ecosystem. We replace slow, traditional agency retainers with dedicated 21-day production sprints backed by senior systems architects.
+              Nebulyx is an engineering and growth studio. Instead of an open-ended agency retainer, we agree a scope with you, build it in a fixed-length sprint, and hand everything over.
             </p>
           </div>
 
           <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-            Where legacy IT consultancies rely on bloated WordPress templates and billable maintenance hours, our team architects high-performance headless platforms, self-healing agent pipelines, and generative AI search authority that convert high-intent visitors into committed enterprise clients.
+            You work directly with the senior engineers doing the build, so decisions are quick and nothing gets lost in hand-offs. When the sprint ends, the code, accounts and content are yours to keep, change or take elsewhere.
           </p>
 
           {/* 4 Quick Capability Cards (Apple Bento Style) */}
@@ -76,7 +76,7 @@ export default function AboutWhoWeAre({ onOpenConsult }) {
               }}
               className="px-6 py-3 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-all duration-200 shadow-sm flex items-center gap-2 cursor-pointer"
             >
-              <span>Schedule Architecture Intake</span>
+              <span>Book a scoping call</span>
               <ChevronRight className="w-4 h-4 text-black/70" />
             </button>
           </div>
@@ -95,54 +95,53 @@ export default function AboutWhoWeAre({ onOpenConsult }) {
                   <LogoMark size={22} />
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-white font-display">Nebulyx Kernel</div>
-                  <div className="text-[10px] font-mono text-neutral-400">Autonomous Operations</div>
+                  <div className="text-sm font-bold text-white font-display">Every sprint</div>
+                  <div className="text-[10px] font-mono text-neutral-400">What you get</div>
                 </div>
               </div>
               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                Active Edge
+                Included
               </span>
             </div>
 
             {/* Live Telemetry Display */}
             <div className="space-y-3 font-mono text-xs">
               <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] space-y-1">
-                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Global Topology</div>
+                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Scope</div>
                 <div className="flex items-center justify-between text-neutral-200">
-                  <span>Edge CDN PoPs</span>
-                  <span className="text-[#00C8FF] font-semibold">280+ Active</span>
+                  <span>Agreed with you up front</span>
+                  <span className="text-[#00C8FF] font-semibold">Fixed</span>
                 </div>
               </div>
 
               <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] space-y-1">
-                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Autonomous Agent Core</div>
+                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Team</div>
                 <div className="flex items-center justify-between text-neutral-200">
-                  <span>Claude 3.5 & n8n</span>
-                  <span className="text-emerald-400 font-semibold">Self-Healing</span>
+                  <span>Senior engineers only</span>
+                  <span className="text-emerald-400 font-semibold">Direct</span>
                 </div>
               </div>
 
               <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] space-y-1">
-                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Search Authority Anchor</div>
+                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Timeline</div>
                 <div className="flex items-center justify-between text-neutral-200">
-                  <span>Perplexity & ChatGPT</span>
-                  <span className="text-white font-semibold">#1 Citation Rate</span>
+                  <span>One fixed-length sprint</span>
+                  <span className="text-white font-semibold">Set end date</span>
                 </div>
               </div>
 
               <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.06] space-y-1">
-                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Contractual Sprint SLA</div>
+                <div className="text-[10px] text-neutral-500 uppercase tracking-wider">Updates</div>
                 <div className="flex items-center justify-between text-neutral-200">
-                  <span>Sprint Turnaround</span>
-                  <span className="text-white font-semibold">10–21 Days</span>
+                  <span>Progress you can see</span>
+                  <span className="text-white font-semibold">Every week</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between text-[11px] text-neutral-400">
-              <span>Zero Vendor Lock-In</span>
-              <span className="text-white font-mono font-medium">100% Day-1 IP Transfer</span>
+              <span>No lock-in</span>
+              <span className="text-white font-mono font-medium">You own the code and accounts</span>
             </div>
           </div>
         </div>

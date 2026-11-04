@@ -31,13 +31,13 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
   }, []);
 
   const navLinks = [
-    { label: 'Overview', href: '#overview', id: 'overview' },
-    { label: 'Philosophy', href: '#about', id: 'about' },
-    { label: 'Disciplines', href: '#services', id: 'services' },
-    { label: 'Comparison', href: '#comparison', id: 'comparison' },
-    { label: 'Tech Specs', href: '#specs', id: 'specs' },
-    { label: 'Protocol', href: '#protocol', id: 'protocol' },
-    { label: 'Case Studies', href: '#portfolio', id: 'portfolio' },
+    { label: 'Home', href: '#overview', id: 'overview' },
+    { label: 'About', href: '#about', id: 'about' },
+    { label: 'Services', href: '#services', id: 'services' },
+    { label: 'Why us', href: '#comparison', id: 'comparison' },
+    { label: 'Tech', href: '#specs', id: 'specs' },
+    { label: 'How it works', href: '#protocol', id: 'protocol' },
+    { label: 'Examples', href: '#portfolio', id: 'portfolio' },
     { label: 'FAQ', href: '#faq', id: 'faq' },
   ];
 
@@ -101,7 +101,8 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
               {/* Apple-style Audio Haptics Toggle */}
               <button
                 onClick={onToggleSound}
-                title={isSoundOn ? 'Mute sound effects' : 'Enable audio feedback'}
+                title={isSoundOn ? 'Turn sound effects off' : 'Turn sound effects on'}
+                aria-label={isSoundOn ? 'Turn sound effects off' : 'Turn sound effects on'}
                 className="w-8 h-8 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] flex items-center justify-center text-neutral-400 hover:text-white transition cursor-pointer"
               >
                 {isSoundOn ? (
@@ -119,7 +120,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
                 }}
                 className="px-4 py-1.5 rounded-full bg-white text-black text-xs font-semibold hover:bg-neutral-200 active:scale-95 transition-all duration-200 shadow-[0_2px_10px_rgba(255,255,255,0.15)] flex items-center gap-1.5 cursor-pointer"
               >
-                <span>Initiate Sprint</span>
+                <span>Book a scoping call</span>
                 <ChevronRight className="w-3.5 h-3.5 text-black/70" />
               </button>
             </div>
@@ -128,6 +129,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
             <div className="flex lg:hidden items-center gap-2">
               <button
                 onClick={onToggleSound}
+                aria-label={isSoundOn ? 'Turn sound effects off' : 'Turn sound effects on'}
                 className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-neutral-400"
               >
                 {isSoundOn ? (
@@ -140,7 +142,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-neutral-300"
-                aria-label="Toggle navigation menu"
+                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
                 {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </button>
@@ -173,7 +175,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
                 }}
                 className="w-full py-2.5 rounded-full bg-white text-black font-semibold text-xs text-center shadow-md flex items-center justify-center gap-2"
               >
-                <span>Initiate Engineering Sprint</span>
+                <span>Book a scoping call</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -192,20 +194,20 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 h-10 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <span className="text-xs font-semibold text-white tracking-tight font-display">
-              Nebulyx Pro
+              Nebulyx
             </span>
             <span className="hidden sm:inline text-[11px] text-neutral-400 font-mono">
-              Architecture 2025/2026
+              Fixed-length sprints for founders
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF] animate-pulse"></span>
           </div>
 
           <div className="flex items-center gap-4 text-[11px] text-neutral-400 font-medium">
             <div className="hidden md:flex items-center gap-4">
-              <button onClick={() => handleNavClick('#overview')} className="hover:text-white transition">Overview</button>
-              <button onClick={() => handleNavClick('#services')} className="hover:text-white transition">Disciplines</button>
-              <button onClick={() => handleNavClick('#specs')} className="hover:text-white transition">Tech Specs</button>
-              <button onClick={() => handleNavClick('#protocol')} className="hover:text-white transition">21-Day SLA</button>
+              <button onClick={() => handleNavClick('#overview')} className="hover:text-white transition">Home</button>
+              <button onClick={() => handleNavClick('#services')} className="hover:text-white transition">Services</button>
+              <button onClick={() => handleNavClick('#specs')} className="hover:text-white transition">Tech</button>
+              <button onClick={() => handleNavClick('#protocol')} className="hover:text-white transition">How it works</button>
             </div>
 
             <button
@@ -215,7 +217,7 @@ export default function Navbar({ onOpenConsult, isSoundOn, onToggleSound }) {
               }}
               className="px-3 py-1 rounded-full bg-white/[0.08] hover:bg-white text-white hover:text-black border border-white/10 text-[11px] font-semibold transition-all duration-200"
             >
-              Start Sprint
+              Book a scoping call
             </button>
           </div>
         </div>

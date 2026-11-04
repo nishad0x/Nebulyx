@@ -18,23 +18,22 @@ export default function Hero({ onOpenConsult, onScrollToServices, onSelectDiscip
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] mb-8 backdrop-blur-xl shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
             <LogoMark size={16} />
             <span className="text-[11px] font-mono tracking-[0.22em] text-neutral-300 uppercase">
-              Nebulyx Architecture
+              Engineering studio for founders
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF] animate-pulse"></span>
-            <span className="text-[10px] text-neutral-500 font-mono hidden sm:inline">v2.4 Pro</span>
           </div>
 
           {/* Monolithic Apple Display Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-[72px] font-bold tracking-[-0.035em] text-white font-display leading-[1.04] mb-6">
-            Engineering digital dominance.
+            Your launch, built in one sprint.
             <span className="block text-neutral-400 font-semibold mt-1">
-              At the edge of what's possible.
+              And you own all of it.
             </span>
           </h1>
 
           {/* Apple-style concise, declarative supporting paragraph */}
           <p className="text-base sm:text-xl text-neutral-400 max-w-2xl font-normal leading-relaxed mb-10 tracking-tight">
-            We architect sub-second web platforms, autonomous multi-agent pipelines, algorithmic social flywheels, AEO generative search dominance, and turnkey scaled commerce. Designed for category leaders who refuse compromise.
+            Senior engineers build your website, AI automations, social growth, AI search visibility or online store in a fixed-length sprint. No retainers, no lock-in: the code and accounts are yours.
           </p>
 
           {/* Action row with Apple pill geometry */}
@@ -46,7 +45,7 @@ export default function Hero({ onOpenConsult, onScrollToServices, onSelectDiscip
               }}
               className="px-7 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-neutral-200 active:scale-98 transition-all duration-200 shadow-[0_4px_20px_rgba(255,255,255,0.18)] flex items-center gap-2 cursor-pointer"
             >
-              <span>Schedule Architecture Intake</span>
+              <span>Book a scoping call</span>
               <ChevronRight className="w-4 h-4 text-black/70" />
             </button>
 
@@ -57,44 +56,26 @@ export default function Hero({ onOpenConsult, onScrollToServices, onSelectDiscip
               }}
               className="px-6 py-3.5 rounded-full bg-white/[0.04] text-neutral-300 hover:text-white hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.18] font-medium text-sm transition-all duration-200 backdrop-blur-md flex items-center gap-2 cursor-pointer"
             >
-              <span>Explore 5 Disciplines</span>
+              <span>See what we build</span>
               <span className="text-neutral-500 text-xs">↓</span>
             </button>
           </div>
 
-          {/* Apple Keynote Technical Spec Chips */}
+          {/* What every engagement includes */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-white/[0.08]">
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display">
-                &lt;200ms
+            {[
+              { title: 'Fixed timeline', detail: 'A set scope and end date' },
+              { title: 'You own it', detail: 'Code, accounts and content' },
+              { title: 'Senior engineers', detail: 'You talk to the builders' },
+              { title: 'Five services', detail: 'One team, one plan' },
+            ].map((item) => (
+              <div key={item.title}>
+                <div className="text-base sm:text-lg font-bold text-white tracking-tight font-display">
+                  {item.title}
+                </div>
+                <div className="text-xs text-neutral-400 mt-1 font-medium">{item.detail}</div>
               </div>
-              <div className="text-xs text-neutral-400 mt-1 font-medium">Global Edge TTI</div>
-              <div className="text-[10px] text-neutral-500 font-mono mt-0.5">280+ Anycast PoPs</div>
-            </div>
-
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display">
-                42,000+
-              </div>
-              <div className="text-xs text-neutral-400 mt-1 font-medium">Hours Automated</div>
-              <div className="text-[10px] text-neutral-500 font-mono mt-0.5">Self-healing agents</div>
-            </div>
-
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display">
-                99/100
-              </div>
-              <div className="text-xs text-neutral-400 mt-1 font-medium">Lighthouse Index</div>
-              <div className="text-[10px] text-neutral-500 font-mono mt-0.5">Sub-second render</div>
-            </div>
-
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display text-[#00C8FF]">
-                #1 Cited
-              </div>
-              <div className="text-xs text-neutral-400 mt-1 font-medium">In Generative AI</div>
-              <div className="text-[10px] text-neutral-500 font-mono mt-0.5">Perplexity & ChatGPT</div>
-            </div>
+            ))}
           </div>
         </div>
 

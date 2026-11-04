@@ -5,34 +5,34 @@ import { LogoMark } from './Logo';
 export default function AgencyComparisonSection() {
   const points = [
     {
-      dimension: "Delivery Velocity",
-      traditional: "3 to 6 months of waterfall development & endless scope revisions",
-      nebulyx: "10 to 21-day dedicated production sprints with contractual milestone SLA"
+      dimension: "Timeline",
+      traditional: "Months of back-and-forth, with the end date moving as the scope grows",
+      nebulyx: "A fixed-length sprint with an agreed scope and a set end date"
     },
     {
-      dimension: "Core Architecture",
-      traditional: "Legacy WordPress, PHP, MERN monoliths with heavy third-party plugin debt",
-      nebulyx: "Modern React 19 / Next.js edge-rendered architecture with sub-200ms global TTI"
+      dimension: "Who builds it",
+      traditional: "Account managers in the middle, with the work passed to junior staff",
+      nebulyx: "You talk directly to the senior engineers doing the work"
     },
     {
-      dimension: "Operational Workflows",
-      traditional: "Manual data entry, repetitive clerical overhead, and human bottlenecks",
-      nebulyx: "Self-healing multi-agent pipelines (Claude 3.5 Sonnet, n8n, Python) saving 42,000+ hours"
+      dimension: "Repetitive work",
+      traditional: "Your team keeps copying data between tools by hand",
+      nebulyx: "AI automations handle the routine tasks and flag what needs a person"
     },
     {
-      dimension: "Search & Discoverability",
-      traditional: "Outdated Google keyword density tactics suppressed by AI Overviews",
-      nebulyx: "Generative Engine Optimization (GEO) structured for citation in Perplexity & SearchGPT"
+      dimension: "Getting found",
+      traditional: "Keyword tactics built only for Google",
+      nebulyx: "Content structured for Google and for AI assistants like ChatGPT and Perplexity"
     },
     {
-      dimension: "Supply Chain & Commerce",
-      traditional: "Manual fulfillment or slow 20-30 day postal dropshipping prone to customer chargebacks",
-      nebulyx: "Turnkey automated infrastructure with vetted 3-5 day private European/US express agents"
+      dimension: "Online stores",
+      traditional: "Slow suppliers and manual order handling",
+      nebulyx: "Suppliers chosen for reliable delivery, with orders handled automatically"
     },
     {
-      dimension: "Ownership & Code Rights",
-      traditional: "Retainer traps, ambiguous licensing, and proprietary CMS lock-ins",
-      nebulyx: "100% complete source code, Git repositories, and cloud credentials transferred on Day 1"
+      dimension: "Ownership",
+      traditional: "Retainers, unclear licensing and platforms you can't leave",
+      nebulyx: "The code, accounts and content are yours to keep or take elsewhere"
     }
   ];
 
@@ -43,23 +43,23 @@ export default function AgencyComparisonSection() {
         <div className="lg:col-span-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
-            <span>COMPARE MODELS</span>
+            <span>WHY NEBULYX</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-3">
-            The paradigm shift: Why category leaders choose Nebulyx.
+            A sprint instead of a retainer.
           </h2>
           <p className="text-neutral-400 text-sm sm:text-base max-w-xl">
-            A direct architectural comparison between traditional legacy IT agencies and our autonomous digital engineering platform.
+            How working with Nebulyx compares with a typical agency.
           </p>
         </div>
 
         <div className="lg:col-span-4 flex items-center lg:justify-end">
           <div className="p-5 rounded-[22px] bg-[#070b16] border border-white/[0.10] text-right w-full sm:w-auto shadow-sm">
             <div className="text-4xl sm:text-5xl font-bold font-display text-white tracking-tight">
-              100%
+              1 sprint
             </div>
             <div className="text-xs text-neutral-400 mt-1 font-mono">
-              On-Time Sprint Completion SLA
+              Fixed scope, set end date
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function AgencyComparisonSection() {
           <div className="flex items-center gap-2 pb-4 border-b border-white/[0.06]">
             <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
             <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
-              Traditional IT Agencies
+              Typical agency
             </span>
           </div>
 
@@ -96,11 +96,11 @@ export default function AgencyComparisonSection() {
             <div className="flex items-center gap-2.5">
               <LogoMark size={20} />
               <span className="text-xs font-mono uppercase tracking-wider text-white font-semibold">
-                Nebulyx Autonomous Platform
+                Nebulyx
               </span>
             </div>
             <span className="text-[10px] font-mono text-[#00C8FF] bg-[#00C8FF]/10 px-2.5 py-1 rounded-full border border-[#00C8FF]/20">
-              Next-Gen Standard
+              Sprint model
             </span>
           </div>
 

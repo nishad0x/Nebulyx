@@ -4,32 +4,32 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 export default function OperatingProtocol() {
   const phases = [
     {
-      step: "Phase 1",
-      duration: "Days 1–3",
-      title: "System Audit & Blueprint",
-      summary: "We inspect your digital infrastructure, operational bottlenecks, legacy code, and AI search visibility gaps.",
-      deliverables: ["Technical Debt & Latency Report", "Workflow Automation Matrix", "Target AEO/GEO Knowledge Schema"]
+      step: "Step 1",
+      duration: "Before the sprint",
+      title: "Scoping call and plan",
+      summary: "We talk through your goals, look at what you have today, and agree exactly what the sprint will deliver.",
+      deliverables: ["A written scope and timeline", "A clear list of what you get", "What we need from you"]
     },
     {
-      step: "Phase 2",
-      duration: "Days 4–14",
-      title: "Autonomous Sprint Build",
-      summary: "Rapid production build across headless Next.js architecture, self-healing agent pipelines, and automated distribution.",
-      deliverables: ["Full-Stack Edge Deployment", "Claude 3.5 & n8n Autonomous Nodes", "Private Supplier & Payment Gateways"]
+      step: "Step 2",
+      duration: "Most of the sprint",
+      title: "Build",
+      summary: "We build in short cycles and show you working progress every week, so there are no surprises at the end.",
+      deliverables: ["Weekly demos", "A shared channel for questions", "Changes made as you give feedback"]
     },
     {
-      step: "Phase 3",
-      duration: "Days 15–18",
-      title: "Hardening & SLA Verification",
-      summary: "Stress testing to contractually guarantee 99+ Core Web Vitals, sub-200ms latency, and 100% autonomous execution.",
-      deliverables: ["Global CDN Edge Audit", "Failover Telemetry Validation", "Answer Engine Citation Indexing"]
+      step: "Step 3",
+      duration: "Near the end",
+      title: "Test and launch",
+      summary: "We test on real devices, fix what we find, and put everything live with you.",
+      deliverables: ["Testing on phones and desktops", "Launch on your domain and accounts", "Analytics set up"]
     },
     {
-      step: "Phase 4",
-      duration: "Days 19–21",
-      title: "Full IP Transfer & Handover",
-      summary: "Complete ownership transfer on Day 1. You receive Git repositories, zero-trust secrets, and telemetry dashboards.",
-      deliverables: ["100% Proprietary Code Rights", "Operational Runbooks", "30-Day Post-Launch Optimization"]
+      step: "Step 4",
+      duration: "Final days",
+      title: "Handover",
+      summary: "Everything moves into your name: the code, accounts and content, with notes on how to run and change it.",
+      deliverables: ["Code and accounts in your name", "Simple how-to notes", "A walkthrough call"]
     }
   ];
 
@@ -38,13 +38,13 @@ export default function OperatingProtocol() {
       <div className="max-w-3xl mb-14">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-neutral-300 mb-3">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]"></span>
-          <span>THE 21-DAY EXECUTION PROTOCOL</span>
+          <span>HOW IT WORKS</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-bold tracking-[-0.03em] text-white font-display mb-4">
-          The 21-day execution protocol.
+          How a sprint works.
         </h2>
         <p className="text-base text-neutral-400 font-normal leading-relaxed">
-          How we replace six months of traditional agency friction with a single, contractually guaranteed production sprint.
+          Four steps from first call to handover, with a fixed scope and end date agreed before we start.
         </p>
       </div>
 
@@ -71,7 +71,7 @@ export default function OperatingProtocol() {
 
             <div className="pt-5 border-t border-white/[0.06] space-y-2">
               <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider mb-2">
-                Sprint Deliverables:
+                What you get:
               </div>
               {phase.deliverables.map((item, idx) => (
                 <div key={idx} className="text-xs text-neutral-300 flex items-center gap-2">

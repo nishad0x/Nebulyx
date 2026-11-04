@@ -5,7 +5,7 @@ const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT;
 
 export async function submitForm(formName, data) {
   if (!ENDPOINT) {
-    throw new Error('The contact form is not configured yet. Please email us directly.');
+    throw new Error("We couldn't send your request because this form isn't connected yet. Please try again later.");
   }
 
   let res;
@@ -16,11 +16,11 @@ export async function submitForm(formName, data) {
       body: JSON.stringify({ _form: formName, _subject: `Nebulyx: ${formName}`, ...data }),
     });
   } catch {
-    throw new Error('Network error. Check your connection and try again.');
+    throw new Error("We couldn't reach our server. Check your connection and try again.");
   }
 
   if (!res.ok) {
-    let message = 'Something went wrong sending your request. Please try again.';
+    let message = "Your request didn't go through. Please try again in a moment.";
     try {
       const body = await res.json();
       if (body?.errors?.[0]?.message) message = body.errors[0].message;
