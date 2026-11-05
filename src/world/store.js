@@ -4,6 +4,7 @@ export const worldState = {
   pointer: { x: 0, y: 0 },
   reduced: false,
   ready: false,
+  intro: 1,
 };
 
 export function setChapters(list) {

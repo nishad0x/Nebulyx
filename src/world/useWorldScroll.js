@@ -24,9 +24,13 @@ export function useWorldScroll() {
     let lenis = null;
     let tick = null;
     if (!reduced) {
-      lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+      lenis = new Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1.1, touchMultiplier: 1.4 });
       worldState.lenis = lenis;
-      lenis.on('scroll', ScrollTrigger.update);
+      if (import.meta.env.DEV) window.__lenis = lenis;
+      lenis.on('scroll', (e) => {
+        worldState.velocity = e.velocity;
+        ScrollTrigger.update();
+      });
       tick = (time) => lenis.raf(time * 1000);
       gsap.ticker.add(tick);
       gsap.ticker.lagSmoothing(0);

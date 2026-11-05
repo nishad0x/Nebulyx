@@ -1,13 +1,16 @@
 import {
-  ACESFilmicToneMapping, CatmullRomCurve3, Clock, Color, DirectionalLight, Fog, Group,
-  Mesh, MeshBasicMaterial, MeshPhysicalMaterial, PerspectiveCamera, PlaneGeometry,
-  PMREMGenerator, Scene, SRGBColorSpace, TubeGeometry, Vector3, WebGLRenderer,
+  AdditiveBlending, BackSide, BufferAttribute, BufferGeometry, CatmullRomCurve3, Clock, Color,
+  DirectionalLight, Euler, Fog, Group, LineSegments, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D,
+  PerspectiveCamera, PlaneGeometry, PMREMGenerator, Points, PointsMaterial, Quaternion, Scene,
+  ShaderMaterial, SphereGeometry, SRGBColorSpace, ACESFilmicToneMapping, TubeGeometry, Vector3,
+  WebGLRenderer,
 } from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { createGrid } from './grid';
+import { CELL, createSheet, sheetHeight } from './grid';
 import { iconTexture, SERVICE_ICONS, EXTRA_ICONS } from './icons';
-import { CHAPTERS, HOLD, LIGHT, STATIONS, TILE_COUNT, formationFor } from './formations';
+import { CHAPTERS, SERVICE_COUNT, TILE_COUNT } from './formations';
+import { DEFAULTS, LAYOUTS, createTimeline } from './frames';
 import { worldState } from './store';
 
 const DARK = new Color('#05060a');
@@ -15,13 +18,47 @@ const LIGHT_BG = new Color('#eceef3');
 const LINE_DARK = new Color('#ffffff');
 const LINE_LIGHT = new Color('#11131a');
 const TILE_BLUE = new Color('#1f3dff');
+const DEG = Math.PI / 180;
+const TAU = Math.PI * 2;
+const N = TILE_COUNT;
 
-const clamp01 = (v) => Math.min(1, Math.max(0, v));
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const smooth = (a, b, v) => {
-  const t = clamp01((v - a) / (b - a));
+  const t = clamp((v - a) / (b - a), 0, 1);
   return t * t * (3 - 2 * t);
 };
-const lerp = (a, b, t) => a + (b - a) * t;
+const damp = (a, b, lambda, dt) => a + (b - a) * (1 - Math.exp(-lambda * dt));
+const hash = (i, k) => ((Math.sin(i * 127.1 + k * 311.7) * 43758.5453) % 1 + 1) % 1;
+
+const FLOOR = [
+  [-3, 1], [-1, -1], [1, 0], [3, -2],
+  [-5, -2], [-2, 3], [0, -4], [2, 3], [4, 1], [-4, -5], [5, -4], [-6, 2],
+  [6, 3], [-1, 5], [3, -6], [-3, -3], [1, -7], [-6, -6],
+];
+const STATIONS = FLOOR.slice(0, 4);
+
+const UP = new Vector3(0, 1, 0);
+const X_AXIS = new Vector3(1, 0, 0);
+const FACE_UP = new Quaternion().setFromAxisAngle(X_AXIS, -Math.PI / 2);
+
+const skyVertex = /* glsl */ `
+  varying vec3 vDir;
+  void main() {
+    vDir = normalize(position);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+const skyFragment = /* glsl */ `
+  uniform vec3 uColor;
+  uniform vec3 uSun;
+  uniform float uStrength;
+  varying vec3 vDir;
+  void main() {
+    float d = max(dot(normalize(vDir), uSun), 0.0);
+    float glow = pow(d, 3.0) * 0.85 + pow(d, 14.0) * 0.6;
+    gl_FragColor = vec4(uColor * glow * uStrength, 1.0);
+  }
+`;
 
 export default class World {
   constructor(canvas) {
@@ -33,15 +70,13 @@ export default class World {
 
     this.scene = new Scene();
     this.scene.background = DARK.clone();
-    this.scene.fog = new Fog(DARK.clone(), 14, 48);
+    this.scene.fog = new Fog(DARK.clone(), 22, 72);
 
     const pmrem = new PMREMGenerator(this.renderer);
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     pmrem.dispose();
 
-    this.camera = new PerspectiveCamera(36, 1, 0.1, 200);
-    this.cameraBase = new Vector3(0, 1.3, 11);
-    this.lookAt = new Vector3(0, 0.5, 0);
+    this.camera = new PerspectiveCamera(40, 1, 0.1, 220);
 
     const key = new DirectionalLight('#ffffff', 1.1);
     key.position.set(-4, 6, 8);
@@ -49,35 +84,183 @@ export default class World {
     rim.position.set(8, 2, -2);
     this.scene.add(key, rim);
 
-    this.grid = createGrid();
-    this.scene.add(this.grid);
-
+    this.buildSky();
+    this.buildDust();
+    this.sheet = createSheet();
+    this.scene.add(this.sheet);
     this.buildTiles();
     this.buildPath();
 
+    this.timeline = createTimeline();
+    this.target = { ...DEFAULTS };
+    this.state = { ...DEFAULTS };
+    this.info = { from: DEFAULTS, to: DEFAULTS, t: 0, drift: 0, dir: 1 };
+    this.ringAngle = 0;
+    this.travel = 0;
+    this.vel = 0;
+    this.pointer = { x: 0, y: 0 };
+    this.first = true;
+
     this.clock = new Clock();
-    this.xScale = 1;
     this.visible = true;
     this.resize();
+  }
+
+  buildSky() {
+    const material = new ShaderMaterial({
+      vertexShader: skyVertex,
+      fragmentShader: skyFragment,
+      side: BackSide,
+      depthWrite: false,
+      depthTest: false,
+      fog: false,
+      blending: AdditiveBlending,
+      transparent: true,
+      uniforms: {
+        uColor: { value: new Color('#2a56ff') },
+        uSun: { value: new Vector3(0.75, 0.22, -0.62).normalize() },
+        uStrength: { value: 0 },
+      },
+    });
+    this.sky = new Mesh(new SphereGeometry(150, 32, 16), material);
+    this.sky.renderOrder = -2;
+    this.sky.frustumCulled = false;
+    this.scene.add(this.sky);
+  }
+
+  buildDust() {
+    const count = 2200;
+    const seeds = new Float32Array(count * 3);
+    const lineSeeds = new Float32Array(count * 6);
+    const tails = new Float32Array(count * 2);
+    for (let i = 0; i < count; i++) {
+      for (let k = 0; k < 3; k++) {
+        const v = hash(i, 21 + k);
+        seeds[i * 3 + k] = v;
+        lineSeeds[i * 6 + k] = v;
+        lineSeeds[i * 6 + 3 + k] = v;
+      }
+      tails[i * 2 + 1] = 1;
+    }
+    const uniforms = {
+      uTravel: { value: 0 },
+      uStreak: { value: 0 },
+      uOpacity: { value: 0 },
+      uTime: { value: 0 },
+      uScale: { value: 400 },
+      uYaw: { value: 0 },
+      uPitch: { value: 0 },
+    };
+    const common = /* glsl */ `
+      attribute vec3 seed;
+      uniform float uTravel;
+      uniform float uStreak;
+      uniform float uTime;
+      uniform float uYaw;
+      uniform float uPitch;
+      varying float vA;
+      varying float vTint;
+      const float L = 90.0;
+      vec3 star(float tail) {
+        vec3 p;
+        p.z = mod(seed.z * L + uTravel, L) - (L - 2.0);
+        p.x = (fract(seed.x + uYaw * 0.5) - 0.5) * 64.0;
+        p.y = (fract(seed.y * 1.37 + uPitch * 0.5) - 0.5) * 46.0;
+        float r = length(p.xy);
+        p.xy += normalize(p.xy + 1e-4) * max(0.0, 2.2 - r);
+        p.z -= uStreak * tail;
+        float far = smoothstep(-(L - 2.0), -(L - 2.0) * 0.55, p.z);
+        float near = 1.0 - smoothstep(-2.5, 0.8, p.z);
+        vA = far * near * (0.55 + 0.45 * sin(uTime * 1.7 + seed.x * 61.0));
+        vTint = fract(seed.z * 7.13);
+        return p;
+      }
+    `;
+    const frag = /* glsl */ `
+      uniform float uOpacity;
+      varying float vA;
+      varying float vTint;
+      vec3 tint() { return mix(vec3(0.78, 0.84, 1.0), vec3(0.42, 0.55, 1.0), step(0.7, vTint)); }
+    `;
+    const geometry = new BufferGeometry();
+    geometry.setAttribute('position', new BufferAttribute(new Float32Array(count * 3), 3));
+    geometry.setAttribute('seed', new BufferAttribute(seeds, 3));
+    this.dust = new Points(geometry, new ShaderMaterial({
+      uniforms,
+      transparent: true,
+      depthWrite: false,
+      blending: AdditiveBlending,
+      vertexShader: common + /* glsl */ `
+        uniform float uScale;
+        void main() {
+          vec3 p = star(0.0);
+          gl_Position = projectionMatrix * vec4(p, 1.0);
+          gl_PointSize = clamp(uScale * (0.07 + seed.x * 0.1) / -p.z, 1.4, 7.0);
+        }
+      `,
+      fragmentShader: frag + /* glsl */ `
+        void main() {
+          float d = length(gl_PointCoord - 0.5);
+          float a = (1.0 - smoothstep(0.15, 0.5, d)) * vA * uOpacity * 1.3;
+          if (a < 0.004) discard;
+          gl_FragColor = vec4(tint() * a, a);
+        }
+      `,
+    }));
+    this.dust.frustumCulled = false;
+    this.dust.renderOrder = -1;
+
+    const lines = new BufferGeometry();
+    lines.setAttribute('position', new BufferAttribute(new Float32Array(count * 6), 3));
+    lines.setAttribute('seed', new BufferAttribute(lineSeeds, 3));
+    lines.setAttribute('tail', new BufferAttribute(tails, 1));
+    this.streaks = new LineSegments(lines, new ShaderMaterial({
+      uniforms,
+      transparent: true,
+      depthWrite: false,
+      blending: AdditiveBlending,
+      vertexShader: common + /* glsl */ `
+        attribute float tail;
+        varying float vTail;
+        void main() {
+          vec3 p = star(tail);
+          vTail = tail;
+          gl_Position = projectionMatrix * vec4(p, 1.0);
+        }
+      `,
+      fragmentShader: frag + /* glsl */ `
+        varying float vTail;
+        void main() {
+          float a = vA * uOpacity * (1.0 - vTail) * 0.75;
+          if (a < 0.004) discard;
+          gl_FragColor = vec4(tint() * a, a);
+        }
+      `,
+    }));
+    this.streaks.frustumCulled = false;
+    this.streaks.renderOrder = -1;
+    this.starUniforms = uniforms;
+    this.starTravel = 0;
+    this.scene.add(this.dust, this.streaks);
   }
 
   buildTiles() {
     const geometry = new RoundedBoxGeometry(1, 1, 0.22, 4, 0.16);
     const faceGeometry = new PlaneGeometry(0.86, 0.86);
     const icons = [...SERVICE_ICONS, ...EXTRA_ICONS];
+    const material = new MeshPhysicalMaterial({
+      color: TILE_BLUE,
+      metalness: 0,
+      roughness: 0.42,
+      clearcoat: 1,
+      clearcoatRoughness: 0.06,
+      envMapIntensity: 0.32,
+      emissive: new Color('#0a21c8'),
+      emissiveIntensity: 0.38,
+    });
     this.tiles = [];
     this.group = new Group();
-    for (let i = 0; i < TILE_COUNT; i++) {
-      const material = new MeshPhysicalMaterial({
-        color: TILE_BLUE,
-        metalness: 0.0,
-        roughness: 0.42,
-        clearcoat: 1,
-        clearcoatRoughness: 0.06,
-        envMapIntensity: 0.32,
-        emissive: new Color('#0a21c8'),
-        emissiveIntensity: 0.38,
-      });
+    for (let i = 0; i < N; i++) {
       const mesh = new Mesh(geometry, material);
       const face = new Mesh(
         faceGeometry,
@@ -85,23 +268,31 @@ export default class World {
       );
       face.position.z = 0.112;
       mesh.add(face);
-      const start = formationFor('welcome')[i];
-      mesh.position.set(start.x, start.y, start.z);
-      mesh.rotation.set(start.rx, start.ry, start.rz);
-      mesh.scale.setScalar(start.s);
+      mesh.scale.setScalar(0.001);
       this.group.add(mesh);
-      this.tiles.push({ mesh, seed: i * 1.7 });
+      this.tiles.push({
+        mesh,
+        weights: Object.fromEntries(LAYOUTS.map((k) => [k, 0])),
+        scale: 0,
+        focus: 0,
+        delay: 0.5 * (0.75 * (i / (N - 1)) + 0.25 * hash(i, 31)),
+        arc: 0.45 + hash(i, 32) * 0.75,
+      });
     }
     this.scene.add(this.group);
+    this.pose = { p: new Vector3(), q: new Quaternion(), scale: 1, show: 1 };
+    this.tmp = { obj: new Object3D(), v: new Vector3(), v2: new Vector3(), q: new Quaternion(), e: new Euler(), acc: new Vector3(), v3: new Vector3(), qa: new Quaternion() };
   }
 
   buildPath() {
-    const curve = new CatmullRomCurve3(STATIONS.map(([x, y, z]) => new Vector3(x, y + 0.02, z)));
+    const curve = new CatmullRomCurve3(
+      STATIONS.map(([cx, cz]) => new Vector3((cx + 0.5) * CELL, 0.05, (cz + 0.5) * CELL))
+    );
     const geometry = new TubeGeometry(curve, 160, 0.035, 8, false);
     this.pathCount = geometry.index.count;
     geometry.setDrawRange(0, 0);
-    this.path = new Mesh(geometry, new MeshBasicMaterial({ color: '#7d95ff', transparent: true, opacity: 0.95 }));
-    this.scene.add(this.path);
+    this.path = new Mesh(geometry, new MeshBasicMaterial({ color: '#7d95ff', transparent: true, opacity: 0 }));
+    this.sheet.add(this.path);
   }
 
   resize() {
@@ -112,41 +303,14 @@ export default class World {
     this.renderer.setPixelRatio(this.dpr);
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
-    const narrow = w < 768;
-    this.narrow = narrow;
-    this.camera.fov = narrow ? 52 : 36;
-    this.cameraBase.set(0, narrow ? 1.6 : 1.3, narrow ? 13 : 11);
-    this.xScale = narrow ? 0.55 : Math.min(1, w / 1440 + 0.15);
-    this.zShift = narrow ? -3 : 0;
+    this.width = w;
+    this.height = h;
+    const narrow = h > w * 1.15;
+    if (narrow !== this.narrow) {
+      this.narrow = narrow;
+      this.timeline?.measure(narrow);
+    }
     this.camera.updateProjectionMatrix();
-  }
-
-  targets() {
-    const w = Math.max(0, Math.min(worldState.w, CHAPTERS.length - 1));
-    const k = Math.floor(w);
-    const f = w - k;
-    const name = CHAPTERS[k];
-    const next = CHAPTERS[Math.min(k + 1, CHAPTERS.length - 1)];
-    const hold = HOLD[name] ?? 0.55;
-    const morph = smooth(hold, 1, f);
-    const local = clamp01(f / hold);
-
-    const activeService = worldState.serviceActive ?? Math.min(4, Math.floor(local * 5));
-    const from = formationFor(name, activeService, this.narrow);
-    const to = formationFor(next, 0, this.narrow);
-    const blended = from.map((a, i) => {
-      const b = to[i];
-      return {
-        x: lerp(a.x, b.x, morph), y: lerp(a.y, b.y, morph), z: lerp(a.z, b.z, morph),
-        rx: lerp(a.rx, b.rx, morph), ry: lerp(a.ry, b.ry, morph), rz: lerp(a.rz, b.rz, morph),
-        s: lerp(a.s, b.s, morph),
-      };
-    });
-
-    const light = lerp(LIGHT[name] ?? 0, LIGHT[next] ?? 0, morph);
-    const pathWeight = name === 'process' ? 1 - morph : 0;
-    const pathProgress = name === 'process' ? local : 0;
-    return { blended, light, pathWeight, pathProgress };
   }
 
   adaptQuality(dt) {
@@ -165,48 +329,265 @@ export default class World {
     }
   }
 
+  onSheet(x, z, lift, time, out) {
+    const S = this.state;
+    out.p.set(x, sheetHeight(x, z, time, S.wave) + 0.15 + lift, z).applyMatrix4(this.sheet.matrixWorld);
+    out.q.copy(this.sheet.quaternion).multiply(FACE_UP);
+  }
+
+  layout(kind, i, time, out) {
+    const S = this.state;
+    const { obj } = this.tmp;
+    out.scale = 1;
+    out.show = 1;
+    switch (kind) {
+      case 'orbit': {
+        const a = (i / N) * TAU + this.ringAngle;
+        this.tmp.q.setFromAxisAngle(X_AXIS, S.ringTilt * DEG);
+        out.p
+          .set(Math.cos(a) * S.ring, Math.sin(time * 0.7 + i * 1.3) * 0.2, Math.sin(a) * S.ring * S.ringDepth)
+          .applyQuaternion(this.tmp.q)
+          .add(this.tmp.v.set(S.tx, S.ty + S.ringY, S.tz));
+        obj.position.copy(out.p);
+        obj.lookAt(this.tmp.v);
+        obj.rotateY(Math.PI);
+        out.q.copy(obj.quaternion);
+        obj.lookAt(this.camera.position);
+        out.q.slerp(obj.quaternion, S.ringFace);
+        out.scale = S.ringScale;
+        break;
+      }
+      case 'cloud': {
+        out.p.set(
+          S.tx + (hash(i, 1) - 0.5) * 13 + Math.sin(time * 0.17 + i) * 0.5,
+          S.ty + (hash(i, 2) - 0.35) * 5.5 + Math.sin(time * 0.23 + i * 2.1) * 0.35,
+          S.tz + (hash(i, 3) - 0.5) * 11 + Math.cos(time * 0.14 + i * 2.7) * 0.5
+        );
+        out.q.setFromEuler(this.tmp.e.set(
+          (hash(i, 4) - 0.5) * 0.7 + Math.sin(time * 0.15 + i) * 0.15,
+          (hash(i, 5) - 0.5) + Math.sin(time * 0.12 + i * 1.7) * 0.2,
+          Math.sin(time * 0.13 + i * 1.3) * 0.15
+        ));
+        out.scale = 0.8 + hash(i, 6) * 0.45;
+        break;
+      }
+      case 'floor': {
+        const [cx, cz] = FLOOR[i % FLOOR.length];
+        const station = i < STATIONS.length;
+        this.onSheet((cx + 0.5) * CELL, (cz + 0.5) * CELL, station ? 0.12 : 0, time, out);
+        out.scale = station ? 1.12 : 0.78;
+        break;
+      }
+      case 'board': {
+        if (i >= 16) {
+          this.layout('cloud', i, time, out);
+          out.show = 0;
+          break;
+        }
+        const col = i % 4;
+        const row = Math.floor(i / 4);
+        const tile = this.tiles[i];
+        this.onSheet((col - 1.5) * CELL, (row - 1.5) * CELL, tile.focus * 1.1, time, out);
+        out.scale = 1 + tile.focus * 0.18;
+        break;
+      }
+      case 'stack': {
+        const layer = Math.floor(i / 6);
+        const k = i % 6;
+        this.onSheet(((k % 3) - 1) * CELL, (Math.floor(k / 3) - 0.5) * CELL, layer * 2.1 * S.layers, time, out);
+        break;
+      }
+      case 'rise': {
+        const e = ((time * 0.6 + (i / N) * 13) % 13) / 13;
+        const a = i * 2.39996;
+        const r = 1.4 + hash(i, 8) * 5;
+        out.p.set(S.tx + Math.cos(a) * r, S.ty - 4.5 + e * 13, S.tz + Math.sin(a) * r * 0.7);
+        obj.position.copy(out.p);
+        obj.lookAt(this.camera.position);
+        obj.rotateZ(Math.sin(time * 0.25 + i) * 0.2);
+        out.q.copy(obj.quaternion);
+        out.show = smooth(0, 0.15, e) * (1 - smooth(0.75, 1, e));
+        break;
+      }
+      case 'tunnel': {
+        const e = ((time * 0.07 + i / N) % 1);
+        const a = i * 2.39996 + time * 0.08;
+        const r = 2.4 + hash(i, 7) * 2;
+        const dir = this.tmp.v.copy(this.viewDir);
+        const side = this.tmp.v2.crossVectors(dir, UP).normalize();
+        const up = this.tmp.v3.crossVectors(side, dir);
+        out.p.copy(this.camera.position)
+          .addScaledVector(dir, 34 - e * 31)
+          .addScaledVector(side, Math.cos(a) * r)
+          .addScaledVector(up, Math.sin(a) * r);
+        obj.position.copy(out.p);
+        obj.lookAt(this.camera.position);
+        obj.rotateZ(a * 0.3);
+        out.q.copy(obj.quaternion);
+        out.scale = 1.1;
+        out.show = smooth(0, 0.15, e) * (1 - smooth(0.82, 1, e));
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  updateTiles(time, dt, snap) {
+    const { from, to, t } = this.info;
+    let change = 0;
+    for (const k of LAYOUTS) change += Math.abs(to[k] - from[k]);
+    change = Math.min(1, change / 2);
+    const active = worldState.serviceActive ?? 0;
+    const { acc, qa } = this.tmp;
+    const pose = this.pose;
+
+    this.tiles.forEach((tile, i) => {
+      const mix = smooth(0, 1, (t - tile.delay) / 0.5);
+      tile.focus = snap ? (i < SERVICE_COUNT && i === active ? 1 : 0) : damp(tile.focus, i < SERVICE_COUNT && i === active ? 1 : 0, 6, dt);
+      acc.set(0, 0, 0);
+      let total = 0;
+      let weightSum = 0;
+      let scaleSum = 0;
+      for (const k of LAYOUTS) {
+        const goal = from[k] + (to[k] - from[k]) * mix;
+        const w = (tile.weights[k] = snap ? goal : damp(tile.weights[k], goal, 3.5, dt));
+        if (w < 1e-4) continue;
+        this.layout(k, i, time, pose);
+        const wv = w * Math.max(pose.show, 0.001);
+        acc.addScaledVector(pose.p, wv);
+        if (total === 0) qa.copy(pose.q);
+        else qa.slerp(pose.q, wv / (total + wv));
+        total += wv;
+        weightSum += w;
+        scaleSum += w * pose.scale * pose.show;
+      }
+      if (total > 0) acc.divideScalar(total);
+      const lift = Math.sin(Math.PI * mix) * change;
+      acc.y += lift * tile.arc;
+      const scale = weightSum > 0 ? scaleSum / weightSum : 0;
+      tile.scale = snap ? scale : damp(tile.scale, scale, 3, dt);
+      const { mesh } = tile;
+      mesh.position.copy(acc);
+      mesh.quaternion.copy(qa).multiply(this.tmp.q.setFromAxisAngle(X_AXIS, lift * (i % 2 === 0 ? 0.3 : -0.3)));
+      mesh.scale.setScalar(Math.max(tile.scale, 0.001));
+      mesh.visible = tile.scale > 0.01;
+    });
+  }
+
+  placeCamera(time, dt, speed, reduced) {
+    const S = this.state;
+    const tall = Math.max(0, (1.2 * this.height) / Math.max(this.width, 1) - 1);
+    const alive = reduced ? 0 : 1 + S.light * 1.4;
+    const hold = reduced ? 0 : Math.min(this.info.drift, 7) * this.info.dir * 3;
+    const away = 1 - clamp(worldState.intro ?? 1, 0, 1);
+    const fly = away * away * (3 - 2 * away);
+    const azim = (S.azim + hold - fly * 40 + this.pointer.x * 2.5 + Math.sin(time * 0.17) * 1.4 * alive) * DEG;
+    const elev = Math.min(89, S.elev + fly * 28 + this.pointer.y * 1.5 + Math.sin(time * 0.23) * 0.8 * alive) * DEG;
+    const dist = S.dist * (1 + fly * 4.5) * (1 + tall * 0.12) * (1 + Math.sin(time * 0.31 + 0.5) * 0.03 * alive);
+    const target = this.tmp.v2.set(S.tx, S.ty + Math.sin(time * 0.29) * 0.25 * alive, S.tz);
+    this.camera.position
+      .set(Math.cos(elev) * Math.sin(azim), Math.sin(elev), Math.cos(elev) * Math.cos(azim))
+      .multiplyScalar(dist)
+      .add(target);
+    this.camera.lookAt(target);
+    this.camera.rotateZ(S.roll * DEG);
+    this.viewDir = this.viewDir ?? new Vector3();
+    this.camera.getWorldDirection(this.viewDir);
+
+    const fov = (2 * Math.atan(Math.tan(((S.fov + speed) * DEG) / 2) * (1 + tall * 0.35))) / DEG;
+    const offX = -S.pan * Math.max(0, 1 - tall) * this.width * 0.5;
+    const offY = S.panY * this.height * 0.5;
+    if (
+      Math.abs(this.camera.fov - fov) > 0.01 ||
+      Math.abs((this.offX ?? 0) - offX) > 0.5 ||
+      Math.abs((this.offY ?? 0) - offY) > 0.5 ||
+      this.offW !== this.width || this.offH !== this.height
+    ) {
+      this.camera.fov = fov;
+      this.offX = offX;
+      this.offY = offY;
+      this.offW = this.width;
+      this.offH = this.height;
+      this.camera.setViewOffset(this.width, this.height, offX, offY, this.width, this.height);
+    }
+  }
+
   update() {
     const raw = this.clock.getDelta();
     if (raw > 0 && raw < 0.25) this.adaptQuality(raw);
     const dt = Math.min(raw, 0.05);
-    const t = this.clock.elapsedTime;
+    const time = this.clock.elapsedTime;
     const reduced = worldState.reduced;
-    const ease = reduced ? 1 : 1 - Math.exp(-dt * 4.5);
-    const { blended, light, pathWeight, pathProgress } = this.targets();
+    const snap = reduced || this.first;
+    this.first = false;
 
-    this.tiles.forEach(({ mesh, seed }, i) => {
-      const g = blended[i];
-      const bob = reduced ? 0 : Math.sin(t * 0.7 + seed) * 0.07;
-      mesh.position.x += (g.x * this.xScale - mesh.position.x) * ease;
-      mesh.position.y += (g.y + bob - mesh.position.y) * ease;
-      mesh.position.z += (g.z + this.zShift - mesh.position.z) * ease;
-      mesh.rotation.x += (g.rx - mesh.rotation.x) * ease;
-      mesh.rotation.y += (g.ry + (reduced ? 0 : Math.sin(t * 0.4 + seed) * 0.05) - mesh.rotation.y) * ease;
-      mesh.rotation.z += (g.rz - mesh.rotation.z) * ease;
-      const s = mesh.scale.x + (g.s - mesh.scale.x) * ease;
-      mesh.scale.setScalar(s);
-    });
+    this.timeline.sample(window.scrollY, this.narrow, this.target, this.info);
+    const S = this.state;
+    for (const k in this.target) S[k] = snap ? this.target[k] : damp(S[k], this.target[k], 3.2, dt);
 
-    this.lightAmount = (this.lightAmount ?? 0) + (light - (this.lightAmount ?? 0)) * ease;
-    const bg = DARK.clone().lerp(LIGHT_BG, this.lightAmount);
-    this.scene.background.copy(bg);
-    if (Math.abs(this.lightAmount - (this.lastLight ?? -1)) > 0.005) {
-      this.lastLight = this.lightAmount;
-      document.documentElement.style.setProperty('--world-light', this.lightAmount.toFixed(3));
-    }
+    const screens = window.scrollY / Math.max(1, this.height);
+    const v = dt > 0 && this.lastScreens !== undefined ? (screens - this.lastScreens) / dt : 0;
+    this.lastScreens = screens;
+    this.vel = reduced ? 0 : damp(this.vel, clamp(v, -4, 4), 6, dt);
+    const speed = Math.min(Math.abs(this.vel), 3) * 1.1;
+
+    this.pointer.x = damp(this.pointer.x, reduced ? 0 : clamp(worldState.pointer.x, -1, 1), 2, dt);
+    this.pointer.y = damp(this.pointer.y, reduced ? 0 : clamp(worldState.pointer.y, -1, 1), 2, dt);
+
+    this.ringPace = reduced ? 0 : damp(this.ringPace ?? S.ringPace, S.ringPace + this.vel * 0.05, 1.8, dt);
+    this.ringAngle = (this.ringAngle + this.ringPace * dt) % TAU;
+
+    const settled = Math.min(1, S.floor + S.board + S.stack);
+    if (!reduced) this.travel += (S.flow * 0.24 + this.vel * 3 * (1 - settled)) * dt;
+    if (S.flow < 0.5 && Math.abs(this.vel) < 0.05) this.travel = damp(this.travel, Math.round(this.travel / 2) * 2, 3, dt);
+    this.travel = ((this.travel % 12) + 12) % 12;
+
+    this.sheet.position.set(S.gx, S.gy, S.gz);
+    this.sheet.quaternion
+      .setFromAxisAngle(UP, S.gYaw * DEG)
+      .multiply(this.tmp.q.setFromAxisAngle(X_AXIS, S.gPitch * DEG))
+      .multiply(this.tmp.qa.setFromAxisAngle(UP, S.gSpin * DEG));
+    this.sheet.updateMatrixWorld();
+    const u = this.sheet.userData.mesh.material.uniforms;
+    u.uTime.value = reduced ? 0 : time;
+    u.uWave.value = S.wave;
+    u.uCurl.value = S.curl;
+    u.uFlow.value = this.travel;
+    u.uLight.value = S.light;
+    u.uOpacity.value = S.grid;
+    u.uLine.value.copy(LINE_DARK).lerp(LINE_LIGHT, S.light);
+
+    this.placeCamera(time, dt, speed, reduced);
+    this.updateTiles(reduced ? 0 : time, dt, snap);
+
+    const bg = this.scene.background.copy(DARK).lerp(LIGHT_BG, S.light);
     this.scene.fog.color.copy(bg);
-    this.grid.material.uniforms.uLine.value.copy(LINE_DARK).lerp(LINE_LIGHT, this.lightAmount);
-    this.grid.material.uniforms.uOpacity.value = lerp(0.9, 0.55, this.lightAmount);
+    if (Math.abs(S.light - (this.lastLight ?? -1)) > 0.005) {
+      this.lastLight = S.light;
+      document.documentElement.style.setProperty('--world-light', S.light.toFixed(3));
+    }
+    this.sky.position.copy(this.camera.position);
+    this.sky.material.uniforms.uStrength.value = clamp((S.sky + 1.6) / 2.1, 0, 1) * (1 - S.light) * 0.9;
+    const su = this.starUniforms;
+    if (!reduced) this.starTravel = (this.starTravel + (0.9 + this.vel * 13 + (1 - clamp(worldState.intro ?? 1, 0, 1)) * 70) * dt) % 9000;
+    su.uTravel.value = this.starTravel;
+    su.uStreak.value = reduced ? 0 : clamp(this.vel * 0.8 + (1 - clamp(worldState.intro ?? 1, 0, 1)) * 5, -5, 5);
+    su.uTime.value = reduced ? 0 : time;
+    su.uOpacity.value = (0.45 + S.dust * 0.55) * (1 - S.light);
+    su.uYaw.value = (S.azim + Math.min(this.info.drift, 7) * this.info.dir * 3) / 90;
+    su.uPitch.value = S.elev / 90;
+    su.uScale.value = (this.height * this.renderer.getPixelRatio() * 0.5) / Math.tan((this.camera.fov * DEG) / 2);
+    this.dust.visible = su.uOpacity.value > 0.01;
+    this.streaks.visible = this.dust.visible && Math.abs(su.uStreak.value) > 0.6;
 
-    const drawn = Math.floor(this.pathCount * pathProgress * pathWeight);
+    const w = Math.max(0, Math.min(worldState.w, CHAPTERS.length - 1));
+    const k = Math.floor(w);
+    const progress = CHAPTERS[k] === 'process' ? clamp((w - k) / 0.7, 0, 1) : CHAPTERS[k] === 'work' ? 1 : 0;
+    const drawn = Math.floor(this.pathCount * progress);
     this.path.geometry.setDrawRange(0, drawn - (drawn % 3));
-    this.path.visible = drawn > 0;
-
-    const px = reduced ? 0 : worldState.pointer.x * 0.35;
-    const py = reduced ? 0 : worldState.pointer.y * 0.2;
-    this.camera.position.set(this.cameraBase.x + px, this.cameraBase.y + py, this.cameraBase.z);
-    this.camera.lookAt(this.lookAt);
-    this.grid.material.uniforms.uCamera.value.copy(this.camera.position);
+    this.path.material.opacity = S.path * 0.95;
+    this.path.visible = drawn > 0 && S.path > 0.02;
 
     this.renderer.render(this.scene, this.camera);
   }
@@ -227,9 +608,11 @@ export default class World {
   dispose() {
     cancelAnimationFrame(this.raf);
     document.removeEventListener('visibilitychange', this.onVisibility);
+    const seen = new Set();
     this.scene.traverse((o) => {
-      o.geometry?.dispose();
-      if (o.material) {
+      if (o.geometry && !seen.has(o.geometry)) { seen.add(o.geometry); o.geometry.dispose(); }
+      if (o.material && !seen.has(o.material)) {
+        seen.add(o.material);
         o.material.map?.dispose();
         o.material.dispose();
       }

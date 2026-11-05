@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Split from './site/Split';
 import { ChevronDown, Plus, Minus } from 'lucide-react';
 import { sound } from '../utils/audio';
 
@@ -38,11 +39,10 @@ export default function FaqSection() {
   };
 
   return (
-    <section id="faq" className="relative py-32 sm:py-40 px-5 sm:px-8">
-      <div className="mx-auto max-w-3xl">
-        <h2 data-reveal className="font-display text-white text-[clamp(2.2rem,4.2vw,4rem)] leading-[1] tracking-[-0.04em] text-balance">
-          Questions founders ask us.
-        </h2>
+    <section id="faq" data-kf="faq" className="relative">
+      <div data-depth className="min-h-[100svh] flex items-center py-28 sm:py-32 px-5 sm:px-8">
+      <div className="w-full mx-auto max-w-3xl">
+        <Split lines={['Questions founders ask us.']} className="font-display text-white text-[clamp(2.2rem,4.2vw,4rem)] leading-[1] tracking-[-0.04em] text-balance" />
         <p data-reveal className="mt-5 text-[17px] leading-relaxed text-[#b6bccb]">
           Cost, process and ownership, answered plainly.
         </p>
@@ -53,7 +53,7 @@ export default function FaqSection() {
             const panelId = `faq-panel-${i}`;
             const buttonId = `faq-button-${i}`;
             return (
-              <div key={item.q} className="border-b border-white/[0.14] bg-[#05060a]/70 backdrop-blur-[2px]">
+              <div key={item.q} className="stagger-item border-b border-white/[0.14] bg-[#05060a]/70 backdrop-blur-[2px]" style={{ '--i': i + 2 }}>
                 <h3>
                   <button
                     id={buttonId}
@@ -79,6 +79,7 @@ export default function FaqSection() {
             );
           })}
         </div>
+      </div>
       </div>
     </section>
   );

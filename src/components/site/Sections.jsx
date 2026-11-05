@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Split from './Split';
 import { ArrowRight, ArrowDown } from 'lucide-react';
 import { SERVICES_DATA } from '../../data/services';
 import { scrollToId } from '../../world/useWorldScroll';
@@ -31,7 +32,8 @@ function useStickyProgress(ref) {
 
 export function Welcome({ onBook }) {
   return (
-    <section id="welcome" className="relative min-h-[100svh] flex items-end">
+    <section id="welcome" data-kf="welcome" className="relative">
+      <div data-depth className="min-h-[100svh] flex items-end">
       <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 pb-24 sm:pb-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
         <h1 className="min-w-0 font-display font-normal text-white text-[clamp(3rem,6.9vw,8.4rem)] leading-[0.94] tracking-[-0.045em]">
           <span className="line-mask"><span data-line>Your whole launch,</span></span>
@@ -51,20 +53,18 @@ export function Welcome({ onBook }) {
           </div>
         </div>
       </div>
+      </div>
     </section>
   );
 }
 
 export function About() {
   return (
-    <section id="about" className="relative min-h-[180vh]">
-      <div className="sticky top-0 min-h-[100svh] flex items-center justify-center px-5">
+    <section id="about" data-kf="about" className="relative min-h-[200vh]">
+      <span data-kf="about-wide" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '55%' }} />
+      <div data-depth className="sticky top-0 min-h-[100svh] flex items-center justify-center px-5">
         <div className="max-w-4xl text-center">
-          <h2 data-reveal className="font-display text-white text-[clamp(2.6rem,6.2vw,6.4rem)] leading-[0.98] tracking-[-0.04em]">
-            Designed with care.
-            <br />
-            Built to be used.
-          </h2>
+          <Split lines={['Designed with care.', 'Built to be used.']} className="font-display text-white text-[clamp(2.6rem,6.2vw,6.4rem)] leading-[0.98] tracking-[-0.04em]" />
           <p data-reveal className="mt-8 mx-auto max-w-xl text-[17px] leading-relaxed text-[#b6bccb]">
             Nebulyx designs, builds and grows launches for founders. Design, engineering, AI and growth sit in one team, so nothing gets lost between agencies.
           </p>
@@ -97,18 +97,22 @@ export function Services({ onBookService }) {
   };
 
   return (
-    <section id="services" ref={ref} className="relative min-h-[520vh]">
-      <div className="sticky top-0 min-h-[100svh] flex items-start lg:items-center pt-24 lg:pt-0">
+    <section id="services" data-kf="services" ref={ref} className="relative min-h-[440vh]">
+      <span data-kf="services-turn" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '70%' }} />
+      <div data-depth className="sticky top-0 min-h-[100svh] flex items-start lg:items-center pt-24 lg:pt-0 overflow-hidden">
+        <span
+          key={`n${active}`}
+          aria-hidden="true"
+          className="service-num pointer-events-none select-none absolute right-[2vw] bottom-[2vh] font-display font-medium leading-[0.8] tracking-[-0.07em] text-[44vw] lg:text-[26vw] text-white/[0.05]"
+        >
+          {String(active + 1).padStart(2, '0')}
+        </span>
         <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
-            <h2 className="font-display text-white text-[clamp(2.2rem,4.4vw,4.4rem)] leading-[0.98] tracking-[-0.04em]">
-              Five services.
-              <br />
-              One team.
-            </h2>
+            <Split lines={['Five services.', 'One team.']} className="font-display text-white text-[clamp(2.2rem,4.4vw,4.4rem)] leading-[0.98] tracking-[-0.04em]" />
             <ol className="mt-10 space-y-1 hidden lg:block" aria-label="Services">
               {SERVICES_DATA.map((item, i) => (
-                <li key={item.id}>
+                <li key={item.id} className="stagger-item" style={{ '--i': i + 1 }}>
                   <button
                     type="button"
                     onClick={() => jump(i)}
@@ -129,7 +133,7 @@ export function Services({ onBookService }) {
               <p className="mt-4 text-[16px] leading-relaxed text-[#b6bccb]">{s.summary}</p>
               <ul className="mt-6 space-y-2.5">
                 {s.highlights.slice(0, 4).map((h, hi) => (
-                  <li key={h} className={`flex gap-3 text-[15px] text-[#d5d9e3] ${hi > 1 ? 'hidden sm:flex' : ''}`}>
+                  <li key={h} className={`service-line flex gap-3 text-[15px] text-[#d5d9e3] ${hi > 1 ? 'hidden sm:flex' : ''}`} style={{ animationDelay: `${(0.14 + hi * 0.07).toFixed(2)}s` }}>
                     <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#3a5bff] shrink-0" aria-hidden="true" />
                     {h}
                   </li>
@@ -159,23 +163,25 @@ export function Process() {
   const active = Math.min(STEPS.length - 1, Math.floor((p / 0.85) * STEPS.length));
 
   return (
-    <section id="process" ref={ref} className="relative min-h-[360vh]">
-      <div className="sticky top-0 min-h-[100svh] flex flex-col justify-between pt-28 pb-24 sm:pb-28">
+    <section id="process" data-kf="process" ref={ref} className="relative min-h-[290vh]">
+      <span data-kf="process-turn" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '62%' }} />
+      <div data-depth className="sticky top-0 min-h-[100svh] flex flex-col justify-between pt-28 pb-24 sm:pb-28">
         <div className="mx-auto max-w-4xl px-5 text-center">
-          <h2 className="font-display text-white text-[clamp(2.4rem,5.6vw,5.6rem)] leading-[0.98] tracking-[-0.04em]">
-            From first call
-            <br />
-            to handover.
-          </h2>
+          <Split lines={['From first call', 'to handover.']} className="font-display text-white text-[clamp(2.4rem,5.6vw,5.6rem)] leading-[0.98] tracking-[-0.04em]" />
           <p className="mt-6 mx-auto max-w-lg text-[17px] leading-relaxed text-[#b6bccb]">
             One fixed-length sprint, four steps, no surprises at the end.
           </p>
         </div>
-        <ol className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8">
+        <div aria-hidden="true" className="relative h-[2px] mb-8 bg-white/15 hidden lg:block lg:ml-28">
+          <span className="absolute inset-y-0 left-0 bg-[#3a5bff] shadow-[0_0_14px_#3a5bff]" style={{ width: `${Math.min(100, (p / 0.85) * 100).toFixed(2)}%` }} />
+          <span className="absolute top-1/2 w-2 h-2 -mt-1 -ml-1 bg-white shadow-[0_0_16px_#8fa2ff]" style={{ left: `${Math.min(100, (p / 0.85) * 100).toFixed(2)}%` }} />
+        </div>
+        <ol className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {STEPS.map((step, i) => (
-            <li key={step.key} className={`transition-colors duration-500 ${i === 0 ? 'lg:pl-28' : ''}`}>
+            <li key={step.key} className={`stagger-item transition-colors duration-500 ${i === 0 ? 'lg:pl-28' : ''}`} style={{ '--i': i + 1 }}>
               <div className="flex items-center gap-3 font-mono text-[12px] tracking-[0.12em] uppercase">
-                <span className={`grid place-items-center w-7 h-7 ${i <= active ? 'bg-[#3a5bff] text-white' : 'border border-white/25 text-[#b6bccb]'}`}>
+                <span className={`grid place-items-center w-7 h-7 transition-transform duration-500 ${i === active ? 'scale-125 shadow-[0_0_18px_#3a5bff]' : ''} ${i <= active ? 'bg-[#3a5bff] text-white' : 'border border-white/25 text-[#b6bccb]'}`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className={i <= active ? 'text-white' : 'text-[#8a91a3]'}>{step.key}</span>
@@ -185,6 +191,7 @@ export function Process() {
             </li>
           ))}
         </ol>
+        </div>
       </div>
     </section>
   );
@@ -240,42 +247,154 @@ function FlowDiagram({ steps, branch }) {
   );
 }
 
+function useNarrow() {
+  const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const on = () => setNarrow(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return narrow;
+}
+
+const clamp01 = (v) => Math.min(1, Math.max(0, v));
+const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+const easeIn = (t) => t * t * t;
+const PANEL_START = 0.1;
+const PANEL_STEP = 0.27;
+const PANEL_SPAN = 0.42;
+
+function panelFlight(i, p, vw, narrow) {
+  const s = (p - PANEL_START - i * PANEL_STEP) / PANEL_SPAN;
+  if (s <= 0 || s >= 1) return { s, style: { visibility: 'hidden' } };
+  const a = easeOut(clamp01(s / 0.34));
+  const q = easeIn(clamp01((s - 0.72) / 0.28));
+  const side = i % 2 === 0 ? 1 : -1;
+  const reach = narrow ? 0.45 : 0.3;
+  const x = side * vw * (reach * (1 - a) + (narrow ? 0.9 : 0.8) * q);
+  const y = 70 * (1 - a) - 30 * q;
+  const z = -2600 * (1 - a) + 650 * q;
+  const ry = -side * (46 * (1 - a) + 30 * q);
+  const rx = 8 * (1 - a);
+  const opacity = Math.min(1, clamp01(s / 0.34) * 2.5) * (1 - clamp01((q - 0.12) / 0.55));
+  return {
+    s,
+    style: {
+      opacity,
+      zIndex: Math.round(3000 + z),
+      transform: `translate(-50%, -50%) translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) rotateX(${rx.toFixed(2)}deg)`,
+    },
+  };
+}
+
+function useViewportWidth() {
+  const [w, setW] = useState(() => (typeof window === 'undefined' ? 1440 : window.innerWidth));
+  useEffect(() => {
+    const on = () => setW(window.innerWidth);
+    window.addEventListener('resize', on);
+    return () => window.removeEventListener('resize', on);
+  }, []);
+  return w;
+}
+
 export function Work() {
+  const ref = useRef(null);
+  const p = useStickyProgress(ref);
+  const narrow = useNarrow();
+  const vw = useViewportWidth();
+  const reduced = worldState.reduced;
+  const h = reduced ? 0 : easeIn(clamp01(p / PANEL_START));
+  const flights = SAMPLES.map((_, i) => panelFlight(i, p, vw, narrow));
+  let active = 0;
+  flights.forEach((f, i) => { if (f.s > 0.2 && f.s < 1) active = i; });
+
   return (
-    <section id="work" className="relative work-room py-32 sm:py-44">
-      <div className="mx-auto max-w-[1600px] px-5 sm:px-8">
-        <div className="max-w-3xl">
-          <h2 data-reveal className="font-display text-[#0b0d12] text-[clamp(2.4rem,5.6vw,5.6rem)] leading-[0.98] tracking-[-0.04em]">
-            What a sprint
-            <br />
-            looks like.
-          </h2>
-          <p data-reveal className="mt-6 max-w-lg text-[17px] leading-relaxed text-[#454b5a]">
+    <section id="work" data-kf="work" ref={ref} className={`relative work-room ${reduced ? '' : 'min-h-[400vh]'}`}>
+      <span data-kf="work-fly" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '52%' }} />
+      <div data-depth className={`${reduced ? 'py-28' : 'sticky top-0 h-[100svh] overflow-hidden'} flex flex-col justify-center`}>
+        <div
+          className="w-full mx-auto max-w-[1600px] px-5 sm:px-8"
+          style={reduced ? undefined : {
+            opacity: 1 - h,
+            transform: `scale(${(1 + h * 1.6).toFixed(3)})`,
+            filter: h > 0.01 ? `blur(${(h * 12).toFixed(1)}px)` : undefined,
+            transformOrigin: '30% 50%',
+          }}
+        >
+          <Split lines={['What a sprint', 'looks like.']} className="font-display text-[#0b0d12] text-[clamp(2.6rem,7vw,7.4rem)] leading-[0.95] tracking-[-0.045em]" />
+          <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-[#454b5a]">
             Illustrative examples of what one sprint can deliver. Every real project is scoped with the founder first.
           </p>
+          {!reduced && <p className="mt-10 font-mono text-[11px] tracking-[0.16em] uppercase text-[#7f8799]">Scroll to fly through three samples</p>}
         </div>
-        <div className="mt-16 grid md:grid-cols-3 gap-6 [perspective:1400px]">
-          {SAMPLES.map((s, i) => (
-            <article
-              key={s.title}
-              data-reveal
-              className="sample-card bg-white text-[#0b0d12] p-6 sm:p-7"
-              style={{ '--tilt': `${(i - 1) * 4}deg` }}
+
+        {reduced ? (
+          <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 mt-12 grid gap-6">
+            {SAMPLES.map((s, i) => <SamplePanel key={s.title} sample={s} index={i} reveal={1} drift={0} />)}
+          </div>
+        ) : (
+          <div className="absolute inset-0 [perspective:1100px] [transform-style:preserve-3d]">
+            {SAMPLES.map((s, i) => {
+              const f = flights[i];
+              const reveal = easeOut(clamp01((f.s - 0.24) / 0.2));
+              return (
+                <div key={s.title} className="absolute left-1/2 top-1/2 w-[min(88vw,1040px)] will-change-transform" style={f.style}>
+                  <SamplePanel sample={s} index={i} reveal={reveal} drift={f.s - 0.55} />
+                </div>
+              );
+            })}
+            <div
+              className="absolute left-1/2 -translate-x-1/2 w-[min(88vw,520px)] bottom-20 sm:bottom-8 flex items-center justify-center gap-4 font-mono text-[11px] tracking-[0.16em] uppercase text-[#454b5a]"
+              style={{ opacity: clamp01((p - PANEL_START) * 12) * (1 - clamp01((p - 0.9) * 10)) }}
             >
-              <div className="flex justify-end">
-                <span className="px-2 py-1 bg-[#0b0d12] text-white font-mono text-[11px] tracking-[0.14em] uppercase">Sample</span>
-              </div>
-              <div className="mt-4 bg-[#f1f3f8] p-4">
-                <FlowDiagram steps={s.steps} branch={s.branch} />
-              </div>
-              <h3 className="mt-6 text-[22px] leading-tight tracking-[-0.02em] font-medium">{s.title}</h3>
-              <p className="mt-1 text-[13px] text-[#3a5bff]">{s.tags}</p>
-              <p className="mt-2 text-[15px] leading-relaxed text-[#454b5a]">{s.text}</p>
-            </article>
-          ))}
-        </div>
+              <span className="tabular-nums">{String(active + 1).padStart(2, '0')} / {String(SAMPLES.length).padStart(2, '0')}</span>
+              <span className="relative flex-1 max-w-[240px] h-px bg-[#0b0d12]/15">
+                <span className="absolute inset-y-0 left-0 bg-[#3a5bff]" style={{ width: `${(clamp01((p - PANEL_START) / (1 - PANEL_START - 0.06)) * 100).toFixed(1)}%` }} />
+              </span>
+              <span className="hidden sm:inline">{SAMPLES[active].tags}</span>
+            </div>
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+function SamplePanel({ sample, index, reveal, drift }) {
+  const n = String(index + 1).padStart(2, '0');
+  return (
+    <article className="sample-card relative overflow-hidden bg-white text-[#0b0d12] p-6 sm:p-10 grid md:grid-cols-[1.05fr_1fr] gap-6 md:gap-10 items-center">
+      <span
+        aria-hidden="true"
+        className="absolute -right-4 -bottom-10 font-display font-medium leading-none tracking-[-0.06em] text-[clamp(8rem,22vw,20rem)] text-[#0b0d12]/[0.05] select-none"
+        style={{ transform: `translateX(${(drift * 220).toFixed(1)}px)` }}
+      >
+        {n}
+      </span>
+      <div className="relative">
+        <div className="flex items-center gap-3 font-mono text-[11px] tracking-[0.16em] uppercase text-[#7f8799]">
+          <span>{n} / 03</span>
+          <span className="px-2 py-1 bg-[#0b0d12] text-white">Sample</span>
+        </div>
+        <h3
+          className="mt-5 font-display text-[clamp(1.9rem,3.6vw,3.4rem)] leading-[1] tracking-[-0.035em]"
+          style={{ clipPath: `inset(0 ${((1 - reveal) * 100).toFixed(1)}% 0 0)` }}
+        >
+          {sample.title}
+        </h3>
+        <p className="mt-3 text-[13px] text-[#3a5bff]" style={{ opacity: reveal }}>{sample.tags}</p>
+        <p
+          className="mt-3 max-w-md text-[15px] sm:text-[16px] leading-relaxed text-[#454b5a]"
+          style={{ opacity: reveal, transform: `translateY(${((1 - reveal) * 16).toFixed(1)}px)` }}
+        >
+          {sample.text}
+        </p>
+      </div>
+      <div className="relative bg-[#f1f3f8] p-4 sm:p-6" style={{ transform: `translateX(${(drift * -70).toFixed(1)}px)` }}>
+        <FlowDiagram steps={sample.steps} branch={sample.branch} />
+      </div>
+    </article>
   );
 }
 
@@ -290,21 +409,18 @@ const CAPABILITIES = [
 
 export function Studio() {
   return (
-    <section id="studio" className="relative min-h-[150vh]">
-      <div className="sticky top-0 min-h-[100svh] flex items-center">
+    <section id="studio" data-kf="studio" className="relative min-h-[190vh]">
+      <span data-kf="studio-orbit" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '50%' }} />
+      <div data-depth className="sticky top-0 min-h-[100svh] flex items-center">
         <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-6">
-            <h2 data-reveal className="font-display text-white text-[clamp(2.6rem,6vw,6rem)] leading-[0.96] tracking-[-0.04em]">
-              One team.
-              <br />
-              Every service.
-            </h2>
+            <Split lines={['One team.', 'Every service.']} className="font-display text-white text-[clamp(2.6rem,6vw,6rem)] leading-[0.96] tracking-[-0.04em]" />
             <p data-reveal className="mt-6 max-w-md text-[17px] leading-relaxed text-[#b6bccb]">
               Every skill a launch needs, in one senior team. Faster decisions, one plan, nothing lost between vendors.
             </p>
             <dl className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-6 max-w-2xl">
-              {CAPABILITIES.map(([t, d]) => (
-                <div key={t} data-reveal>
+              {CAPABILITIES.map(([t, d], ci) => (
+                <div key={t} className="stagger-item" style={{ '--i': ci + 2 }}>
                   <dt className="text-white text-[17px] pt-3 border-t border-white/[0.14]">{t}</dt>
                   <dd className="mt-1 text-[14px] leading-relaxed text-[#9aa1b2]">{d}</dd>
                 </div>
@@ -319,17 +435,14 @@ export function Studio() {
 
 export function Contact({ onBook }) {
   return (
-    <section id="contact" className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
+    <section id="contact" data-kf="contact" className="relative">
+      <div data-depth className="min-h-[100svh] flex flex-col justify-end overflow-hidden">
       <div className="mx-auto w-full max-w-[1600px] px-5 sm:px-8 pt-32">
-        <h2 data-reveal className="font-display text-white text-[clamp(2.6rem,6vw,6.2rem)] leading-[0.96] tracking-[-0.04em]">
-          Your launch,
-          <br />
-          built by one team.
-        </h2>
+        <Split lines={['Your launch,', 'built by one team.']} className="font-display text-white text-[clamp(2.6rem,6vw,6.2rem)] leading-[0.96] tracking-[-0.04em]" />
         <p data-reveal className="mt-6 max-w-md text-[17px] leading-relaxed text-[#b6bccb]">
           Tell us what you want to build and when. We'll reply with a written scope, timeline and price. No commitment until you approve them.
         </p>
-        <button type="button" onClick={onBook} className="btn-primary h-12 px-5 text-sm mt-8">
+        <button type="button" onClick={onBook} className="stagger-item btn-primary h-12 px-5 text-sm mt-8" style={{ '--i': 3 }}>
           Book a scoping call <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </button>
         <footer className="mt-20 flex flex-wrap gap-x-8 gap-y-2 text-[13px] text-[#9aa1b2]">
@@ -339,7 +452,10 @@ export function Contact({ onBook }) {
         </footer>
       </div>
       <div aria-hidden="true" className="wordmark mt-6 font-display font-medium text-white leading-[0.78] tracking-[-0.06em] text-center select-none">
-        NEBULYX
+        {'NEBULYX'.split('').map((ch, i) => (
+          <span key={i} className="wm-char" style={{ '--i': i }}>{ch}</span>
+        ))}
+      </div>
       </div>
     </section>
   );
