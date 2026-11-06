@@ -6,10 +6,10 @@ export default function ChapterTag({ chapter }) {
   const last = chapter === CHAPTER_LABELS.length - 1;
   return (
     <div
-      className={`fixed left-4 sm:left-8 bottom-4 sm:bottom-5 z-30 flex items-stretch world-ink transition-opacity duration-500 ${last ? 'opacity-0' : 'opacity-100'}`}
+      className={`world-chrome fixed left-4 sm:left-8 bottom-4 sm:bottom-5 z-30 flex items-stretch world-ink transition-opacity duration-500 ${last ? 'opacity-0' : 'opacity-100'}`}
       aria-hidden="true"
     >
-      <span className="grid place-items-center w-9 sm:w-10 bg-[#3a5bff] text-white font-mono text-[12px] overflow-hidden">
+      <span className="tag-cut grid place-items-center w-11 sm:w-12 bg-[#3a5bff] text-white font-mono text-[12px] overflow-hidden">
         <span key={chapter} className="tag-roll">{String(chapter).padStart(2, '0')}</span>
       </span>
       <span className="hidden sm:block px-3 py-1.5 border border-current/20 font-mono uppercase leading-tight">

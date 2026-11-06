@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { worldState } from './store';
 
 function hasWebGL() {
   try {
@@ -17,6 +18,7 @@ export default function WorldCanvas() {
     if (!hasWebGL()) {
       setFallback(true);
       document.documentElement.dataset.webgl = 'off';
+      worldState.ready = true;
       return undefined;
     }
     document.documentElement.dataset.webgl = 'on';
@@ -28,12 +30,18 @@ export default function WorldCanvas() {
       try {
         world = new World(canvasRef.current);
         world.start();
+        worldState.ready = true;
         if (import.meta.env.DEV) window.__world = world;
         window.addEventListener('resize', onResize);
       } catch {
         setFallback(true);
         document.documentElement.dataset.webgl = 'off';
+        worldState.ready = true;
       }
+    }).catch(() => {
+      setFallback(true);
+      document.documentElement.dataset.webgl = 'off';
+      worldState.ready = true;
     });
     return () => {
       disposed = true;
@@ -43,7 +51,7 @@ export default function WorldCanvas() {
   }, []);
 
   return (
-    <div aria-hidden="true" className="fixed inset-0 -z-10 pointer-events-none">
+    <div aria-hidden="true" className="fixed top-0 inset-x-0 h-[100lvh] -z-10 pointer-events-none">
       {fallback ? (
         <div className="world-fallback absolute inset-0" />
       ) : (
