@@ -42,7 +42,7 @@ export default function FaqSection() {
     <section id="faq" data-kf="faq" className="relative">
       <div data-depth className="min-h-[100svh] flex items-center py-28 sm:py-32 px-5 sm:px-8">
       <div className="w-full mx-auto max-w-3xl">
-        <Split lines={['Questions founders ask us.']} className="font-display text-white text-[clamp(2.2rem,4.2vw,4rem)] leading-[1] tracking-[-0.04em] text-balance" />
+        <Split lines={['Questions founders ask us.']} className="font-display font-medium text-white text-[clamp(2.2rem,4.2vw,4rem)] leading-[1] tracking-[-0.02em] text-balance" />
         <p data-reveal className="mt-5 text-[17px] leading-relaxed text-[#b6bccb]">
           Cost, process and ownership, answered plainly.
         </p>

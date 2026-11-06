@@ -1,6 +1,6 @@
 import {
-  AdditiveBlending, BackSide, BufferAttribute, BufferGeometry, CatmullRomCurve3, Clock, Color,
-  DirectionalLight, Euler, Fog, Group, LineSegments, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D,
+  AdditiveBlending, BackSide, BufferAttribute, BufferGeometry, CanvasTexture, CatmullRomCurve3, EdgesGeometry, ExtrudeGeometry, LineBasicMaterial, Shape, ShapeGeometry, Sprite, SpriteMaterial, Clock, Color,
+  DirectionalLight, DoubleSide, Euler, Fog, Group, LineSegments, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, Object3D,
   PerspectiveCamera, PlaneGeometry, PMREMGenerator, Points, PointsMaterial, Quaternion, Scene,
   ShaderMaterial, SphereGeometry, SRGBColorSpace, ACESFilmicToneMapping, TubeGeometry, Vector3,
   WebGLRenderer,
@@ -12,6 +12,7 @@ import { iconTexture, SERVICE_ICONS, EXTRA_ICONS } from './icons';
 import { CHAPTERS, SERVICE_COUNT, TILE_COUNT } from './formations';
 import { DEFAULTS, LAYOUTS, createTimeline } from './frames';
 import { worldState } from './store';
+import { LOW_POWER } from './quality';
 
 const DARK = new Color('#05060a');
 const LIGHT_BG = new Color('#eceef3');
@@ -36,6 +37,39 @@ const FLOOR = [
   [6, 3], [-1, 5], [3, -6], [-3, -3], [1, -7], [-6, -6],
 ];
 const STATIONS = FLOOR.slice(0, 4);
+
+const LOGO_CX = 54;
+const LOGO_CY = 53;
+const LOGO_SIZE = 0.046;
+const LOGO_DROP = 0.7;
+const LOGO_GLOW = 300;
+const STAR_COUNT = LOW_POWER ? 900 : 2200;
+const MAX_DPR = LOW_POWER ? 1.5 : 1.75;
+const MIN_DPR = LOW_POWER ? 0.85 : 1;
+const QUALITY_WINDOW = LOW_POWER ? 45 : 90;
+const INTRO_ROLL = LOW_POWER ? 110 : 220;
+const INTRO_FOV = 52;
+const INTRO_SPIN = 7.85;
+const TUNNEL_COUNT = LOW_POWER ? 8 : 16;
+const TUNNEL_GAP = LOW_POWER ? 14 : 7;
+const TUNNEL_SCALE = 0.13;
+const TUNNEL_TWIST = 0.14;
+const TUNNEL_SPEED = 0.42;
+
+function logoShape(points) {
+  const s = new Shape();
+  points.forEach(([x, y], i) => (i ? s.lineTo(x - LOGO_CX, LOGO_CY - y) : s.moveTo(x - LOGO_CX, LOGO_CY - y)));
+  s.closePath();
+  return s;
+}
+
+function landingKick(intro) {
+  return intro > 0.82 && intro < 1 ? Math.sin((Math.PI * (intro - 0.82)) / 0.18) : 0;
+}
+const LOGO_GLOW_ALPHA = 0.55;
+const LOGO_LEFT = [[12, 20], [36, 6], [36, 74], [12, 88]];
+const LOGO_DIAGONAL = [[36, 28], [76, 80], [76, 100], [36, 48]];
+const LOGO_RIGHT = [[76, 34], [96, 20], [96, 88], [76, 100]];
 
 const UP = new Vector3(0, 1, 0);
 const X_AXIS = new Vector3(1, 0, 0);
@@ -63,7 +97,7 @@ const skyFragment = /* glsl */ `
 export default class World {
   constructor(canvas) {
     this.canvas = canvas;
-    this.renderer = new WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+    this.renderer = new WebGLRenderer({ canvas, antialias: !LOW_POWER, powerPreference: 'high-performance' });
     this.renderer.outputColorSpace = SRGBColorSpace;
     this.renderer.toneMapping = ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 0.92;
@@ -90,6 +124,8 @@ export default class World {
     this.scene.add(this.sheet);
     this.buildTiles();
     this.buildPath();
+    this.buildLogo();
+    this.buildTunnel();
 
     this.timeline = createTimeline();
     this.target = { ...DEFAULTS };
@@ -129,7 +165,7 @@ export default class World {
   }
 
   buildDust() {
-    const count = 2200;
+    const count = STAR_COUNT;
     const seeds = new Float32Array(count * 3);
     const lineSeeds = new Float32Array(count * 6);
     const tails = new Float32Array(count * 2);
@@ -245,14 +281,14 @@ export default class World {
   }
 
   buildTiles() {
-    const geometry = new RoundedBoxGeometry(1, 1, 0.22, 4, 0.16);
+    const geometry = new RoundedBoxGeometry(1, 1, 0.22, LOW_POWER ? 2 : 4, 0.16);
     const faceGeometry = new PlaneGeometry(0.86, 0.86);
     const icons = [...SERVICE_ICONS, ...EXTRA_ICONS];
     const material = new MeshPhysicalMaterial({
       color: TILE_BLUE,
       metalness: 0,
       roughness: 0.42,
-      clearcoat: 1,
+      clearcoat: LOW_POWER ? 0 : 1,
       clearcoatRoughness: 0.06,
       envMapIntensity: 0.32,
       emissive: new Color('#0a21c8'),
@@ -284,11 +320,92 @@ export default class World {
     this.tmp = { obj: new Object3D(), v: new Vector3(), v2: new Vector3(), q: new Quaternion(), e: new Euler(), acc: new Vector3(), v3: new Vector3(), qa: new Quaternion() };
   }
 
+  buildLogo() {
+    const shape = logoShape;
+    const extrude = { depth: 9, bevelEnabled: true, bevelThickness: 1.2, bevelSize: 0.9, bevelSegments: LOW_POWER ? 1 : 3 };
+    this.renderer.transmissionResolutionScale = 0.5;
+    const solid = new MeshPhysicalMaterial(LOW_POWER ? {
+      color: '#3a5bff', metalness: 0.2, roughness: 0.12, envMapIntensity: 1.6,
+      emissive: new Color('#3a5bff'), emissiveIntensity: 0.4,
+      transparent: true, opacity: 0.82,
+    } : {
+      color: '#dfe6ff', metalness: 0, roughness: 0.06, transmission: 1, ior: 1.5, thickness: 1.4,
+      attenuationColor: new Color('#3a5bff'), attenuationDistance: 5,
+      clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.6,
+      emissive: new Color('#3a5bff'), emissiveIntensity: 0.34,
+    });
+    const light = new MeshPhysicalMaterial({
+      color: '#e8edff', metalness: 1, roughness: 0.1, envMapIntensity: 1.8,
+      clearcoat: LOW_POWER ? 0 : 1, clearcoatRoughness: 0.05,
+    });
+    this.logo = new Group();
+    this.logo.add(
+      new Mesh(new ExtrudeGeometry([shape(LOGO_LEFT), shape(LOGO_RIGHT)], extrude), solid),
+      new Mesh(new ExtrudeGeometry(shape(LOGO_DIAGONAL), extrude), light),
+    );
+    this.logo.children.forEach((m) => m.geometry.translate(0, 0, -4.5));
+    this.scene.add(this.logo);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 256;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    const glow = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+    glow.addColorStop(0, 'rgba(90, 120, 255, 1)');
+    glow.addColorStop(0.4, 'rgba(58, 91, 255, 0.35)');
+    glow.addColorStop(1, 'rgba(58, 91, 255, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, 256, 256);
+    this.logoGlow = new Sprite(new SpriteMaterial({
+      map: new CanvasTexture(canvas),
+      blending: AdditiveBlending,
+      transparent: true,
+      depthWrite: false,
+      fog: false,
+    }));
+    this.logoGlow.renderOrder = -1;
+    this.scene.add(this.logoGlow);
+  }
+
+  buildTunnel() {
+    const geometry = new ShapeGeometry([logoShape(LOGO_LEFT), logoShape(LOGO_DIAGONAL), logoShape(LOGO_RIGHT)]);
+    const edges = new EdgesGeometry(geometry);
+    const shared = { transparent: true, opacity: 0, depthWrite: false, depthTest: false, blending: AdditiveBlending, fog: false };
+    this.tunnel = new Group();
+    this.tunnelFrames = [];
+    for (let i = 0; i < TUNNEL_COUNT; i++) {
+      const fill = new Mesh(geometry, new MeshBasicMaterial({ ...shared, color: '#3a5bff', side: DoubleSide }));
+      const line = new LineSegments(edges, new LineBasicMaterial({ ...shared, color: '#c4cfff' }));
+      const frame = new Group();
+      frame.add(fill, line);
+      frame.rotation.z = i * TUNNEL_TWIST;
+      frame.scale.setScalar(TUNNEL_SCALE);
+      this.tunnel.add(frame);
+      this.tunnelFrames.push({ frame, fill, line });
+    }
+    this.tunnel.visible = false;
+    this.camera.add(this.tunnel);
+    this.scene.add(this.camera);
+  }
+
+  updateTunnel(rush) {
+    this.tunnel.visible = rush > 0.02;
+    if (!this.tunnel.visible) return;
+    const span = TUNNEL_COUNT * TUNNEL_GAP;
+    this.tunnelFrames.forEach(({ frame, fill, line }, i) => {
+      const depth = span - ((i * TUNNEL_GAP + this.starTravel * TUNNEL_SPEED) % span);
+      const alpha = smooth(0.5, 7, depth) * (1 - smooth(span * 0.4, span, depth)) * rush;
+      frame.position.z = -depth;
+      fill.material.opacity = alpha * 0.2;
+      line.material.opacity = alpha;
+    });
+  }
+
   buildPath() {
     const curve = new CatmullRomCurve3(
       STATIONS.map(([cx, cz]) => new Vector3((cx + 0.5) * CELL, 0.05, (cz + 0.5) * CELL))
     );
-    const geometry = new TubeGeometry(curve, 160, 0.035, 8, false);
+    const geometry = new TubeGeometry(curve, LOW_POWER ? 60 : 160, 0.035, LOW_POWER ? 5 : 8, false);
     this.pathCount = geometry.index.count;
     geometry.setDrawRange(0, 0);
     this.path = new Mesh(geometry, new MeshBasicMaterial({ color: '#7d95ff', transparent: true, opacity: 0 }));
@@ -297,8 +414,9 @@ export default class World {
 
   resize() {
     const w = window.innerWidth;
-    const h = window.innerHeight;
-    this.maxDpr = Math.min(window.devicePixelRatio, 1.75);
+    const h = LOW_POWER ? this.canvas.clientHeight || window.innerHeight : window.innerHeight;
+    if (LOW_POWER && w === this.width && h === this.height) return;
+    this.maxDpr = Math.min(window.devicePixelRatio, MAX_DPR);
     this.dpr = this.dpr ? Math.min(this.dpr, this.maxDpr) : this.maxDpr;
     this.renderer.setPixelRatio(this.dpr);
     this.renderer.setSize(w, h, false);
@@ -316,16 +434,20 @@ export default class World {
   adaptQuality(dt) {
     this.frameTimes = this.frameTimes ?? [];
     this.frameTimes.push(dt);
-    if (this.frameTimes.length < 90) return;
+    if (this.frameTimes.length < QUALITY_WINDOW) return;
     const avg = this.frameTimes.reduce((a, b) => a + b, 0) / this.frameTimes.length;
     this.frameTimes.length = 0;
     let next = this.dpr;
-    if (avg > 1 / 45) next = Math.max(1, this.dpr - 0.25);
+    if (avg > 1 / 45) next = Math.max(MIN_DPR, this.dpr - 0.25);
     else if (avg < 1 / 58) next = Math.min(this.maxDpr, this.dpr + 0.25);
     if (next !== this.dpr) {
       this.dpr = next;
       this.renderer.setPixelRatio(next);
-      this.renderer.setSize(window.innerWidth, window.innerHeight, false);
+      this.renderer.setSize(this.width, this.height, false);
+    } else if (avg > 1 / 40 && this.dpr === MIN_DPR && !this.reducedStars) {
+      this.reducedStars = true;
+      this.dust.geometry.setDrawRange(0, Math.floor(STAR_COUNT / 2));
+      this.streaks.geometry.setDrawRange(0, STAR_COUNT);
     }
   }
 
@@ -343,9 +465,10 @@ export default class World {
     switch (kind) {
       case 'orbit': {
         const a = (i / N) * TAU + this.ringAngle;
+        const ring = S.ring * (1 - (this.fly ?? 0) * 0.92) * (1 + landingKick(worldState.intro ?? 1) * 0.3);
         this.tmp.q.setFromAxisAngle(X_AXIS, S.ringTilt * DEG);
         out.p
-          .set(Math.cos(a) * S.ring, Math.sin(time * 0.7 + i * 1.3) * 0.2, Math.sin(a) * S.ring * S.ringDepth)
+          .set(Math.cos(a) * ring, Math.sin(time * 0.7 + i * 1.3) * 0.2, Math.sin(a) * ring * S.ringDepth)
           .applyQuaternion(this.tmp.q)
           .add(this.tmp.v.set(S.tx, S.ty + S.ringY, S.tz));
         obj.position.copy(out.p);
@@ -354,7 +477,7 @@ export default class World {
         out.q.copy(obj.quaternion);
         obj.lookAt(this.camera.position);
         out.q.slerp(obj.quaternion, S.ringFace);
-        out.scale = S.ringScale;
+        out.scale = S.ringScale * (1 - (this.fly ?? 0) * 0.6);
         break;
       }
       case 'cloud': {
@@ -482,20 +605,22 @@ export default class World {
     const hold = reduced ? 0 : Math.min(this.info.drift, 7) * this.info.dir * 3;
     const away = 1 - clamp(worldState.intro ?? 1, 0, 1);
     const fly = away * away * (3 - 2 * away);
+    this.fly = fly;
+    const rush = Math.sin(Math.PI * away);
     const azim = (S.azim + hold - fly * 40 + this.pointer.x * 2.5 + Math.sin(time * 0.17) * 1.4 * alive) * DEG;
     const elev = Math.min(89, S.elev + fly * 28 + this.pointer.y * 1.5 + Math.sin(time * 0.23) * 0.8 * alive) * DEG;
-    const dist = S.dist * (1 + fly * 4.5) * (1 + tall * 0.12) * (1 + Math.sin(time * 0.31 + 0.5) * 0.03 * alive);
+    const dist = S.dist * (1 + fly * 4.6) * (1 - landingKick(worldState.intro ?? 1) * 0.12) * (1 + tall * 0.12) * (1 + Math.sin(time * 0.31 + 0.5) * 0.03 * alive);
     const target = this.tmp.v2.set(S.tx, S.ty + Math.sin(time * 0.29) * 0.25 * alive, S.tz);
     this.camera.position
       .set(Math.cos(elev) * Math.sin(azim), Math.sin(elev), Math.cos(elev) * Math.cos(azim))
       .multiplyScalar(dist)
       .add(target);
     this.camera.lookAt(target);
-    this.camera.rotateZ(S.roll * DEG);
+    this.camera.rotateZ((S.roll - fly * INTRO_ROLL) * DEG);
     this.viewDir = this.viewDir ?? new Vector3();
     this.camera.getWorldDirection(this.viewDir);
 
-    const fov = (2 * Math.atan(Math.tan(((S.fov + speed) * DEG) / 2) * (1 + tall * 0.35))) / DEG;
+    const fov = (2 * Math.atan(Math.tan(((S.fov + speed + rush * INTRO_FOV) * DEG) / 2) * (1 + tall * 0.35))) / DEG;
     const offX = -S.pan * Math.max(0, 1 - tall) * this.width * 0.5;
     const offY = S.panY * this.height * 0.5;
     if (
@@ -561,6 +686,19 @@ export default class World {
     this.placeCamera(time, dt, speed, reduced);
     this.updateTiles(reduced ? 0 : time, dt, snap);
 
+    const size = S.logo * LOGO_SIZE;
+    this.logo.visible = size > 0.002;
+    this.logoGlow.visible = this.logo.visible;
+    if (this.logo.visible) {
+      const sway = reduced ? 0 : Math.sin(time * 0.35) * 0.32;
+      this.logo.position.set(S.tx, S.ty + S.ringY - LOGO_DROP + (reduced ? 0 : Math.sin(time * 0.6) * 0.14), S.tz);
+      this.logo.rotation.set(0.06, this.camera.rotation.y + sway + this.vel * 0.5 + this.fly * INTRO_SPIN, 0);
+      this.logo.scale.setScalar(size);
+      this.logoGlow.position.copy(this.logo.position).addScaledVector(this.viewDir, 2.5);
+      this.logoGlow.scale.setScalar(size * LOGO_GLOW);
+      this.logoGlow.material.opacity = clamp(S.logo, 0, 1) * LOGO_GLOW_ALPHA;
+    }
+
     const bg = this.scene.background.copy(DARK).lerp(LIGHT_BG, S.light);
     this.scene.fog.color.copy(bg);
     if (Math.abs(S.light - (this.lastLight ?? -1)) > 0.005) {
@@ -568,16 +706,18 @@ export default class World {
       document.documentElement.style.setProperty('--world-light', S.light.toFixed(3));
     }
     this.sky.position.copy(this.camera.position);
-    this.sky.material.uniforms.uStrength.value = clamp((S.sky + 1.6) / 2.1, 0, 1) * (1 - S.light) * 0.9;
+    const away = 1 - clamp(worldState.intro ?? 1, 0, 1);
+    this.sky.material.uniforms.uStrength.value = Math.max(clamp((S.sky + 1.6) / 2.1, 0, 1) * (1 - S.light) * 0.9, away * 1.5);
     const su = this.starUniforms;
-    if (!reduced) this.starTravel = (this.starTravel + (0.9 + this.vel * 13 + (1 - clamp(worldState.intro ?? 1, 0, 1)) * 70) * dt) % 9000;
+    if (!reduced) this.starTravel = (this.starTravel + (0.9 + this.vel * 13 + Math.sin(Math.PI * away) * 300 + away * 18) * dt) % 9000;
     su.uTravel.value = this.starTravel;
-    su.uStreak.value = reduced ? 0 : clamp(this.vel * 0.8 + (1 - clamp(worldState.intro ?? 1, 0, 1)) * 5, -5, 5);
+    su.uStreak.value = reduced ? 0 : clamp(this.vel * 0.8 + Math.sin(Math.PI * away) * 22, -22, 22);
     su.uTime.value = reduced ? 0 : time;
-    su.uOpacity.value = (0.45 + S.dust * 0.55) * (1 - S.light);
+    su.uOpacity.value = Math.max((0.45 + S.dust * 0.55) * (1 - S.light), away * 1.6);
     su.uYaw.value = (S.azim + Math.min(this.info.drift, 7) * this.info.dir * 3) / 90;
     su.uPitch.value = S.elev / 90;
     su.uScale.value = (this.height * this.renderer.getPixelRatio() * 0.5) / Math.tan((this.camera.fov * DEG) / 2);
+    this.updateTunnel(reduced ? 0 : Math.sin(Math.PI * away));
     this.dust.visible = su.uOpacity.value > 0.01;
     this.streaks.visible = this.dust.visible && Math.abs(su.uStreak.value) > 0.6;
 

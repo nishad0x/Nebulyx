@@ -4,6 +4,7 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
 import { SERVICES_DATA } from '../../data/services';
 import { scrollToId } from '../../world/useWorldScroll';
 import { worldState } from '../../world/store';
+import { LOW_POWER } from '../../world/quality';
 
 function useStickyProgress(ref) {
   const [p, setP] = useState(0);
@@ -33,9 +34,15 @@ function useStickyProgress(ref) {
 export function Welcome({ onBook }) {
   return (
     <section id="welcome" data-kf="welcome" className="relative">
-      <div data-depth className="min-h-[100svh] flex items-end">
+      <div data-depth className="relative min-h-[100svh] flex items-end">
+      <div aria-hidden="true" className="absolute left-1/2 bottom-5 -translate-x-1/2">
+        <div data-reveal className="flex items-center gap-3 font-mono text-[10px] tracking-[0.2em] uppercase text-[#8a91a3]">
+          <span>Scroll</span>
+          <span className="scroll-cue" />
+        </div>
+      </div>
       <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 pb-24 sm:pb-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10">
-        <h1 className="min-w-0 font-display font-normal text-white text-[clamp(3rem,6.9vw,8.4rem)] leading-[0.94] tracking-[-0.045em]">
+        <h1 className="min-w-0 font-display font-medium text-white text-[clamp(3rem,6.9vw,8.4rem)] leading-[0.94] tracking-[-0.02em]">
           <span className="line-mask"><span data-line>Your whole launch,</span></span>
           <span className="line-mask"><span data-line>one team.</span></span>
         </h1>
@@ -64,7 +71,7 @@ export function About() {
       <span data-kf="about-wide" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '55%' }} />
       <div data-depth className="sticky top-0 min-h-[100svh] flex items-center justify-center px-5">
         <div className="max-w-4xl text-center">
-          <Split lines={['Designed with care.', 'Built to be used.']} className="font-display text-white text-[clamp(2.6rem,6.2vw,6.4rem)] leading-[0.98] tracking-[-0.04em]" />
+          <Split lines={['Designed with care.', 'Built to be used.']} className="font-display font-medium text-white text-[clamp(2.6rem,6.2vw,6.4rem)] leading-[0.98] tracking-[-0.02em]" />
           <p data-reveal className="mt-8 mx-auto max-w-xl text-[17px] leading-relaxed text-[#b6bccb]">
             Nebulyx designs, builds and grows launches for founders. Design, engineering, AI and growth sit in one team, so nothing gets lost between agencies.
           </p>
@@ -99,7 +106,7 @@ export function Services({ onBookService }) {
   return (
     <section id="services" data-kf="services" ref={ref} className="relative min-h-[440vh]">
       <span data-kf="services-turn" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '70%' }} />
-      <div data-depth className="sticky top-0 min-h-[100svh] flex items-start lg:items-center pt-24 lg:pt-0 overflow-hidden">
+      <div data-depth data-wipe="true" className="sticky top-0 min-h-[100svh] flex items-start lg:items-center pt-24 lg:pt-0 overflow-hidden">
         <span
           key={`n${active}`}
           aria-hidden="true"
@@ -109,7 +116,7 @@ export function Services({ onBookService }) {
         </span>
         <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
-            <Split lines={['Five services.', 'One team.']} className="font-display text-white text-[clamp(2.2rem,4.4vw,4.4rem)] leading-[0.98] tracking-[-0.04em]" />
+            <Split lines={['Five services.', 'One team.']} className="font-display font-medium text-white text-[clamp(2.2rem,4.4vw,4.4rem)] leading-[0.98] tracking-[-0.02em]" />
             <ol className="mt-10 space-y-1 hidden lg:block" aria-label="Services">
               {SERVICES_DATA.map((item, i) => (
                 <li key={item.id} className="stagger-item" style={{ '--i': i + 1 }}>
@@ -119,7 +126,7 @@ export function Services({ onBookService }) {
                     aria-current={i === active ? 'true' : undefined}
                     className={`focus-ring w-full text-left py-2 flex items-center gap-3 transition-colors ${i === active ? 'text-white' : 'text-[#8a91a3] hover:text-white'}`}
                   >
-                    <span aria-hidden="true" className={`w-1.5 h-1.5 shrink-0 transition-colors ${i === active ? 'bg-[#3a5bff]' : 'bg-white/15'}`} />
+                    <span aria-hidden="true" className={`w-1.5 h-2.5 -skew-y-[30deg] shrink-0 transition-colors ${i === active ? 'bg-[#3a5bff]' : 'bg-white/15'}`} />
                     <span className="text-[19px] tracking-[-0.01em]">{item.title}</span>
                   </button>
                 </li>
@@ -129,12 +136,12 @@ export function Services({ onBookService }) {
 
           <div className="lg:col-span-4 lg:col-start-6 self-end lg:self-center" aria-live="polite">
             <div key={s.id} className="service-swap">
-              <h3 className="font-display text-white text-[28px] leading-tight tracking-[-0.02em]">{s.tagline}</h3>
+              <h3 className="font-display font-medium text-white text-[28px] leading-tight tracking-[-0.02em]">{s.tagline}</h3>
               <p className="mt-4 text-[16px] leading-relaxed text-[#b6bccb]">{s.summary}</p>
               <ul className="mt-6 space-y-2.5">
                 {s.highlights.slice(0, 4).map((h, hi) => (
                   <li key={h} className={`service-line flex gap-3 text-[15px] text-[#d5d9e3] ${hi > 1 ? 'hidden sm:flex' : ''}`} style={{ animationDelay: `${(0.14 + hi * 0.07).toFixed(2)}s` }}>
-                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#3a5bff] shrink-0" aria-hidden="true" />
+                    <span className="mt-1.5 w-1.5 h-2.5 -skew-y-[30deg] bg-[#3a5bff] shrink-0" aria-hidden="true" />
                     {h}
                   </li>
                 ))}
@@ -165,9 +172,9 @@ export function Process() {
   return (
     <section id="process" data-kf="process" ref={ref} className="relative min-h-[290vh]">
       <span data-kf="process-turn" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '62%' }} />
-      <div data-depth className="sticky top-0 min-h-[100svh] flex flex-col justify-between pt-28 pb-24 sm:pb-28">
+      <div data-depth className="sticky top-0 min-h-[100svh] flex flex-col justify-between pt-20 sm:pt-28 pb-16 sm:pb-28">
         <div className="mx-auto max-w-4xl px-5 text-center">
-          <Split lines={['From first call', 'to handover.']} className="font-display text-white text-[clamp(2.4rem,5.6vw,5.6rem)] leading-[0.98] tracking-[-0.04em]" />
+          <Split lines={['From first call', 'to handover.']} className="font-display font-medium text-white text-[clamp(2.4rem,5.6vw,5.6rem)] leading-[0.98] tracking-[-0.02em]" />
           <p className="mt-6 mx-auto max-w-lg text-[17px] leading-relaxed text-[#b6bccb]">
             One fixed-length sprint, four steps, no surprises at the end.
           </p>
@@ -175,7 +182,7 @@ export function Process() {
         <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8">
         <div aria-hidden="true" className="relative h-[2px] mb-8 bg-white/15 hidden lg:block lg:ml-28">
           <span className="absolute inset-y-0 left-0 bg-[#3a5bff] shadow-[0_0_14px_#3a5bff]" style={{ width: `${Math.min(100, (p / 0.85) * 100).toFixed(2)}%` }} />
-          <span className="absolute top-1/2 w-2 h-2 -mt-1 -ml-1 bg-white shadow-[0_0_16px_#8fa2ff]" style={{ left: `${Math.min(100, (p / 0.85) * 100).toFixed(2)}%` }} />
+          <span className="absolute top-1/2 w-2 h-3 -mt-1.5 -ml-1 -skew-y-[30deg] bg-white shadow-[0_0_16px_#8fa2ff]" style={{ left: `${Math.min(100, (p / 0.85) * 100).toFixed(2)}%` }} />
         </div>
         <ol className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {STEPS.map((step, i) => (
@@ -186,8 +193,8 @@ export function Process() {
                 </span>
                 <span className={i <= active ? 'text-white' : 'text-[#8a91a3]'}>{step.key}</span>
               </div>
-              <p className={`mt-3 text-[17px] ${i <= active ? 'text-white' : 'text-[#8a91a3]'}`}>{step.line}</p>
-              <p className={`mt-1.5 text-[14px] leading-relaxed ${i <= active ? 'text-[#b6bccb]' : 'text-[#7f8799]'}`}>{step.text}</p>
+              <p className={`mt-2 sm:mt-3 text-[15px] sm:text-[17px] ${i <= active ? 'text-white' : 'text-[#8a91a3]'}`}>{step.line}</p>
+              <p className={`hidden sm:block mt-1.5 text-[14px] leading-relaxed ${i <= active ? 'text-[#b6bccb]' : 'text-[#7f8799]'}`}>{step.text}</p>
             </li>
           ))}
         </ol>
@@ -219,7 +226,7 @@ const SAMPLES = [
   },
 ];
 
-function FlowDiagram({ steps, branch }) {
+const FlowDiagram = React.memo(function FlowDiagram({ steps, branch }) {
   const w = 104;
   const gap = 24;
   return (
@@ -245,7 +252,7 @@ function FlowDiagram({ steps, branch }) {
       )}
     </svg>
   );
-}
+});
 
 function useNarrow() {
   const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches);
@@ -312,17 +319,17 @@ export function Work() {
   return (
     <section id="work" data-kf="work" ref={ref} className={`relative work-room ${reduced ? '' : 'min-h-[400vh]'}`}>
       <span data-kf="work-fly" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '52%' }} />
-      <div data-depth className={`${reduced ? 'py-28' : 'sticky top-0 h-[100svh] overflow-hidden'} flex flex-col justify-center`}>
+      <div data-depth data-wipe="true" className={`${reduced ? 'py-28' : 'sticky top-0 h-[100svh] overflow-hidden'} flex flex-col justify-center`}>
         <div
           className="w-full mx-auto max-w-[1600px] px-5 sm:px-8"
           style={reduced ? undefined : {
             opacity: 1 - h,
             transform: `scale(${(1 + h * 1.6).toFixed(3)})`,
-            filter: h > 0.01 ? `blur(${(h * 12).toFixed(1)}px)` : undefined,
+            filter: !LOW_POWER && h > 0.01 ? `blur(${(h * 12).toFixed(1)}px)` : undefined,
             transformOrigin: '30% 50%',
           }}
         >
-          <Split lines={['What a sprint', 'looks like.']} className="font-display text-[#0b0d12] text-[clamp(2.6rem,7vw,7.4rem)] leading-[0.95] tracking-[-0.045em]" />
+          <Split lines={['What a sprint', 'looks like.']} className="font-display font-medium text-[#0b0d12] text-[clamp(2.6rem,7vw,7.4rem)] leading-[0.95] tracking-[-0.02em]" />
           <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-[#454b5a]">
             Illustrative examples of what one sprint can deliver. Every real project is scoped with the founder first.
           </p>
@@ -411,18 +418,18 @@ export function Studio() {
   return (
     <section id="studio" data-kf="studio" className="relative min-h-[190vh]">
       <span data-kf="studio-orbit" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '50%' }} />
-      <div data-depth className="sticky top-0 min-h-[100svh] flex items-center">
+      <div data-depth data-wipe="true" className="sticky top-0 min-h-[100svh] flex items-center pt-20 pb-16 lg:py-0">
         <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-6">
-            <Split lines={['One team.', 'Every service.']} className="font-display text-white text-[clamp(2.6rem,6vw,6rem)] leading-[0.96] tracking-[-0.04em]" />
+            <Split lines={['One team.', 'Every service.']} className="font-display font-medium text-white text-[clamp(2.6rem,6vw,6rem)] leading-[0.96] tracking-[-0.02em]" />
             <p data-reveal className="mt-6 max-w-md text-[17px] leading-relaxed text-[#b6bccb]">
               Every skill a launch needs, in one senior team. Faster decisions, one plan, nothing lost between vendors.
             </p>
-            <dl className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-6 max-w-2xl">
+            <dl className="mt-6 sm:mt-10 grid grid-cols-2 gap-x-5 sm:gap-x-8 gap-y-3 sm:gap-y-6 max-w-2xl">
               {CAPABILITIES.map(([t, d], ci) => (
                 <div key={t} className="stagger-item" style={{ '--i': ci + 2 }}>
-                  <dt className="text-white text-[17px] pt-3 border-t border-white/[0.14]">{t}</dt>
-                  <dd className="mt-1 text-[14px] leading-relaxed text-[#9aa1b2]">{d}</dd>
+                  <dt className="text-white text-[15px] sm:text-[17px] pt-2 sm:pt-3 border-t border-white/[0.14]">{t}</dt>
+                  <dd className="hidden sm:block mt-1 text-[14px] leading-relaxed text-[#9aa1b2]">{d}</dd>
                 </div>
               ))}
             </dl>
@@ -438,7 +445,7 @@ export function Contact({ onBook }) {
     <section id="contact" data-kf="contact" className="relative">
       <div data-depth className="min-h-[100svh] flex flex-col justify-end overflow-hidden">
       <div className="mx-auto w-full max-w-[1600px] px-5 sm:px-8 pt-32">
-        <Split lines={['Your launch,', 'built by one team.']} className="font-display text-white text-[clamp(2.6rem,6vw,6.2rem)] leading-[0.96] tracking-[-0.04em]" />
+        <Split lines={['Your launch,', 'built by one team.']} className="font-display font-medium text-white text-[clamp(2.6rem,6vw,6.2rem)] leading-[0.96] tracking-[-0.02em]" />
         <p data-reveal className="mt-6 max-w-md text-[17px] leading-relaxed text-[#b6bccb]">
           Tell us what you want to build and when. We'll reply with a written scope, timeline and price. No commitment until you approve them.
         </p>
@@ -451,7 +458,7 @@ export function Contact({ onBook }) {
           <span>You own what we build</span>
         </footer>
       </div>
-      <div aria-hidden="true" className="wordmark mt-6 font-display font-medium text-white leading-[0.78] tracking-[-0.06em] text-center select-none">
+      <div aria-hidden="true" className="wordmark mt-6 font-display font-semibold text-white leading-[0.78] tracking-[-0.03em] text-center select-none">
         {'NEBULYX'.split('').map((ch, i) => (
           <span key={i} className="wm-char" style={{ '--i': i }}>{ch}</span>
         ))}

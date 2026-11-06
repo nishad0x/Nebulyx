@@ -23,21 +23,21 @@ colors:
   error-rose: "#ff8a8a"
 typography:
   display:
-    fontFamily: "General Sans, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Chakra Petch, General Sans, -apple-system, BlinkMacSystemFont, sans-serif"
     fontSize: "clamp(3rem, 6.9vw, 8.4rem)"
-    fontWeight: 400
+    fontWeight: 500
     lineHeight: 0.94
-    letterSpacing: "-0.045em"
+    letterSpacing: "-0.02em"
   headline:
-    fontFamily: "General Sans, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Chakra Petch, General Sans, -apple-system, BlinkMacSystemFont, sans-serif"
     fontSize: "clamp(2.4rem, 5.6vw, 5.6rem)"
-    fontWeight: 400
+    fontWeight: 500
     lineHeight: 0.98
-    letterSpacing: "-0.04em"
+    letterSpacing: "-0.02em"
   title:
-    fontFamily: "General Sans, -apple-system, BlinkMacSystemFont, sans-serif"
+    fontFamily: "Chakra Petch, General Sans, -apple-system, BlinkMacSystemFont, sans-serif"
     fontSize: "28px"
-    fontWeight: 400
+    fontWeight: 500
     lineHeight: 1.25
     letterSpacing: "-0.02em"
   title-card:
@@ -165,7 +165,7 @@ The system rejects the stacked-sections agency template and the glowing-orb hero
 - Glossy rounded blue tiles with a single white line icon are the recurring signature object.
 - One chromatic hue, Nebulyx Blue, across CTAs, active states, chapter numbers and tiles.
 - A dark void by default and a light grid room for the work chapter, switched by the world, not by section backgrounds.
-- Large, light, tightly tracked General Sans display type over minimal chrome.
+- Large, squared Chakra Petch display type over minimal chrome.
 - One corner language: 2px on controls, square on containers, soft radius only on the 3D tiles and the logo mark.
 
 ## Colors
@@ -201,7 +201,7 @@ A monochrome void-and-ink palette carrying a single electric blue, with a pale g
 
 ## Typography
 
-**Display Font:** General Sans (with -apple-system, BlinkMacSystemFont, sans-serif)
+**Display Font:** Chakra Petch (with General Sans, -apple-system, BlinkMacSystemFont, sans-serif)
 **Body Font:** General Sans (with -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif)
 **Label/Mono Font:** ui-monospace (with SFMono-Regular, Menlo, Monaco, Consolas, monospace)
 

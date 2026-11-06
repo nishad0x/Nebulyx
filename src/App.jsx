@@ -5,6 +5,7 @@ import WorldCanvas from './world/WorldCanvas';
 import { useWorldScroll } from './world/useWorldScroll';
 import { useDepthFlight } from './world/useDepthFlight';
 import { worldState } from './world/store';
+import './world/quality';
 import SiteNav from './components/site/SiteNav';
 import ChapterTag from './components/site/ChapterTag';
 import Intro from './components/site/Intro';
@@ -43,9 +44,10 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="relative text-white antialiased">
+      <div data-entered={ready ? 'true' : 'false'} className="relative text-white antialiased">
         <WorldCanvas />
         <div aria-hidden="true" className="vignette" />
+        <div aria-hidden="true" data-slant-wipe data-active="false" className="slant-wipe" />
         <SiteNav chapter={chapter} onBook={() => book()} />
         <ChapterTag chapter={chapter} />
         <ScrollRail chapter={chapter} />

@@ -5,7 +5,7 @@ export const DEFAULTS = {
   light: 0, sky: 0, dust: 0.3, grid: 1,
   gx: 0, gy: -1.6, gz: -6, gYaw: 0, gPitch: 0, gSpin: 0, wave: 0.5, curl: 0, flow: 0,
   ring: 4, ringY: 0, ringTilt: 20, ringDepth: 0.7, ringScale: 1, ringPace: 0.08, ringFace: 0,
-  layers: 0, path: 0,
+  layers: 0, path: 0, logo: 0,
   orbit: 0, cloud: 0, floor: 0, board: 0, stack: 0, rise: 0, tunnel: 0,
 };
 
@@ -15,7 +15,7 @@ const FRAMES = {
   welcome: frame({
     tx: 2.6, ty: 1.1, tz: -3, azim: 16, elev: 9, dist: 15, pan: 0.34, panY: 0.34, sky: 0.5, dust: 0.25,
     gx: 2, gy: -2.2, gz: -9, gYaw: -14, gPitch: 34, wave: 0.8, flow: 2.4,
-    orbit: 1, ring: 5.6, ringY: 1.4, ringTilt: 8, ringDepth: 1, ringScale: 1.1, ringPace: 0.12,
+    orbit: 1, ring: 5.6, ringY: 1.4, ringTilt: 22, ringDepth: 1, ringScale: 1.1, ringPace: 0.12, logo: 0.86,
   }),
   about: frame({
     tx: 0, ty: 1.5, tz: 0, azim: 5, elev: 4, dist: 11, roll: -2, fov: 42, sky: -0.5, dust: 1,
@@ -65,12 +65,12 @@ const FRAMES = {
   }),
   contact: frame({
     tx: 0, ty: 1, tz: -24, azim: 4, elev: 2, dist: 24, fov: 44, pan: 0.2, panY: 0.2, sky: 0.3, dust: 1,
-    gx: 0, gy: -2, gz: -10, wave: 0.4, grid: 0, tunnel: 1,
+    gx: 0, gy: -2, gz: -10, wave: 0.4, grid: 0, tunnel: 1, logo: 1.5,
   }),
 };
 
 const NARROW = {
-  welcome: { pan: 0, panY: 0.62, ringScale: 0.95, ring: 5, dist: 17 },
+  welcome: { pan: 0, panY: 0.5, ringScale: 0.95, ring: 5, dist: 17, logo: 0.72 },
   about: { panY: 0.78, ring: 2.6, ringTilt: 20, ringY: 0.4, ringScale: 0.62, ringFace: 0.6, roll: 0 },
   'about-wide': { panY: -0.72, ring: 3.2, ringTilt: 30, ringScale: 0.7 },
   services: { pan: 0, panY: -0.66, dist: 21 },
@@ -78,8 +78,8 @@ const NARROW = {
   process: { panY: 0.1, elev: 68, dist: 18 },
   'process-turn': { panY: 0.1, elev: 60, dist: 17 },
   work: { panY: -0.25 },
-  studio: { pan: 0, panY: -0.7 },
-  'studio-orbit': { pan: 0, panY: -0.6 },
+  studio: { pan: 0, panY: -1 },
+  'studio-orbit': { pan: 0, panY: -0.95 },
   faq: { pan: 0, panY: -0.5 },
   contact: { pan: 0, panY: 0.5 },
 };

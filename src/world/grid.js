@@ -1,3 +1,4 @@
+import { LOW_POWER } from './quality';
 import { Color, Group, Mesh, PlaneGeometry, ShaderMaterial } from 'three';
 
 export const SHEET = 36;
@@ -67,7 +68,7 @@ export function sheetHeight(x, z, time, wave) {
 }
 
 export function createSheet() {
-  const geometry = new PlaneGeometry(SHEET, SHEET, 144, 144);
+  const geometry = new PlaneGeometry(SHEET, SHEET, LOW_POWER ? 64 : 144, LOW_POWER ? 64 : 144);
   geometry.rotateX(-Math.PI / 2);
   const material = new ShaderMaterial({
     vertexShader: vertex,
