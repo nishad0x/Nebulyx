@@ -107,7 +107,9 @@ export default class World {
   resize() {
     const w = window.innerWidth;
     const h = window.innerHeight;
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    this.maxDpr = Math.min(window.devicePixelRatio, 1.75);
+    this.dpr = this.dpr ? Math.min(this.dpr, this.maxDpr) : this.maxDpr;
+    this.renderer.setPixelRatio(this.dpr);
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     const narrow = w < 768;
@@ -147,8 +149,26 @@ export default class World {
     return { blended, light, pathWeight, pathProgress };
   }
 
+  adaptQuality(dt) {
+    this.frameTimes = this.frameTimes ?? [];
+    this.frameTimes.push(dt);
+    if (this.frameTimes.length < 90) return;
+    const avg = this.frameTimes.reduce((a, b) => a + b, 0) / this.frameTimes.length;
+    this.frameTimes.length = 0;
+    let next = this.dpr;
+    if (avg > 1 / 45) next = Math.max(1, this.dpr - 0.25);
+    else if (avg < 1 / 58) next = Math.min(this.maxDpr, this.dpr + 0.25);
+    if (next !== this.dpr) {
+      this.dpr = next;
+      this.renderer.setPixelRatio(next);
+      this.renderer.setSize(window.innerWidth, window.innerHeight, false);
+    }
+  }
+
   update() {
-    const dt = Math.min(this.clock.getDelta(), 0.05);
+    const raw = this.clock.getDelta();
+    if (raw > 0 && raw < 0.25) this.adaptQuality(raw);
+    const dt = Math.min(raw, 0.05);
     const t = this.clock.elapsedTime;
     const reduced = worldState.reduced;
     const ease = reduced ? 1 : 1 - Math.exp(-dt * 4.5);
