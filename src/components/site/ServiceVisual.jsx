@@ -14,9 +14,11 @@ function paint(fill, stroke, extra) {
 }
 
 function Mark({ x, y, s }) {
+  const w = Math.round(75 * s);
+  const h = Math.round(105 * s);
   return (
-    <g transform={`translate(${x} ${y}) scale(${s})`} style={paint(ON)}>
-      <path d="M12 20 36 6V74L12 88Z" /><path d="M36 28 76 80V100L36 48Z" fillOpacity="0.8" /><path d="M76 34 96 20V88L76 100Z" />
+    <g transform={`translate(${x} ${y})`}>
+      <image href="/nebulyx-logo-transparent.png" width={w} height={h} />
     </g>
   );
 }
@@ -26,12 +28,12 @@ function Websites() {
     <svg viewBox="0 0 400 400" className="sv-svg" aria-hidden="true">
       <defs>
         <linearGradient id="sv-web-hero" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#3a5bff" />
-          <stop offset="1" stopColor="#8a6bff" />
+          <stop offset="0" stopColor="#00C8FF" />
+          <stop offset="1" stopColor="#0077ff" />
         </linearGradient>
         <linearGradient id="sv-web-thumb" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#c3ceff" />
-          <stop offset="1" stopColor="#f1d9c4" />
+          <stop offset="0" stopColor="#1e2638" />
+          <stop offset="1" stopColor="#0d1424" />
         </linearGradient>
       </defs>
       <g className="sv-shadow">
@@ -123,8 +125,8 @@ function Automation() {
     <svg viewBox="0 0 400 400" className="sv-svg" aria-hidden="true">
       <defs>
         <linearGradient id="sv-auto-hub" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#3a5bff" />
-          <stop offset="1" stopColor="#8a6bff" />
+          <stop offset="0" stopColor="#00C8FF" />
+          <stop offset="1" stopColor="#0077ff" />
         </linearGradient>
       </defs>
       {nodes.map((n, i) => (
@@ -160,13 +162,13 @@ function Social() {
     <svg viewBox="0 0 400 400" className="sv-svg" aria-hidden="true">
       <defs>
         <linearGradient id="sv-social-reel" x1="0" y1="0" x2="0.4" y2="1">
-          <stop offset="0" stopColor="#8a6bff" />
+          <stop offset="0" stopColor="#00C8FF" />
           <stop offset="0.55" stopColor="#3a5bff" />
-          <stop offset="1" stopColor="#1f2fbf" />
+          <stop offset="1" stopColor="#070a14" />
         </linearGradient>
         <linearGradient id="sv-social-post" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#c3ceff" />
-          <stop offset="1" stopColor="#f1d9c4" />
+          <stop offset="0" stopColor="#1e2638" />
+          <stop offset="1" stopColor="#0d1424" />
         </linearGradient>
       </defs>
       <g className="sv-float sv-d1">
@@ -228,8 +230,8 @@ function AiSearch() {
     <svg viewBox="0 0 400 400" className="sv-svg" aria-hidden="true">
       <defs>
         <linearGradient id="sv-ai-spark" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#3a5bff" />
-          <stop offset="1" stopColor="#8a6bff" />
+          <stop offset="0" stopColor="#00C8FF" />
+          <stop offset="1" stopColor="#3a5bff" />
         </linearGradient>
       </defs>
       <g className="sv-shadow">
@@ -293,8 +295,8 @@ function Stores() {
     <svg viewBox="0 0 400 400" className="sv-svg" aria-hidden="true">
       <defs>
         <linearGradient id="sv-store-img" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#c3ceff" />
-          <stop offset="1" stopColor="#f1d9c4" />
+          <stop offset="0" stopColor="#1e2638" />
+          <stop offset="1" stopColor="#0d1424" />
         </linearGradient>
       </defs>
       <polygon points="150,318 270,250 390,318 270,386" style={paint(null, LINE)} />

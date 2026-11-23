@@ -31,7 +31,7 @@ const muted = 'text-[color:var(--sp-muted)]';
 const line = 'border-[color:var(--sp-line)]';
 const kicker = `font-mono text-[12px] tracking-[0.18em] uppercase ${muted}`;
 const h2 = `font-display font-medium ${ink} text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.05] tracking-[-0.025em]`;
-const field = 'mt-2 w-full h-12 px-4 rounded-xl border border-[color:var(--sp-line-strong)] bg-white text-[16px] text-[color:var(--sp-ink)] outline-none focus:border-[color:var(--sp-accent)] focus:ring-2 focus:ring-[color:var(--sp-tint)]';
+const field = 'mt-2 w-full h-12 px-4 rounded-xl border border-white/[0.14] bg-[#07090f] text-[16px] text-white placeholder:text-neutral-500 outline-none focus:border-[color:var(--sp-accent)] focus:ring-2 focus:ring-[color:var(--sp-tint)]';
 const label = `block text-[14px] font-medium ${ink}`;
 
 const FORM_SCRIPT = `(function(){function init(){var f=document.getElementById('aicheck');if(!f)return;var s=document.getElementById('aicheck-status'),b=f.querySelector('button[type=submit]');
@@ -83,8 +83,8 @@ export default function AiCheckPage() {
       <script dangerouslySetInnerHTML={{ __html: FORM_SCRIPT }} />
 
       <section id="check" className="relative px-5 sm:px-8 py-16 sm:py-24 scroll-mt-20">
-        <BgShape kind="stars" color="#3a5bff" style={{ '--s': '180px', left: 'max(-40px, -3vw)', top: '40px' }} drift={{ '--dx': '10s', '--dy': '16s', '--dr': '19s', '--ar': '10deg' }} />
-        <BgShape kind="planet" color="#c3ceff" style={{ '--s': '240px', right: 'max(-80px, -5vw)', bottom: '-40px' }} d="0.2s" drift={{ '--dx': '12s', '--dy': '18s', '--dr': '22s', '--ar': '8deg' }} />
+        <BgShape kind="stars" color="rgba(0,200,255,0.08)" style={{ '--s': '180px', left: 'max(-40px, -3vw)', top: '40px' }} drift={{ '--dx': '10s', '--dy': '16s', '--dr': '19s', '--ar': '10deg' }} />
+        <BgShape kind="planet" color="rgba(143,162,255,0.06)" style={{ '--s': '240px', right: 'max(-80px, -5vw)', bottom: '-40px' }} d="0.2s" drift={{ '--dx': '12s', '--dy': '18s', '--dr': '22s', '--ar': '8deg' }} />
         <div className="relative mx-auto max-w-[1100px] grid lg:grid-cols-[1.05fr_0.95fr] gap-8 items-start">
           <div className="sp-card p-7 sm:p-10" data-io>
             <h2 className={h2}>Get your free check</h2>
