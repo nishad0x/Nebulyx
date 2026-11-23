@@ -56,16 +56,9 @@ export default function ServicePage({ id, tone = 'dark' }) {
 
       <div className="sp-hero-band">
         <div data-hero className="sp-hero-sentinel" aria-hidden="true" />
-        <BgShape kind="stars" color="rgba(0,200,255,0.08)" style={{ '--s': '220px', left: '8%', top: '120px' }} d="0.2s" drift={{ '--dx': '11s', '--dy': '17s', '--dr': '23s', '--ar': '12deg' }} />
-        <BgShape kind="cloud" color="rgba(143,162,255,0.06)" style={{ '--s': '300px', right: '-60px', top: '60px' }} d="0.35s" drift={{ '--dx': '13s', '--dy': '19s', '--dr': '21s', '--ar': '6deg' }} />
+        <BgShape color="rgba(0,200,255,0.12)" style={{ '--s': '450px', left: '10%', top: '60px' }} d="0.2s" />
+        <BgShape color="rgba(58,91,255,0.10)" style={{ '--s': '420px', right: '-40px', top: '40px' }} d="0.35s" />
         <section className="relative mx-auto max-w-[1200px] px-5 sm:px-8 pt-16 sm:pt-24 text-center">
-          <ul aria-hidden="true" className="sp-chips">
-            {service.deliverables.slice(0, 4).map((d, i) => (
-              <li key={d} className={`sp-chip-pos ${CHIPS[i].pos}`} data-io style={{ '--d': CHIPS[i].d }}>
-                <Drift vars={CHIPS[i].drift}><span className="sp-chip">{d}</span></Drift>
-              </li>
-            ))}
-          </ul>
           <nav aria-label="Breadcrumb" className="relative text-[13px] text-white/50">
             <ol className="flex flex-wrap justify-center gap-2">
               <li><a href="/" className="focus-ring hover:text-white">Home</a> /</li>
@@ -79,12 +72,19 @@ export default function ServicePage({ id, tone = 'dark' }) {
             <a href={bookHref(service)} className="sp-btn sp-btn-light h-12 px-6 text-[15px]">Book a scoping call</a>
             <a href={`mailto:${CONTACT.email}`} className="focus-ring text-[15px] text-white/70 underline decoration-white/30 underline-offset-4 hover:text-white">{CONTACT.email}</a>
           </div>
+
+          {/* Clean Apple-style Deliverable Specs Pill Bar */}
+          <div className="relative mt-12 flex flex-wrap justify-center items-center gap-2.5 max-w-2xl mx-auto" data-io>
+            {service.deliverables.slice(0, 4).map((d) => (
+              <span key={d} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-md text-[13px] text-white/85 font-medium transition-colors hover:border-white/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00C8FF]" />
+                {d}
+              </span>
+            ))}
+          </div>
+
           <div className="sp-stage relative mt-16 sm:mt-20 mx-auto max-w-[560px]">
-            <div className="sp-pop" style={{ '--d': '0.25s' }}>
-              <Drift vars={{ '--dx': '12s', '--dy': '16s', '--dr': '20s', '--ax': '4px', '--ay': '8px', '--ar': '0.8deg' }}>
-                <ServiceVisual id={id} />
-              </Drift>
-            </div>
+            <ServiceVisual id={id} />
           </div>
         </section>
       </div>
@@ -96,8 +96,8 @@ export default function ServicePage({ id, tone = 'dark' }) {
         </section>
 
         <section className="relative py-16 sm:py-24 px-5 sm:px-8">
-          <BgShape kind="slab" color="rgba(0, 200, 255, 0.35)" style={{ '--s': '520px', left: 'max(-200px, -16vw)', top: '-40px' }} drift={{ '--dx': '14s', '--dy': '21s', '--dr': '25s', '--ax': '14px', '--ay': '20px', '--ar': '4deg' }} />
-          <BgShape kind="planet" color="rgba(58, 91, 255, 0.35)" style={{ '--s': '260px', right: 'max(-90px, -6vw)', bottom: '-60px' }} d="0.2s" drift={{ '--dx': '9s', '--dy': '15s', '--dr': '18s', '--ax': '10px', '--ay': '14px' }} />
+          <BgShape color="rgba(0, 200, 255, 0.08)" style={{ '--s': '560px', left: '-120px', top: '-40px' }} />
+          <BgShape color="rgba(58, 91, 255, 0.08)" style={{ '--s': '480px', right: '-80px', bottom: '-40px' }} d="0.2s" />
           <div className="relative mx-auto max-w-[1200px] grid lg:grid-cols-2 gap-5">
             <div className="sp-card p-7 sm:p-10" data-io style={delay(0)}>
               <h2 className={h2}>What you get</h2>
@@ -230,8 +230,8 @@ export default function ServicePage({ id, tone = 'dark' }) {
         </section>
 
         <section className="relative py-24 sm:py-32 px-5 sm:px-8">
-          <BgShape kind="orbit" color="rgba(0, 200, 255, 0.35)" style={{ '--s': '420px', right: 'max(-160px, -12vw)', top: '-20px' }} drift={{ '--dx': '12s', '--dy': '18s', '--dr': '22s', '--ax': '12px', '--ay': '16px' }} />
-          <BgShape kind="comet" color="rgba(58, 91, 255, 0.35)" style={{ '--s': '240px', left: 'max(-60px, -4vw)', bottom: '0' }} d="0.2s" drift={{ '--dx': '10s', '--dy': '16s', '--dr': '19s', '--ar': '5deg' }} />
+          <BgShape color="rgba(0, 200, 255, 0.08)" style={{ '--s': '520px', right: '-100px', top: '-20px' }} />
+          <BgShape color="rgba(58, 91, 255, 0.08)" style={{ '--s': '440px', left: '-60px', bottom: '0' }} d="0.2s" />
           <div className="relative mx-auto max-w-3xl text-center" data-io>
             <h2 className={h2}>Tell us what you want to build</h2>
             <p className="mt-5 mx-auto max-w-xl text-[17px] leading-relaxed">You get a written scope, timeline and price after a short call. No commitment until you approve them.</p>

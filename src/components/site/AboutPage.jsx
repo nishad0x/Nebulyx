@@ -90,8 +90,8 @@ export default function AboutPage() {
 
       <div className="sp-hero-band sp-hero-band--full">
         <div data-hero className="sp-hero-sentinel" aria-hidden="true" />
-        <BgShape kind="stars" color="rgba(0,200,255,0.08)" style={{ '--s': '220px', left: '8%', top: '120px' }} d="0.2s" drift={{ '--dx': '11s', '--dy': '17s', '--dr': '23s', '--ar': '12deg' }} />
-        <BgShape kind="planet" color="rgba(143,162,255,0.06)" style={{ '--s': '300px', right: '-60px', top: '60px' }} d="0.35s" drift={{ '--dx': '13s', '--dy': '19s', '--dr': '21s', '--ar': '6deg' }} />
+        <BgShape color="rgba(0,200,255,0.10)" style={{ '--s': '480px', left: '8%', top: '60px' }} d="0.2s" />
+        <BgShape color="rgba(58,91,255,0.08)" style={{ '--s': '440px', right: '-40px', top: '40px' }} d="0.35s" />
         <section className="relative mx-auto max-w-[1200px] px-5 sm:px-8 pt-16 sm:pt-24 pb-28 text-center">
           <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
             <ol className="flex flex-wrap justify-center gap-2">
@@ -116,7 +116,7 @@ export default function AboutPage() {
         </section>
 
         <section className="relative py-16 sm:py-24 px-5 sm:px-8">
-          <BgShape kind="slab" color="rgba(0, 200, 255, 0.35)" style={{ '--s': '480px', left: 'max(-200px, -16vw)', top: '-20px' }} drift={{ '--dx': '14s', '--dy': '21s', '--dr': '25s', '--ax': '14px', '--ay': '20px', '--ar': '4deg' }} />
+          <BgShape color="rgba(0, 200, 255, 0.08)" style={{ '--s': '520px', left: '-120px', top: '-20px' }} />
           <div className="relative mx-auto max-w-[1200px]">
             <h2 className={`${h2} text-center`} data-io>How we work</h2>
             <ul className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -225,7 +225,7 @@ export default function AboutPage() {
         </section>
 
         <section className="relative py-24 sm:py-32 px-5 sm:px-8">
-          <BgShape kind="orbit" color="rgba(58, 91, 255, 0.35)" style={{ '--s': '420px', right: 'max(-160px, -12vw)', top: '-20px' }} drift={{ '--dx': '12s', '--dy': '18s', '--dr': '22s', '--ax': '12px', '--ay': '16px' }} />
+          <BgShape color="rgba(58, 91, 255, 0.08)" style={{ '--s': '480px', right: '-80px', top: '-20px' }} />
           <div className="relative mx-auto max-w-3xl text-center" data-io>
             <h2 className={h2}>Tell us what you want to build</h2>
             <p className="mt-5 mx-auto max-w-xl text-[17px] leading-relaxed">You get a written scope, timeline and price after a short call. No commitment until you approve them.</p>

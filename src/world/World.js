@@ -13,6 +13,7 @@ import { CHAPTERS, SERVICE_COUNT, TILE_COUNT } from './formations';
 import { DEFAULTS, LAYOUTS, createTimeline } from './frames';
 import { worldState } from './store';
 import { LOW_POWER } from './quality';
+import { LOGO_EDGE_POINTS, LOGO_SOLID_POINTS } from './logoPoints';
 
 const DARK = new Color('#05060a');
 const LIGHT_BG = new Color('#eceef3');
@@ -57,47 +58,27 @@ const TUNNEL_SCALE = 0.13;
 const TUNNEL_TWIST = 0.14;
 const TUNNEL_SPEED = 0.42;
 
-function logoShape(points) {
-  const s = new Shape();
-  points.forEach(([x, y], i) => (i ? s.lineTo(x - LOGO_CX, LOGO_CY - y) : s.moveTo(x - LOGO_CX, LOGO_CY - y)));
-  s.closePath();
-  return s;
-}
-
-function insideQuad(quad, x, y) {
-  return quad.every(([ax, ay], i) => {
-    const [bx, by] = quad[(i + 1) % quad.length];
-    return (bx - ax) * (y - ay) - (by - ay) * (x - ax) >= 0;
-  });
-}
-
 function starLogoGeometry() {
-  const quads = [LOGO_LEFT, LOGO_DIAGONAL, LOGO_RIGHT];
-  const edges = LOGO_OUTLINE.map((p, i) => [p, LOGO_OUTLINE[(i + 1) % LOGO_OUTLINE.length]]).concat(LOGO_INNER_SEAMS);
-  const lengths = edges.map(([a, b]) => Math.hypot(b[0] - a[0], b[1] - a[1]));
-  const perimeter = lengths.reduce((sum, v) => sum + v, 0);
   const positions = new Float32Array(STAR_LOGO_COUNT * 3);
   const seeds = new Float32Array(STAR_LOGO_COUNT * 3);
+  const edgeLen = LOGO_EDGE_POINTS.length / 2;
+  const solidLen = LOGO_SOLID_POINTS.length / 2;
+
   for (let i = 0; i < STAR_LOGO_COUNT; i++) {
     let x;
     let y;
     if (i < STAR_LOGO_COUNT * STAR_LOGO_EDGE_SHARE) {
-      let pick = Math.random() * perimeter;
-      let k = 0;
-      while (pick > lengths[k]) pick -= lengths[k++];
-      const [from, to] = edges[k];
-      const t = pick / lengths[k];
-      x = from[0] + (to[0] - from[0]) * t + (Math.random() - 0.5) * 0.55;
-      y = from[1] + (to[1] - from[1]) * t + (Math.random() - 0.5) * 0.55;
+      const idx = Math.floor(Math.random() * edgeLen) * 2;
+      x = LOGO_EDGE_POINTS[idx] + (Math.random() - 0.5) * 0.45;
+      y = LOGO_EDGE_POINTS[idx + 1] + (Math.random() - 0.5) * 0.45;
     } else {
-      do {
-        x = 12 + Math.random() * 84;
-        y = 6 + Math.random() * 94;
-      } while (!quads.some((q) => insideQuad(q, x, y)));
+      const idx = Math.floor(Math.random() * solidLen) * 2;
+      x = LOGO_SOLID_POINTS[idx] + (Math.random() - 0.5) * 0.75;
+      y = LOGO_SOLID_POINTS[idx + 1] + (Math.random() - 0.5) * 0.75;
     }
-    positions[i * 3] = x - LOGO_CX;
-    positions[i * 3 + 1] = LOGO_CY - y;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 5;
+    positions[i * 3] = x;
+    positions[i * 3 + 1] = y;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 4;
     seeds[i * 3] = Math.random();
     seeds[i * 3 + 1] = Math.random();
     seeds[i * 3 + 2] = Math.random();
@@ -112,13 +93,8 @@ function landingKick(intro) {
   return intro > 0.82 && intro < 1 ? Math.sin((Math.PI * (intro - 0.82)) / 0.18) : 0;
 }
 const LOGO_GLOW_ALPHA = 0.55;
-const LOGO_LEFT = [[12, 20], [36, 6], [36, 74], [12, 88]];
-const LOGO_OUTLINE = [[12, 20], [36, 6], [36, 28], [76, 80], [76, 34], [96, 20], [96, 88], [76, 100], [36, 48], [36, 74], [12, 88]];
 const STAR_LOGO_COUNT = LOW_POWER ? 3400 : 11000;
 const STAR_LOGO_EDGE_SHARE = 0.5;
-const LOGO_INNER_SEAMS = [[[36, 28], [36, 48]], [[76, 80], [76, 100]]];
-const LOGO_DIAGONAL = [[36, 28], [76, 80], [76, 100], [36, 48]];
-const LOGO_RIGHT = [[76, 34], [96, 20], [96, 88], [76, 100]];
 
 const UP = new Vector3(0, 1, 0);
 const X_AXIS = new Vector3(1, 0, 0);
@@ -448,13 +424,25 @@ export default class World {
   }
 
   buildTunnel() {
-    const geometry = new ShapeGeometry([logoShape(LOGO_LEFT), logoShape(LOGO_DIAGONAL), logoShape(LOGO_RIGHT)]);
+    const s = new Shape();
+    const w = 32, h = 46, r = 14;
+    s.moveTo(-w, -h + r);
+    s.lineTo(-w, h - r);
+    s.quadraticCurveTo(-w, h, -w + r, h);
+    s.lineTo(w - r, h);
+    s.quadraticCurveTo(w, h, w, h - r);
+    s.lineTo(w, -h + r);
+    s.quadraticCurveTo(w, -h, w - r, -h);
+    s.lineTo(-w + r, -h);
+    s.quadraticCurveTo(-w, -h, -w, -h + r);
+    s.closePath();
+    const geometry = new ShapeGeometry(s);
     const edges = new EdgesGeometry(geometry);
     const shared = { transparent: true, opacity: 0, depthWrite: false, depthTest: false, blending: AdditiveBlending, fog: false };
     this.tunnel = new Group();
     this.tunnelFrames = [];
     for (let i = 0; i < TUNNEL_COUNT; i++) {
-      const fill = new Mesh(geometry, new MeshBasicMaterial({ ...shared, color: '#3a5bff', side: DoubleSide }));
+      const fill = new Mesh(geometry, new MeshBasicMaterial({ ...shared, color: '#00C8FF', side: DoubleSide }));
       const line = new LineSegments(edges, new LineBasicMaterial({ ...shared, color: '#c4cfff' }));
       const frame = new Group();
       frame.add(fill, line);

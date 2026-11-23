@@ -40,8 +40,8 @@ export function Shell({ current, crumbs, title, lead, children }) {
 
       <div className="sp-hero-band sp-hero-band--full">
         <div data-hero className="sp-hero-sentinel" aria-hidden="true" />
-        <BgShape kind="stars" color="rgba(0,200,255,0.08)" style={{ '--s': '200px', left: '6%', top: '110px' }} d="0.2s" drift={{ '--dx': '11s', '--dy': '17s', '--dr': '23s', '--ar': '12deg' }} />
-        <BgShape kind="comet" color="rgba(143,162,255,0.06)" style={{ '--s': '280px', right: '-80px', top: '50px' }} d="0.35s" drift={{ '--dx': '13s', '--dy': '19s', '--dr': '21s', '--ar': '6deg' }} />
+        <BgShape color="rgba(0,200,255,0.08)" style={{ '--s': '360px', left: '6%', top: '60px' }} d="0.2s" />
+        <BgShape color="rgba(58,91,255,0.06)" style={{ '--s': '360px', right: '-40px', top: '40px' }} d="0.35s" />
         <section className="relative mx-auto max-w-[900px] px-5 sm:px-8 pt-14 sm:pt-20 pb-20 sm:pb-24 text-center">
           <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
             <ol className="flex flex-wrap justify-center gap-2">
