@@ -6,58 +6,12 @@ import React from 'react';
  */
 export function LogoMark({ className = "w-7 h-7", size = 28 }) {
   return (
-    <svg
-      viewBox="0 0 160 160"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      style={{ width: size, height: size }}
-    >
-      <g transform="translate(80, 80) scale(0.68)">
-        {/* Back segment of the orbital ring (behind 'n') */}
-        <path
-          d="M -75 4 C -75 -24 -20 -38 40 -26 C 68 -20 86 -8 88 6"
-          stroke="#FFFFFF"
-          strokeWidth="12"
-          strokeLinecap="round"
-          fill="none"
-        />
-        {/* Electric Cyan Crescent Accent on upper-right orbit */}
-        <path
-          d="M 50 -22 C 72 -14 86 -4 88 8"
-          stroke="#00C8FF"
-          strokeWidth="13"
-          strokeLinecap="round"
-          fill="none"
-        />
-
-        {/* Lowercase letter 'n' */}
-        {/* Left vertical stem */}
-        <path
-          d="M -32 -32 V 54"
-          stroke="#FFFFFF"
-          strokeWidth="14"
-          strokeLinecap="square"
-        />
-        {/* Curved arch and right vertical stem */}
-        <path
-          d="M -32 2 C -32 -28 -4 -34 16 -34 C 36 -34 42 -14 42 12 V 54"
-          stroke="#FFFFFF"
-          strokeWidth="14"
-          strokeLinecap="square"
-          fill="none"
-        />
-
-        {/* Front segment of the orbital ring (crossing in front of 'n') */}
-        <path
-          d="M -76 2 C -78 28 -28 42 32 30 C 62 24 82 14 88 4"
-          stroke="#FFFFFF"
-          strokeWidth="12"
-          strokeLinecap="round"
-          fill="none"
-        />
-      </g>
-    </svg>
+    <img
+      src="/nebulyx-logo-transparent.png"
+      alt="Nebulyx Logo"
+      className={`inline-block object-contain ${className}`}
+      style={{ width: size, height: 'auto', maxHeight: Math.round(size * 1.35) }}
+    />
   );
 }
 

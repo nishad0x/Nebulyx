@@ -11,7 +11,7 @@
 
   <br/>
 
-  <img src="public/og-image.png" alt="Nebulyx" width="100%" />
+  <img src="public/nebulyx-glass-effect.jpg" alt="Nebulyx Obsidian Glass Presentation" width="100%" style="border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);" />
 
 </div>
 

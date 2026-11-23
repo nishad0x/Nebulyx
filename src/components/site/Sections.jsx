@@ -36,7 +36,21 @@ function useStickyProgress(ref) {
 
 export function Welcome({ onBook }) {
   return (
-    <section id="welcome" data-kf="welcome" className="relative">
+    <section id="welcome" data-kf="welcome" className="relative overflow-hidden">
+      {/* Premium Classy Frosted Glass Monolith Ambient Layer */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-20 sm:right-0 top-0 h-full w-full max-w-[1250px] overflow-hidden select-none -z-0 opacity-45 mix-blend-screen transition-opacity duration-1000"
+      >
+        <img
+          src="/nebulyx-glass-effect.jpg"
+          alt=""
+          className="h-full w-full object-cover object-right [mask-image:radial-gradient(ellipse_at_85%_50%,black_35%,transparent_75%)]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#05060a] via-[#05060a]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#05060a] via-transparent to-[#05060a]/70" />
+      </div>
+
       <div data-depth className="relative min-h-[100svh] flex items-end">
       <div aria-hidden="true" className="absolute left-1/2 bottom-5 -translate-x-1/2">
         <div data-reveal className="flex items-center gap-3 font-mono text-[10px] tracking-[0.2em] uppercase text-[#8a91a3]">
@@ -436,8 +450,8 @@ export function Studio() {
     <section id="studio" data-kf="studio" className="relative min-h-[190vh]">
       <span data-kf="studio-orbit" aria-hidden="true" className="absolute left-0 h-px w-px pointer-events-none" style={{ top: '50%' }} />
       <div data-depth className="sticky top-0 min-h-[100svh] flex items-center pt-20 pb-16 lg:py-0">
-        <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 grid lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-6">
+        <div className="w-full mx-auto max-w-[1600px] px-5 sm:px-8 grid lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-7">
             <Split lines={['One team.', 'Every service.']} className="font-display font-medium text-white text-[clamp(2.6rem,6vw,6rem)] leading-[0.96] tracking-[-0.02em]" />
             <p data-reveal className="mt-6 max-w-md text-[17px] leading-relaxed text-[#b6bccb]">
               Every skill a launch needs, in one senior team. Faster decisions, one plan, nothing lost between vendors.
@@ -450,6 +464,27 @@ export function Studio() {
                 </div>
               ))}
             </dl>
+          </div>
+
+          {/* Premium Classy Glass Artifact Showcase */}
+          <div data-reveal className="hidden lg:block lg:col-span-5 relative">
+            <div className="relative mx-auto overflow-hidden rounded-2xl border border-white/[0.12] bg-[#07090f]/70 p-2.5 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/[0.08] group">
+                <img
+                  src="/nebulyx-glass-effect.jpg"
+                  alt="Nebulyx Classy Glass Architecture"
+                  className="h-full w-full object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#07090f]/95 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-[11px] font-mono tracking-wider text-neutral-300">
+                  <span className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#8fa2ff] animate-pulse" />
+                    CLASSY OBSIDIAN GLASS
+                  </span>
+                  <span className="text-[#8a91a3]">100% IP CUSTODY</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
