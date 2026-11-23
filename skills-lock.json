@@ -11,6 +11,21 @@
       "source": "ethanplusai/sellbird",
       "sourceType": "github",
       "skillPath": ".agents/skills/sellbird/SKILL.md"
+    },
+    "trypost": {
+      "source": "trypostit/trypost",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/trypost/SKILL.md"
+    },
+    "copywriting": {
+      "source": "trypostit/trypost",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/copywriting/SKILL.md"
+    },
+    "humanizer": {
+      "source": "trypostit/trypost",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/humanizer/SKILL.md"
     }
   }
 }
