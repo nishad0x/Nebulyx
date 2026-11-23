@@ -27,7 +27,7 @@ export default function SiteNav({ chapter, onBook }) {
   const active = CHAPTER_LABELS[chapter]?.id;
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-40 world-ink transition-colors duration-300 ${scrolled || open ? 'nav-band' : ''}`}>
+    <header className={`world-chrome chrome-drop fixed top-0 inset-x-0 z-40 world-ink ${scrolled || open ? 'nav-band' : ''}`}>
       <div className="mx-auto max-w-[1600px] px-5 sm:px-8 h-16 flex items-center justify-between">
         <a href="#welcome" onClick={(e) => { e.preventDefault(); go('welcome'); }} aria-label="Nebulyx, back to top" className="focus-ring rounded-md">
           <NebulyxLogo />
@@ -48,7 +48,7 @@ export default function SiteNav({ chapter, onBook }) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <button type="button" onClick={onBook} className="btn-primary h-10 px-4 text-[13px]">
+          <button type="button" onClick={onBook} className="btn-primary h-11 md:h-10 px-4 text-[13px]">
             Book a scoping call
           </button>
           <button

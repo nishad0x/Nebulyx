@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { CanvasTexture, SRGBColorSpace } from 'three';
+import { LOW_POWER } from './quality';
 import {
   AppWindow, Workflow, MessageCircle, Search, ShoppingBag, MousePointer2,
   BarChart3, Layers, Rocket, Bot, Palette, Mic, Eye, Smartphone, Database,
@@ -13,14 +14,14 @@ export const EXTRA_ICONS = [
   Smartphone, Database, Code2, Send, Gauge,
 ];
 
-const SIZE = 256;
+const SIZE = LOW_POWER ? 128 : 256;
 
 export function iconTexture(Icon) {
   const canvas = document.createElement('canvas');
   canvas.width = canvas.height = SIZE;
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;
-  texture.anisotropy = 4;
+  texture.anisotropy = LOW_POWER ? 2 : 4;
 
   const svg = renderToStaticMarkup(
     createElement(Icon, { size: SIZE * 0.46, color: '#ffffff', strokeWidth: 1.75, absoluteStrokeWidth: false })

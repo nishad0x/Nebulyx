@@ -9,7 +9,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"General Sans"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['"General Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['"Chakra Petch"', '"General Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       colors: {

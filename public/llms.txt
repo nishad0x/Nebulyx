@@ -1,0 +1,40 @@
+# Nebulyx
+
+> Nebulyx is a studio based in Chandigarh, India, working with founders worldwide. It designs, builds and grows launches: websites, AI automations, social growth, AI search visibility and online stores, delivered by one senior team in fixed-length sprints. Clients own the code, accounts and content.
+
+Every project starts with a short call, then a written scope, timeline and price that the client approves before work begins. Progress is shown every week, everything is tested on real devices, and the work is handed over with notes on how to run and change it.
+
+## Services
+
+- [Website design and development](https://www.nebulyx.live/services/websites/): Custom websites for founders that are fast, search-friendly and built to turn visitors into customers.
+- [AI automation](https://www.nebulyx.live/services/ai-automation/): AI agents and automated workflows for lead handling, data entry, invoices and customer requests, connected to the tools a team already uses.
+- [Social media growth](https://www.nebulyx.live/services/social-media/): Short-form video and posts for TikTok, LinkedIn, YouTube and X, planned and scheduled, with a process for turning messages into booked calls.
+- [AI search optimization (AEO and GEO)](https://www.nebulyx.live/services/ai-search/): Making a business easy for ChatGPT, Perplexity, Claude and Gemini to find and describe accurately, through audits, structured data and answer-focused content.
+- [Online store and dropshipping setup](https://www.nebulyx.live/services/online-stores/): Product research, suppliers, a storefront, automated order handling and first ad campaigns, without holding stock.
+
+## Free AI visibility check
+
+- [Free AI visibility check](https://www.nebulyx.live/ai-visibility-check/): A free report on what ChatGPT, Perplexity, Gemini and Claude say about a business and what to fix first.
+
+## Journal
+
+- [Journal](https://www.nebulyx.live/journal/): Founder guides by Sonu Kumar on websites, AI automation, AI search and online stores.
+- [What AEO and GEO mean](https://www.nebulyx.live/journal/what-is-aeo-and-geo/)
+- [What to automate first](https://www.nebulyx.live/journal/what-to-automate-first/)
+- [The launch website checklist](https://www.nebulyx.live/journal/startup-website-checklist/)
+- [Launching a store without stock](https://www.nebulyx.live/journal/launching-a-store-without-stock/)
+
+## About
+
+- [About Nebulyx](https://www.nebulyx.live/about/): How the studio works, from first call to handover.
+
+## Contact
+
+- Email: hello@nebulyx.live
+- Book a scoping call: https://www.nebulyx.live/
+- Instagram: https://www.instagram.com/nebulyx_ai/
+
+## Optional
+
+- [Privacy policy](https://www.nebulyx.live/privacy.html)
+- [Terms](https://www.nebulyx.live/terms.html)

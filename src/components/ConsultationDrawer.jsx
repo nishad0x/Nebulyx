@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { X, Check } from 'lucide-react';
 import { submitForm } from '../utils/submitForm';
 import { SERVICES_DATA } from '../data/services';
+import { CONTACT } from '../data/contact';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 const field = 'w-full px-3.5 py-3 bg-[#05060a] border border-white/[0.18] rounded-[2px] text-[16px] text-white placeholder:text-[#7f8799] focus:outline-none focus:border-[#8fa2ff]';
@@ -15,7 +16,7 @@ export default function ConsultationDrawer({ onClose, preselectedService = '' })
   const [selectedDate, setSelectedDate] = useState('Any time');
   const [service, setService] = useState(preselectedService || SERVICES_DATA[0].title);
   const [stage, setStage] = useState('Just starting');
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website: '' });
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -120,7 +121,7 @@ export default function ConsultationDrawer({ onClose, preselectedService = '' })
               Book a scoping call
             </h2>
             <p className="mt-3 text-[15px] leading-relaxed text-[#b6bccb]">
-              A short call with the engineers who would build it. Tell us a little about your project and we'll email you to set up a time.
+              A short call to understand what you want to build. Tell us a little about your project and we'll email you to set up a time.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-7 space-y-5">
@@ -197,6 +198,18 @@ export default function ConsultationDrawer({ onClose, preselectedService = '' })
                 />
               </div>
 
+              <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
+                <label htmlFor="consult-website">Leave this field empty</label>
+                <input
+                  id="consult-website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                />
+              </div>
+
               {error && (
                 <div role="alert" className="text-[14px] text-[#ff8a8a]">{error}</div>
               )}
@@ -206,7 +219,8 @@ export default function ConsultationDrawer({ onClose, preselectedService = '' })
               </button>
 
               <p className="text-[13px] text-[#9aa1b2]">
-                No commitment. You'll get a written scope and price before anything starts.
+                No commitment. You'll get a written scope and price before anything starts. Prefer email? Write to{' '}
+                <a href={`mailto:${CONTACT.email}`} className="focus-ring text-white underline decoration-white/30 underline-offset-4">{CONTACT.email}</a>.
               </p>
             </form>
           </>
